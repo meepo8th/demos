@@ -1,2 +1,4 @@
-# demos
-一些demo跟练习备录
+## demos
+- record of codewars
+- only demo
+- partice code
