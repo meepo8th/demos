@@ -1,3 +1,5 @@
+package codewars;
+
 public class Xbonacci {
 
     public static double[] tribonacci(double[] s, int n) {

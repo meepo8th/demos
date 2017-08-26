@@ -1,3 +1,5 @@
+package codewars;
+
 public class SpinWords {
 
     public static String spinWords(String sentence) {

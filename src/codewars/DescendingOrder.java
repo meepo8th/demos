@@ -1,3 +1,5 @@
+package codewars;
+
 public class DescendingOrder {
     public static int sortDesc(final int num) {
         //Your code

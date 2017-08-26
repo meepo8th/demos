@@ -1,3 +1,5 @@
+package codewars;
+
 import java.util.Stack;
 
 public class Groups{
