@@ -33,13 +33,13 @@ public class Mixing {
                 count = cache2[i];
             }
             if (!cacheMap.containsKey(count)) {
-                cacheMap.put(count, new ArrayList<>());
+                cacheMap.put(count, new ArrayList<String>());
             }
             cacheMap.get(count).add("/" + prefix + ":" + generateStr(i, count));
         }
 
         for (Map.Entry<Integer, List<String>> entry : cacheMap.entrySet()) {
-            entry.getValue().sort(new Comparator<String>() {
+            Collections.sort(entry.getValue(), new Comparator<String>() {
                 @Override
                 public int compare(String o1, String o2) {
                     return o1.compareTo(o2);

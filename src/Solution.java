@@ -16,6 +16,6 @@ public class Solution {
 //
 //    }
 //    public static void main(String[] args){
-//        System.out.println(new Solution().replaceSpace(new StringBuffer("a bbb c")));
+//        System.out.println(new SolutionFactZeroEnd().replaceSpace(new StringBuffer("a bbb c")));
 //    }
 }
