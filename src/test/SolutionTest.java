@@ -1,21 +1,14 @@
 package test;
 
-import codewars.Solution;
+import lintcode.ListNode;
+import lintcode.Solution;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class SolutionTest {
     @Test
-    public void testSomeUnderscoreLowerStart() {
-      String input = "the_Stealth_Warrior";
-      System.out.println("input: "+input);      
-      assertEquals("theStealthWarrior", Solution.toCamelCase(input));
-    }
-    @Test
-    public void testSomeDashLowerStart() {
-      String input = "the-Stealth-Warrior";
-      System.out.println("input: "+input);      
-      assertEquals("theStealthWarrior", Solution.toCamelCase(input));
+    public void reverseBetweenTest() {
+        assertEquals(new Solution().reverseBetween(new ListNode(new int[]{1, 2, 3, 4, 5, 6}), 2, 4).toString(), new ListNode(new int[]{1, 2, 5, 4, 3, 6}).toString());
     }
 }

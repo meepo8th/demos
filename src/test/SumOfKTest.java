@@ -24,6 +24,9 @@ public class SumOfKTest {
         n = SumOfK.chooseBestSum(230, 3, ts);
         assertEquals(228, n);
     }
+    public static void main(String args[]){
+        System.out.println(Integer.parseInt("0XF1".substring(2),16));
+    }
 }
 
 

@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
-public class SolutionFactZeroEndTest {
+public class FindMinSortArrayFactZeroEndTest {
   @Test
   public void testZeros() throws Exception {
     assertThat(SolutionFactZeroEnd.zeros(0), is(0));
