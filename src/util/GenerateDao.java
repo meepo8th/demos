@@ -1,6 +1,10 @@
 package util;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 
@@ -11,43 +15,18 @@ public class GenerateDao {
     private static HashMap<String, Boolean> hasInit = new HashMap<>();
     private String connectStr;
     private String connectType;
-    public static final String TYPE_MYSQL = "MYSQL";
-    private static final String MY_SQL_CLASS = "com.mysql.jdbc.Driver";
-    private static final String MY_SQL_SQL = "select column_name name, column_comment comment,data_type type from information_schema.columns where table_name ='%s' order by table_name";
 
     //数据库类型配置，如新增需配置加载类与查询sql
     private static HashMap<String, String> typeClass = new HashMap() {{
-        put(TYPE_MYSQL, MY_SQL_CLASS);
+        put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_CLASS);
     }};
 
     private static HashMap<String, String> typeSql = new HashMap() {{
-        put(TYPE_MYSQL, MY_SQL_SQL);
+        put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL);
     }};
-    private static HashMap<String, String> typeMyConvert = new HashMap() {{
-        put("VARCHAR", "String");
-        put("CHAR", "String");
-        put("BLOB", "byte[]");
-        put("TEXT", "String");
-        put("INTEGER", "Long");
-        put("INT", "Long");
-        put("TINYINT", "Integer");
-        put("SMALLINT", "Integer");
-        put("MEDIUMINT", "Integer");
-        put("BIT", "Boolean");
-        put("BIGINT", "BigInteger");
-        put("FLOAT", "Float");
-        put("DOUBLE", "Double");
-        put("DECIMAL", "BigDecimal");
-        put("BOOLEAN", "Integer");
-        put("ID", "Long");
-        put("DATE", "Date#@SqlType(type = \"date\", format = \"%Y-%m-%d\")");
-        put("TIME", "Date#@SqlType(type = \"date\", format = \"%T\")");
-        put("DATETIME", "Date#@SqlType(type = \"date\", format = \"%Y-%m-%d %T\")");
-        put("TIMESTAMP", "Date#@SqlType(type = \"date\", format = \"%Y-%m-%d %T\")");
-        put("YEAR", "Date#@SqlType(type = \"date\", format = \"%Y\")");
-    }};
-    private static HashMap<String, HashMap> typeConvert = new HashMap() {{
-        put(TYPE_MYSQL, typeMyConvert);
+
+    private static HashMap<String, HashMap<String, String>> typeConvert = new HashMap() {{
+        put(GenerateConstant.TYPE_MYSQL, GenerateConstant.typeMySqlConvert);
     }};
 
 
@@ -59,7 +38,7 @@ public class GenerateDao {
 
     public GenerateDao(String connectStr) {
         this.connectStr = connectStr;
-        this.connectType = TYPE_MYSQL;
+        this.connectType = GenerateConstant.TYPE_MYSQL;
         init();
     }
 
@@ -76,90 +55,96 @@ public class GenerateDao {
         }
     }
 
+    public void generateClassFile(String tableName) {
+        String outpath = "/generateClass/";
+        generateClassFile(outpath, tableName);
+    }
 
-    public static void main(String[] args) throws Exception {
-
-        Connection conn = null;
-
-        String sql;
-
-        // MySQL的JDBC URL编写方式：jdbc:mysql://主机名称：连接端口/数据库的名称?参数=值
-
-        // 避免中文乱码要指定useUnicode和characterEncoding
-
-        String url = "jdbc:mysql://115.28.243.207:3306/totalstation?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&user=totalstation&password=totalstation@207";
-
+    public void generateClassFile(String path, String tableName) {
+        String classContent = generateClassString(tableName);
+        if (!new File(path).exists()) {
+            new File(path).mkdirs();
+        }
+        String fileName = path + "/" + LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(tableName)) + ".java";
+        File classFile = new File(fileName);
+        if (classFile.exists()) {
+            classFile.delete();
+        }
+        BufferedWriter bufferedWriter = null;
         try {
+            classFile.createNewFile();
+            bufferedWriter = new BufferedWriter(new FileWriter(classFile));
+            bufferedWriter.write(classContent);
+            bufferedWriter.flush();
+            bufferedWriter.close();
 
-            // 之所以要使用下面这条语句，是因为要使用MySQL的驱动，所以我们要把它驱动起来，
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != bufferedWriter) {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.format("%s class file complete\r\n", fileName);
+    }
 
-            // 可以通过Class.forName把它加载进去，也可以通过初始化来驱动起来，下面三种形式都可以
-
-            Class.forName("com.mysql.jdbc.Driver");// 动态加载mysql驱动
-
-            // or:
-
-            // com.mysql.jdbc.Driver driver = new com.mysql.jdbc.Driver();
-
-            // or：
-
-            // new com.mysql.jdbc.Driver();
-
-            System.out.println("成功加载MySQL驱动程序");
-
-            // 一个Connection代表一个数据库连接
-
-            conn = DriverManager.getConnection(url);
-
-            // Statement里面带有很多方法，比如executeUpdate可以实现插入，更新和删除等
-
+    public String generateClassString(String tableName) {
+        Connection conn = null;
+        StringBuffer sb = new StringBuffer();
+        sb.append("public class " + LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(tableName)) + "{");
+        try {
+            conn = DriverManager.getConnection(connectStr);
             Statement stmt = conn.createStatement();
 
-            sql = "createtable student(NO char(20),name varchar(20),primary key(NO))";
-
-            int result = stmt.executeUpdate(sql);// executeUpdate语句会返回一个受影响的行数，如果返回-1就没有成功
-
-            if (result != -1) {
-
-                System.out.println("创建数据表成功");
-
-                sql = "insert into student(NO,name) values('2016001','刘大')";
-
-                result = stmt.executeUpdate(sql);
-
-                sql = "insert into student(NO,name) values('2016002','陈二')";
-
-                result = stmt.executeUpdate(sql);
-
-                sql = "select * from student";
-
-                ResultSet rs = stmt.executeQuery(sql);// executeQuery会返回结果的集合，否则返回空值
-
-                System.out.println("学号\t姓名");
-
-                while (rs.next()) {
-
-                    System.out.println(rs.getString(1) + "\t" + rs.getString(2));// 入如果返回的是int类型可以用getInt()
-
+            ResultSet rs = stmt.executeQuery(String.format(typeSql.get(connectType), tableName));// executeQuery会返回结果的集合，否则返回空值
+            String columnFormat = "    %s\r\n    private %s %s;//%s\r\n";
+            String sqlType = "";
+            String type = "";
+            String name = "";
+            String comment = "";
+            while (rs.next()) {
+                name = rs.getString("name");
+                type = (typeConvert.get(connectType)).get(rs.getString("type").toUpperCase());
+                comment = rs.getString("comment");
+                if (type.split("#").length > 1) {
+                    sqlType = type.split("#")[1];
+                    type = type.split("#")[0];
+                } else {
+                    sqlType = "";
                 }
-
+                sb.append(String.format(columnFormat, sqlType, type, LeanItStringUtil.transLateUnderLine2Upper(name), comment));
             }
-
-        } catch (SQLException e) {
-
-            System.out.println("MySQL操作错误");
-
-            e.printStackTrace();
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
         } finally {
-
-            conn.close();
-
+            if (null != conn) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        sb.append("}");
+        return sb.toString();
+    }
 
+    public static void main(String[] args) throws Exception {
+        String connectStr = "jdbc:mysql://115.28.243.207:3306/totalstation?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&user=totalstation&password=totalstation@207";
+        String[] tables = new String[]{"t_road",
+                "t_road_coordinate",
+                "t_road_jdcoordinate",
+                "t_road_curve",
+                "t_road_slope",
+                "t_road_breaklink"
+        };
+        GenerateDao generateDao = new GenerateDao(connectStr);
+        for (String table : tables) {
+            generateDao.generateClassFile(table);
+        }
     }
 }
