@@ -25,4 +25,33 @@ public class Solution {
         return null;
     }
 
+    public static int parseAnswer(String answerStr) {
+        int flag = -1;
+        int[] flags = new int[]{1, 2, 4, 8, 16, 32};
+        char[] answers = new char[]{'A', 'B', 'C', 'D', 'E'};
+        if (null != answerStr && (!"".equals(answerStr))) {
+            answerStr = answerStr.toUpperCase();
+            for (int i = 0; i < answers.length; i++) {
+                if (answerStr.contains("" + answers[i])) {
+                    flag += flags[i];
+                }
+            }
+        }
+        return flag;
+    }
+
+    public static int checkAnswer(String answer, String answerStr) {
+        int answerFlag = parseAnswer(answer);
+        int strFlag = parseAnswer(answerStr);
+        return answerFlag ^ strFlag;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(checkAnswer("AB", "ABC"));
+        System.out.println(checkAnswer("AB", "BA"));
+        System.out.println(checkAnswer("AB", "BAC"));
+        System.out.println(checkAnswer("ACB", "ABC"));
+        System.out.println(checkAnswer("ABCD", "BAC"));
+        System.out.println(checkAnswer("BCD", "A"));
+    }
 }
