@@ -106,8 +106,12 @@ public class GenerateDao {
             String type = "";
             String name = "";
             String comment = "";
+            String columnNames = "";
+            String columnValues = "";
             while (rs.next()) {
                 name = rs.getString("name");
+                columnNames += ("," + name);
+                columnValues += (String.format(",#{item.%s,jdbcType=%s}", LeanItStringUtil.transLateUnderLine2Upper(name), rs.getString("type").toUpperCase()));
                 type = (typeConvert.get(connectType)).get(rs.getString("type").toUpperCase());
                 comment = rs.getString("comment");
                 if (type.split("#").length > 1) {
@@ -118,6 +122,8 @@ public class GenerateDao {
                 }
                 sb.append(String.format(columnFormat, sqlType, type, LeanItStringUtil.transLateUnderLine2Upper(name), comment));
             }
+            System.out.println(columnNames);
+            System.out.println(columnValues);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
