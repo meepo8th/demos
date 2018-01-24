@@ -50,9 +50,7 @@ public class Matrix {
         double[][] result = new double[rows][multiMatrix.cols];
         for (int i = 0; i < multiMatrix.cols; i++) {
             for (int j = 0; j < cols; j++) {
-                for (int k = 0; i < multiMatrix.rows; i++) {
-                    result[j][i]+=content[j][i]*multiMatrix.getContent()[k][i];
-                }
+                result[j][i]+=content[i][j]*multiMatrix.getContent()[j][i];
             }
         }
         return new Matrix(result);
