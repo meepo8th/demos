@@ -48,9 +48,12 @@ public class Matrix {
             throw new MatrixException(MatrixException.MULTI_WITHOUT_SAME_ROWS_COLS);
         }
         double[][] result = new double[rows][multiMatrix.cols];
-        for (int i = 0; i < multiMatrix.cols; i++) {
-            for (int j = 0; j < cols; j++) {
-                result[j][i]+=content[i][j]*multiMatrix.getContent()[j][i];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < rows; j++) {
+                for(int k=0;k<cols;k++){
+                    result[j][i]+=content[j][k]*multiMatrix.getContent()[k][j];
+                }
+
             }
         }
         return new Matrix(result);
@@ -105,6 +108,6 @@ public class Matrix {
         System.out.println("transpose:" + matrix.transpose());
         System.out.println("inverse:" + matrix.inverse());
         System.out.println("multiply transpose:" + matrix.multiply(matrix.transpose()));
-        System.out.println("multiply inverse:" + matrix.multiply(matrix.inverse()));
+        System.out.println("multiply inverse:" + matrix.multiply(new double[][]{{1,2},{3,4}}));
     }
 }
