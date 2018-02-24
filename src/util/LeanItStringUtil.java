@@ -1,6 +1,12 @@
 package util;
 
+
+import com.github.stuxuhai.jpinyin.PinyinFormat;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
+import com.mysql.jdbc.StringUtils;
+
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -204,8 +210,9 @@ public class LeanItStringUtil {
             return "null";
         }
         Iterator<Map.Entry<K, V>> i = map.entrySet().iterator();
-        if (!i.hasNext())
+        if (!i.hasNext()) {
             return "{}";
+        }
 
         StringBuilder sb = new StringBuilder();
         sb.append('{');
@@ -216,8 +223,9 @@ public class LeanItStringUtil {
             sb.append(key);
             sb.append('=');
             sb.append(value.getClass().isArray() ? Arrays.toString((Object[]) value) : value);
-            if (!i.hasNext())
+            if (!i.hasNext()) {
                 return sb.append('}').toString();
+            }
             sb.append(',').append(' ');
         }
     }
@@ -267,5 +275,94 @@ public class LeanItStringUtil {
             rtnList.add((cal.get(Calendar.HOUR_OF_DAY) + i + 1) % 24 + ":00");
         }
         return rtnList;
+    }
+
+    public static String transAngelValue(int nowValue) {
+        String rtn = "";
+        int[] unit = new int[]{3600, 60, 1};
+        String[] units = new String[]{"°", "′", "″"};
+
+        for (int i = 0; i < 3; i++) {
+            int cur = nowValue / unit[i];
+            nowValue = nowValue % unit[i];
+            if (cur > 0) {
+                rtn += ("" + cur + units[i]);
+            }
+        }
+        if (StringUtils.isNullOrEmpty(rtn)) {
+            rtn = "0″";
+        }
+        return rtn;
+    }
+
+    public static String transAngelValue(BigDecimal nowValue) {
+        String rtn = "";
+
+        if (null != nowValue) {
+            String[] nums = nowValue.toString().split("\\.");
+            String intValue = transAngelValue(Integer.valueOf(nums[0]));
+            String suffixValue = "";
+            if (nums.length > 1 && !StringUtils.isNullOrEmpty(nums[1])) {
+                if (intValue.endsWith("″")) {
+                    intValue = intValue.replaceAll("″", "");
+                } else {
+                    intValue += "0";
+                }
+                suffixValue = "." + nums[1] + "″";
+            }
+
+            rtn = intValue + suffixValue;
+        }
+        return rtn;
+    }
+
+    /**
+     * 转换为查找字符串
+     *
+     * @param result
+     * @return
+     */
+    public static String transSearchText(String result) {
+        if (StringUtils.isNullOrEmpty(result)) {
+            return "";
+        }
+        char[] content = result.toUpperCase().toCharArray();
+        for (int i = 0; i < content.length; i++) {
+            content[i] = transSearchChar(content[i]);
+        }
+        return new String(content);
+    }
+
+    /**
+     * 转换为查询字符
+     *
+     * @param c
+     * @return
+     */
+    public static char transSearchChar(char c) {
+        String withOutTrans = "0123456789ABCDEFGHIGKLMNOPQRSTUVWXYZ-";
+        String directTransKey = "零一二三四五六七八九";
+        String directTransValue = "0123456789";
+        String[] pinyinTransKey = new String[]{"bi", "di", "yi", "ji", "ai", "en", "ou", "pi", "a", "ti", "you", "wei", "wai", "zei", "gang"};
+        String pinyinTransValue = "BDEGINOPRUVYZ-";
+        if (withOutTrans.indexOf(c) < 0) {
+            if (directTransKey.indexOf(c) >= 0) {
+                c = directTransValue.charAt(directTransKey.indexOf(c));
+            } else {
+                String pinyinKey = PinyinHelper.convertToPinyinString(c + "", "", PinyinFormat.WITHOUT_TONE);
+                for (int i = 0; i < pinyinTransKey.length; i++) {
+                    if (pinyinKey.equals(pinyinTransKey[i])) {
+                        c = pinyinTransValue.charAt(i);
+                        break;
+                    }
+                }
+            }
+        }
+        return c;
+    }
+
+    public static void main(String[] args) {
+        PinyinFormat pinyinFormat = PinyinFormat.WITHOUT_TONE;
+        System.out.println(PinyinHelper.convertToPinyinString("歪", "", PinyinFormat.WITHOUT_TONE));
     }
 }
