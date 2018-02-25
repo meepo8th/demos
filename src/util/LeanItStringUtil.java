@@ -343,13 +343,13 @@ public class LeanItStringUtil {
         String withOutTrans = "0123456789ABCDEFGHIGKLMNOPQRSTUVWXYZ-";
         String directTransKey = "零一二三四五六七八九";
         String directTransValue = "0123456789";
-        String[] pinyinTransKey = new String[]{"bi", "di", "yi", "ji", "ai", "en", "ou", "pi", "a", "ti", "you", "wei", "wai", "zei", "gang"};
-        String pinyinTransValue = "BDEGINOPRUVYZ-";
+        String[] pinyinTransKey = new String[]{"ling2", "yi1", "er4", "san1", "si4", "wu3", "liu4", "qi1", "ba1", "jiu3", "bi4", "di4", "yi4", "ji4", "ai4", "en1", "en2", "en3", "en4", "ou1", "pi4", "a1", "you4", "wei4", "wai4", "yi4", "gang4"};
+        String pinyinTransValue = "0123456789BEEEEDGINOPRUVYE-";
         if (withOutTrans.indexOf(c) < 0) {
             if (directTransKey.indexOf(c) >= 0) {
                 c = directTransValue.charAt(directTransKey.indexOf(c));
             } else {
-                String pinyinKey = PinyinHelper.convertToPinyinString(c + "", "", PinyinFormat.WITHOUT_TONE);
+                String pinyinKey = PinyinHelper.convertToPinyinString(c + "", "", PinyinFormat.WITH_TONE_NUMBER);
                 for (int i = 0; i < pinyinTransKey.length; i++) {
                     if (pinyinKey.equals(pinyinTransKey[i])) {
                         c = pinyinTransValue.charAt(i);
@@ -363,6 +363,6 @@ public class LeanItStringUtil {
 
     public static void main(String[] args) {
         PinyinFormat pinyinFormat = PinyinFormat.WITHOUT_TONE;
-        System.out.println(PinyinHelper.convertToPinyinString("歪", "", PinyinFormat.WITHOUT_TONE));
+        System.out.println(PinyinHelper.convertToPinyinString("零一二三四五六七八九币地亿剂爱嗯欧屁啊又为外易杠", "", PinyinFormat.WITH_TONE_NUMBER));
     }
 }
