@@ -70,7 +70,7 @@ public class ColonTransfer implements Transfer {
 
 
     public static void main(String[] args) throws TransferException {
-        System.out.println(new ColonTransfer().trans("[A:B|C|D;E;F;]"));
+        System.out.println(new ColonTransfer().trans("[大便检查:￥发现虫卵ª;大便潜血阳性º]"));
     }
 }
 
