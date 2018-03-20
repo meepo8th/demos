@@ -23,7 +23,7 @@ public class SquareBracketsTransfer implements Transfer {
             StringBuilder processed = new StringBuilder();
             while (!squareBracketsDeque.isEmpty()) {
                 Brackets brackets = squareBracketsDeque.pop();
-                processed.append(processStr.substring(0,brackets.getLeft())+processOnebrackets(processStr, brackets)+processStr.substring(brackets.getRight()));
+                processed.append(processStr.substring(0, brackets.getLeft()) + processOnebrackets(processStr, brackets) + processStr.substring(brackets.getRight() + 1));
             }
             processStr = processed.toString();
         }
@@ -43,7 +43,7 @@ public class SquareBracketsTransfer implements Transfer {
 
 
     public static void main(String[] args) throws TransferException {
-        System.out.println(new SquareBracketsTransfer().trans("[A:B|C|D;E;F];[A:B|C|D;E;F]"));
+        System.out.println(new SquareBracketsTransfer().trans("123;[A:B|C|D;E;F];456"));
     }
 }
 
