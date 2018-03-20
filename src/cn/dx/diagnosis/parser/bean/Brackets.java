@@ -81,7 +81,7 @@ public class Brackets {
      * @return
      */
     private boolean match() {
-        return left < 0 || right < 0;
+        return left >= 0 && right > 0;
     }
 
     public int getLeft() {

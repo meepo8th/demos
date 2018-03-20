@@ -13,20 +13,37 @@ import java.util.*;
 public class SquareBracketsTransfer implements Transfer {
     private static final char LEFT = '[';
     private static final char RIGHT = ']';
-
+    ColonTransfer colonTransfer = new ColonTransfer();
 
     @Override
     public String trans(String inputString) throws TransferException {
         String processStr = inputString;
         if (StringUtils.isNotBlank(inputString) && inputString.indexOf(LEFT) >= 0) {
             Deque<Brackets> squareBracketsDeque = Brackets.matchBrackets(processStr, LEFT, RIGHT);
+            StringBuilder processed = new StringBuilder();
+            while (!squareBracketsDeque.isEmpty()) {
+                Brackets brackets = squareBracketsDeque.pop();
+                processed.append(processOnebrackets(processStr, brackets));
+            }
+            processStr = processed.toString();
         }
         return processStr;
     }
 
+    /**
+     * 处理一个括号
+     *
+     * @param processStr
+     * @param brackets
+     * @return
+     */
+    private String processOnebrackets(String processStr, Brackets brackets) throws TransferException {
+        return processStr.substring(0, brackets.getLeft()) + colonTransfer.trans(processStr.substring(brackets.getLeft(), brackets.getRight() + 1)) + processStr.substring(brackets.getRight() + 1);
+    }
+
 
     public static void main(String[] args) throws TransferException {
-        System.out.println(new SquareBracketsTransfer().trans("￥[血气分析:血pH值↓&PaO2↓&HCO3-↓;PCO2↑&BE↑;代谢性酸中毒]"));
+        System.out.println(new SquareBracketsTransfer().trans("[A:B|C|D;E;F;];[A:B|C|D;E;F;]"));
     }
 }
 
