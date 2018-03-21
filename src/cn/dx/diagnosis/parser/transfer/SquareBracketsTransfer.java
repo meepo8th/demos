@@ -39,8 +39,5 @@ public class SquareBracketsTransfer implements Transfer {
         return bracketsTransfer.canTrans(inputString);
     }
 
-    public static void main(String[] args) throws TransferException {
-        System.out.println(new SquareBracketsTransfer().trans("[X线检查：急白的X线多为非特异性,胸片常有肺门淋巴结肿,斑状影;T-ALL‡纵隔肿块影;[骨骼X线：骨质疏松#脱钙,局灶性溶骨&层状骨膜反应征;白血病线|长骨干骨骺端出现密度降低的横纹带]]"));
-    }
 }
 

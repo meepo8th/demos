@@ -18,7 +18,7 @@ public class ReplaceTransfer implements Transfer {
         replaceMap.put("∨", "和（或）");
         replaceMap.put("\\\\", "或者");
         replaceMap.put("\\*", "伴发");
-        replaceMap.put("\\*", "伴发");
+        replaceMap.put("≡", "伴发");
     }
 
     @Override

@@ -46,7 +46,7 @@ public class AtTransfer implements Transfer {
     }
 
     public static void main(String[] args) throws TransferException {
-        System.out.println(new AtTransfer().trans("出生时@全身皮肤@@指趾甲@@脐带@≡黄绿色\\深绿色ª"));
+        System.out.println(new AtTransfer().trans("出生时@全身皮肤@@指趾甲ª@@脐带@≡黄绿色\\深绿色"));
     }
 }
 
