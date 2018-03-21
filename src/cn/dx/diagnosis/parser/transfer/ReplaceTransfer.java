@@ -19,12 +19,10 @@ public class ReplaceTransfer implements Transfer {
         replaceMap.put("\\\\", "或者");
         replaceMap.put("\\*", "伴发");
         replaceMap.put("\\*", "伴发");
-        replaceMap.put("-†", "并且");
-        replaceMap.put("†", "");
     }
 
     @Override
-    public String trans(String inputString)throws TransferException {
+    public String trans(String inputString) throws TransferException {
         String rtn = inputString;
         if (StringUtils.isNotBlank(rtn)) {
             for (Map.Entry<String, String> entry : replaceMap.entrySet()) {
@@ -32,6 +30,11 @@ public class ReplaceTransfer implements Transfer {
             }
         }
         return rtn;
+    }
+
+    @Override
+    public boolean canTrans(String inputString) {
+        return true;
     }
 
     public static void main(String[] args) throws TransferException {

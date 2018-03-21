@@ -7,4 +7,5 @@ import cn.dx.diagnosis.parser.transfer.exception.TransferException;
  */
 public interface Transfer {
     String trans(String inputString) throws TransferException;
+    boolean canTrans(String inputString);
 }

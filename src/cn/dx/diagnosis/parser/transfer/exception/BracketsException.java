@@ -1,6 +1,9 @@
 package cn.dx.diagnosis.parser.transfer.exception;
 
 public class BracketsException extends TransferException {
+    public static final String BRACKET_NOT_MATCH = "括号数量不匹配";
+    public static final String BRACKET_NOT_SET = "调用必须指明括号类型";
+
     public BracketsException() {
     }
 

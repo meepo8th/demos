@@ -9,7 +9,7 @@ import java.util.Deque;
  * 括号类
  */
 public class Brackets {
-    public static final String BRACKET_NOT_MATCH = "括号数量不匹配";
+
     private int left = -1;//左括号位置
     private int right = -1;//右括号位置
 
@@ -70,7 +70,7 @@ public class Brackets {
     private static void checkBracketsDeque(ArrayDeque<Brackets> bracketsArrayDeque) throws BracketsException {
         for (Brackets bracket : bracketsArrayDeque) {
             if (!bracket.match()) {
-                throw new BracketsException(BRACKET_NOT_MATCH);
+                throw new BracketsException(BracketsException.BRACKET_NOT_MATCH);
             }
         }
     }

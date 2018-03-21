@@ -34,6 +34,17 @@ public class AtTransfer implements Transfer {
         return processStr;
     }
 
+    /**
+     * 是否是部位处理器可以处理的
+     *
+     * @param inputString
+     * @return
+     */
+    @Override
+    public boolean canTrans(String inputString) {
+        return StringUtils.isNotBlank(inputString) && inputString.contains("@");
+    }
+
     public static void main(String[] args) throws TransferException {
         System.out.println(new AtTransfer().trans("出生时@全身皮肤@@指趾甲@@脐带@≡黄绿色\\深绿色ª"));
     }
