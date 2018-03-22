@@ -19,7 +19,7 @@ public class BigSpeciesBracketsTransfer implements Transfer {
 
     @Override
     public String trans(String inputString) throws TransferException {
-        return LEFT + bracketsTransfer.trans(inputString) + RIGHT;
+        return bracketsTransfer.trans(inputString);
     }
 
     /**

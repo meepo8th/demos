@@ -10,14 +10,6 @@ import org.apache.commons.lang.StringUtils;
 public class ColonTransfer implements Transfer {
 
     private static final String SPLIT_UNIT = "&|∪";
-    private static String ENCODE_COLON = "";
-    private static final String DECODE_COLON = ":：‡§†";
-
-    static {
-        for (int i = 0; i < DECODE_COLON.length(); i++) {
-            ENCODE_COLON += (char) (Character.MAX_VALUE - i);
-        }
-    }
 
     @Override
     public String trans(String inputString) throws TransferException {
@@ -94,41 +86,7 @@ public class ColonTransfer implements Transfer {
         return buffer.toString();
     }
 
-    /**
-     * 编码冒号防止被重复解析
-     *
-     * @param unCodeStr
-     * @return
-     */
-    public String encodeColon(String unCodeStr) {
-        StringBuilder rtn = new StringBuilder("");
-        for (char ch : unCodeStr.toCharArray()) {
-            if (DECODE_COLON.indexOf(ch) >= 0) {
-                rtn.append(ENCODE_COLON.charAt(DECODE_COLON.indexOf(ch)));
-            } else {
-                rtn.append(ch);
-            }
-        }
-        return rtn.toString();
-    }
 
-    /**
-     * 解码冒号
-     *
-     * @param enCodeStr
-     * @return
-     */
-    public String decodeColon(String enCodeStr) {
-        StringBuilder rtn = new StringBuilder("");
-        for (char ch : enCodeStr.toCharArray()) {
-            if (ENCODE_COLON.indexOf(ch) >= 0) {
-                rtn.append(DECODE_COLON.charAt(ENCODE_COLON.indexOf(ch)));
-            } else {
-                rtn.append(ch);
-            }
-        }
-        return rtn.toString();
-    }
 
     /**
      * ‡|:类型识别器

@@ -36,8 +36,4 @@ public class ReplaceTransfer implements Transfer {
     public boolean canTrans(String inputString) {
         return true;
     }
-
-    public static void main(String[] args) throws TransferException {
-        System.out.println(new ReplaceTransfer().trans("￥意识障碍;肌张力↓;兴奋症状;嗜睡|昏迷;￥惊厥ª;呼吸暂停;拥抱反射消失;腱反射消失;瞳孔不等大&对光反应↓;￥囟门饱满;呼吸不规则;￥呼吸衰竭\n"));
-    }
 }

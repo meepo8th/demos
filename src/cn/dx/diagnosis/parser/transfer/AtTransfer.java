@@ -44,9 +44,5 @@ public class AtTransfer implements Transfer {
     public boolean canTrans(String inputString) {
         return StringUtils.isNotBlank(inputString) && inputString.contains("@");
     }
-
-    public static void main(String[] args) throws TransferException {
-        System.out.println(new AtTransfer().trans("出生时@全身皮肤@@指趾甲ª@@脐带@≡黄绿色\\深绿色"));
-    }
 }
 

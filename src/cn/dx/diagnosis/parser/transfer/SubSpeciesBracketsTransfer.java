@@ -19,7 +19,7 @@ public class SubSpeciesBracketsTransfer implements Transfer {
 
     @Override
     public String trans(String inputString) throws TransferException {
-        return LEFT + bracketsTransfer.trans(inputString) + RIGHT;
+        return bracketsTransfer.trans(inputString);
     }
 
     /**
@@ -31,10 +31,6 @@ public class SubSpeciesBracketsTransfer implements Transfer {
     @Override
     public boolean canTrans(String inputString) {
         return bracketsTransfer.canTrans(inputString);
-    }
-
-    public static void main(String[] args) throws TransferException {
-        System.out.println(new SubSpeciesBracketsTransfer().trans("≮肢端变化：起病早期§@手掌@@足底@硬肿#肤色变红；恢复期§指趾末端脱皮≯"));
     }
 }
 

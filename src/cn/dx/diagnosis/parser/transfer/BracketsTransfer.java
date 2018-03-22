@@ -1,16 +1,12 @@
 package cn.dx.diagnosis.parser.transfer;
 
-import cn.dx.diagnosis.parser.bean.Ats;
 import cn.dx.diagnosis.parser.bean.Brackets;
 import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
 import cn.dx.diagnosis.parser.transfer.exception.TransferException;
 import cn.dx.diagnosis.parser.transfer.inter.Transfer;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 
 /**
  * 括号转换器
@@ -18,11 +14,19 @@ import java.util.List;
 public class BracketsTransfer implements Transfer {
     private Character left;
     private Character right;
+    private boolean removeBrackets = false;
     private ColonTransfer colonTransfer = new ColonTransfer();
 
     public BracketsTransfer(char left, char right) throws BracketsException {
         this.left = left;
         this.right = right;
+        checkBrackets();
+    }
+
+    public BracketsTransfer(Character left, Character right, boolean removeBrackets) throws BracketsException {
+        this.left = left;
+        this.right = right;
+        this.removeBrackets = removeBrackets;
         checkBrackets();
     }
 
@@ -52,11 +56,17 @@ public class BracketsTransfer implements Transfer {
                     Brackets brackets = squareBracketsDeque.pop();
                     prefix = processStr.substring(0, brackets.getLeft());
                     after = processStr.substring(brackets.getRight() + 1);
-                    processStr = prefix + colonTransfer.encodeColon(processOnebrackets(processStr, brackets)) + after;
+                    String afterColon = processOnebrackets(processStr, brackets);
+                    if (!removeBrackets) {
+                        Character bracketsLeft = processStr.charAt(brackets.getLeft());
+                        Character bracketsRight = processStr.charAt(brackets.getRight());
+                        afterColon = "" + bracketsLeft + afterColon + bracketsRight;
+                    }
+                    processStr = prefix + TransferCode.encode(afterColon) + after;
                 }
             }
         }
-        return colonTransfer.decodeColon(processStr);
+        return TransferCode.decode(processStr);
     }
 
     /**
