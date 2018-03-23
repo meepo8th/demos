@@ -4,18 +4,28 @@ import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
 import cn.dx.diagnosis.parser.transfer.exception.TransferException;
 import cn.dx.diagnosis.parser.transfer.inter.Transfer;
 
-/**
- * {}转换器
- */
-public class BigSpeciesBracketsTransfer implements Transfer {
-    private static final char LEFT = '{';
-    private static final char RIGHT = '}';
-    BracketsTransfer bracketsTransfer = new BracketsTransfer(LEFT, RIGHT);
+import java.util.HashSet;
+import java.util.Set;
 
-    public BigSpeciesBracketsTransfer() throws BracketsException {
-        //do nothing
+/**
+ * []{}转换器
+ */
+public class SquareBigBracketsTransfer implements Transfer {
+    private static final Set<Character> LEFT = new HashSet<>();
+    private static final Set<Character> RIGHT = new HashSet<>();
+
+    static {
+        LEFT.add('[');
+        RIGHT.add(']');
+        LEFT.add('{');
+        RIGHT.add('}');
     }
 
+    BracketsTransfer bracketsTransfer = new BracketsTransfer(LEFT, RIGHT);
+
+    public SquareBigBracketsTransfer() throws BracketsException {
+        //do nothing
+    }
 
     @Override
     public String trans(String inputString) throws TransferException {
@@ -32,5 +42,6 @@ public class BigSpeciesBracketsTransfer implements Transfer {
     public boolean canTrans(String inputString) {
         return bracketsTransfer.canTrans(inputString);
     }
+
 }
 

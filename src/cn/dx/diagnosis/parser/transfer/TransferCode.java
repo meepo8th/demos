@@ -10,7 +10,8 @@ public class TransferCode {
     }
 
     private static String ENCODE_CHAR = "";
-    private static final String DECODE_CHAR = ":：‡§†[]{}≮≯";
+    private static final String DECODE_CHAR = ":：‡§†{}≮≯【】&|∪;";
+    private static final int CAN_REPEAT_DECODE = 4;
 
     static {
         for (int i = 0; i < DECODE_CHAR.length(); i++) {
@@ -19,7 +20,7 @@ public class TransferCode {
     }
 
     /**
-     * 编码冒号防止被重复解析
+     * 编码防止被重复解析
      *
      * @param unCodeStr
      * @return
@@ -37,7 +38,7 @@ public class TransferCode {
     }
 
     /**
-     * 解码冒号
+     * 解码所有
      *
      * @param enCodeStr
      * @return
@@ -46,6 +47,24 @@ public class TransferCode {
         StringBuilder rtn = new StringBuilder("");
         for (char ch : enCodeStr.toCharArray()) {
             if (ENCODE_CHAR.indexOf(ch) >= 0) {
+                rtn.append(DECODE_CHAR.charAt(ENCODE_CHAR.indexOf(ch)));
+            } else {
+                rtn.append(ch);
+            }
+        }
+        return rtn.toString();
+    }
+
+    /**
+     * 解码冒号
+     *
+     * @param enCodeStr
+     * @return
+     */
+    public static String decodeCanRepeat(String enCodeStr) {
+        StringBuilder rtn = new StringBuilder("");
+        for (char ch : enCodeStr.toCharArray()) {
+            if (ENCODE_CHAR.indexOf(ch) >= ENCODE_CHAR.length() - CAN_REPEAT_DECODE) {
                 rtn.append(DECODE_CHAR.charAt(ENCODE_CHAR.indexOf(ch)));
             } else {
                 rtn.append(ch);

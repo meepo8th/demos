@@ -7,26 +7,39 @@ import cn.dx.diagnosis.parser.transfer.inter.Transfer;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 括号转换器
  */
 public class BracketsTransfer implements Transfer {
-    private Character left;
-    private Character right;
-    private boolean removeBrackets = false;
+    private Set<Character> left = new HashSet<>();
+    private Set<Character> right = new HashSet<>();
     private ColonTransfer colonTransfer = new ColonTransfer();
 
+
     public BracketsTransfer(char left, char right) throws BracketsException {
+        this.left.add(left);
+        this.right.add(right);
+        checkBrackets();
+    }
+
+    public BracketsTransfer(char left, char right, boolean removeBrackets) throws BracketsException {
+        this.left.add(left);
+        this.right.add(right);
+        checkBrackets();
+    }
+
+    public BracketsTransfer(Set<Character> left, Set<Character> right) throws BracketsException {
         this.left = left;
         this.right = right;
         checkBrackets();
     }
 
-    public BracketsTransfer(Character left, Character right, boolean removeBrackets) throws BracketsException {
+    public BracketsTransfer(Set<Character> left, Set<Character> right, boolean removeBrackets) throws BracketsException {
         this.left = left;
         this.right = right;
-        this.removeBrackets = removeBrackets;
         checkBrackets();
     }
 
@@ -40,7 +53,7 @@ public class BracketsTransfer implements Transfer {
     }
 
     private void checkBrackets() throws BracketsException {
-        if (null == left || null == right) {
+        if (null == left || null == right || left.isEmpty() || right.isEmpty() || (left.size() != right.size())) {
             throw new BracketsException(BracketsException.BRACKET_NOT_SET);
         }
     }
@@ -48,7 +61,8 @@ public class BracketsTransfer implements Transfer {
     @Override
     public String trans(String inputString) throws TransferException {
         String processStr = inputString;
-        if (StringUtils.isNotBlank(inputString) && inputString.indexOf(left) >= 0) {
+        if (canTrans(inputString)) {
+            Character lastBracketsLeft = ' ';
             for (Deque<Brackets> squareBracketsDeque = Brackets.matchBrackets(processStr, left, right); !squareBracketsDeque.isEmpty(); squareBracketsDeque = Brackets.matchBrackets(processStr, left, right)) {
                 String prefix = "";
                 String after = "";
@@ -57,16 +71,23 @@ public class BracketsTransfer implements Transfer {
                     prefix = processStr.substring(0, brackets.getLeft());
                     after = processStr.substring(brackets.getRight() + 1);
                     String afterColon = processOnebrackets(processStr, brackets);
-                    if (!removeBrackets) {
-                        Character bracketsLeft = processStr.charAt(brackets.getLeft());
-                        Character bracketsRight = processStr.charAt(brackets.getRight());
+
+                    Character bracketsLeft = processStr.charAt(brackets.getLeft());
+                    Character bracketsRight = processStr.charAt(brackets.getRight());
+                    lastBracketsLeft = bracketsLeft;
+                    if ('[' != bracketsLeft || ']' != bracketsRight) {
                         afterColon = "" + bracketsLeft + afterColon + bracketsRight;
+                        processStr = prefix + TransferCode.encode(afterColon) + after;
+                    } else {
+                        processStr = prefix + TransferCode.decodeCanRepeat(TransferCode.encode(afterColon)) + after;
                     }
-                    processStr = prefix + TransferCode.encode(afterColon) + after;
+                } else if ('[' == lastBracketsLeft) {
+                    processStr = TransferCode.decode(processStr);
                 }
+
             }
         }
-        return TransferCode.decode(processStr);
+        return processStr;
     }
 
     /**
@@ -77,8 +98,22 @@ public class BracketsTransfer implements Transfer {
      */
     @Override
     public boolean canTrans(String inputString) {
-        return StringUtils.isNotBlank(inputString) && (inputString.indexOf(left) >= 0 && inputString.indexOf(right) > inputString.indexOf(left));
+        if (StringUtils.isNotBlank(inputString)) {
+            int leftPos = -1;
+            int rightPos = -1;
+            for (int i = 0; i < inputString.length(); i++) {
+                if (left.contains(inputString.charAt(i)) && leftPos < 0) {
+                    leftPos = i;
+                }
+                if (right.contains(inputString.charAt(i)) && rightPos < 0) {
+                    rightPos = i;
+                }
+            }
+            return (leftPos >= 0) && (rightPos > leftPos);
+        }
+        return false;
     }
+
 
     /**
      * 处理一个括号
@@ -98,19 +133,19 @@ public class BracketsTransfer implements Transfer {
         }
     }
 
-    public char getLeft() {
+    public Set<Character> getLeft() {
         return left;
     }
 
-    public void setLeft(char left) {
+    public void setLeft(Set<Character> left) {
         this.left = left;
     }
 
-    public char getRight() {
+    public Set<Character> getRight() {
         return right;
     }
 
-    public void setRight(char right) {
+    public void setRight(Set<Character> right) {
         this.right = right;
     }
 

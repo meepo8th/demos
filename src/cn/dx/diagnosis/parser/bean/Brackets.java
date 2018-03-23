@@ -4,6 +4,7 @@ import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Set;
 
 /**
  * 括号类
@@ -34,13 +35,13 @@ public class Brackets {
      * @return
      * @throws BracketsException
      */
-    public static Deque<Brackets> matchBrackets(String processStr, final char left, final char right) throws BracketsException {
+    public static Deque<Brackets> matchBrackets(String processStr, final Set<Character> left, final Set<Character> right) throws BracketsException {
         ArrayDeque<Brackets> squareBracketsDeque = new ArrayDeque<>();
         ArrayDeque<Brackets> tmpDeque = new ArrayDeque<>();
         for (int i = 0; i < processStr.length(); i++) {
-            if (left == processStr.charAt(i)) {
+            if (left.contains(processStr.charAt(i))) {
                 squareBracketsDeque.push(new Brackets(i));
-            } else if (right == processStr.charAt(i)) {
+            } else if (right.contains(processStr.charAt(i))) {
                 tmpDeque.clear();
                 while (!squareBracketsDeque.isEmpty()) {
                     Brackets squareBrackets = squareBracketsDeque.pop();

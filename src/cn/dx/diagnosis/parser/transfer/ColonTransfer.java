@@ -4,6 +4,8 @@ import cn.dx.diagnosis.parser.transfer.exception.TransferException;
 import cn.dx.diagnosis.parser.transfer.inter.Transfer;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.List;
+
 /**
  * 冒号(‡|:)转换器
  */
@@ -23,9 +25,10 @@ public class ColonTransfer implements Transfer {
             if (inBrackets(inputString)) {
                 StringBuilder buffer = new StringBuilder();
                 inputString = inputString.substring(1, inputString.length() - 1);
+                inputString.replaceFirst(".*" + splitRegex, "");
                 String prefix = inputString.split(splitRegex)[0];
-                String after = inputString.split(splitRegex)[1];
-                String[] splits = after.split(";|；");
+                String after = inputString.replaceFirst("(.*?)" + splitRegex, "");
+                List<String> splits = TransUtils.splitStrWithBracket(after);
                 for (String split : splits) {
                     if (StringUtils.isNotBlank(split)) {
                         String replaceTmp = transUnit(prefix + splitChar + split, splitRegex, splitChar) + ";";
@@ -72,7 +75,7 @@ public class ColonTransfer implements Transfer {
     private String transUnit(String inputString, String splitRegex, String splitChar) {
         StringBuilder buffer = new StringBuilder();
         String prefix = inputString.split(splitRegex)[0];
-        String after = inputString.split(splitRegex)[1];
+        String after = inputString.replaceFirst("(.*?)" + splitRegex, "");
         int lastPoition = 0;
         for (int i = 0; i < after.length(); i++) {
             int index = SPLIT_UNIT.indexOf(after.charAt(i));
@@ -85,7 +88,6 @@ public class ColonTransfer implements Transfer {
         }
         return buffer.toString();
     }
-
 
 
     /**

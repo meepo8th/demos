@@ -10,17 +10,18 @@ import java.util.List;
 public class ParseContent {
     //概率
     Double probability;
-    //子内容关系
-    RelationShip relationship;
+
     //内容
     String content;
+    //类型
+    String type;
     //子内容
     List<ParseContent> children;
 
-    public ParseContent(String content, double probability, RelationShip relationShip, List<ParseContent> children) {
+    public ParseContent(String content, double probability, String type, List<ParseContent> children) {
         this.content = content;
         this.probability = probability;
-        this.relationship = relationShip;
+        this.type = type;
         this.children = children;
     }
 
@@ -33,7 +34,7 @@ public class ParseContent {
      *
      * @return
      */
-    public List<ParseContent> getAllChildWithoutChild() {
+    public List<ParseContent> getPureLeafChild() {
         List<ParseContent> allChild = new ArrayList<>();
         ArrayDeque<ParseContent> stack = new ArrayDeque<>();
         if (isEmptyList(children)) {
@@ -66,12 +67,12 @@ public class ParseContent {
         this.probability = probability;
     }
 
-    public RelationShip getRelationship() {
-        return relationship;
+    public String getType() {
+        return type;
     }
 
-    public void setRelationship(RelationShip relationship) {
-        this.relationship = relationship;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getContent() {
@@ -90,13 +91,12 @@ public class ParseContent {
         this.children = children;
     }
 
-
     @Override
     public String toString() {
         return "ParseContent{" +
                 "probability=" + probability +
-                ", relationship=" + relationship +
                 ", content='" + content + '\'' +
+                ", type='" + type + '\'' +
                 ", children=" + children +
                 '}';
     }
