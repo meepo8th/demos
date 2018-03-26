@@ -8,17 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 清理不需要的符号替换转换器
+ * 清理跟概率有关的符号
  */
 public class CleanReplaceTransfer implements Transfer {
     private static final Map<String, String> replaceMap = new HashMap<>(10);
 
     static {
         //常规替换
-        replaceMap.put("\\|", "或");
-        replaceMap.put("&", "并且");
-        replaceMap.put("∪", "和（或）");
-        replaceMap.put("(t\\+|c\\+|f\\+|e\\+|n\\+|p\\+|;|!|ª|º|★|√|￥)", "");
+        replaceMap.put("(n\\+|p\\+|;|!|ª|º|★|√|￥)", "");
         replaceMap.put("@", "、");
         replaceMap.put("、+", "、");
     }

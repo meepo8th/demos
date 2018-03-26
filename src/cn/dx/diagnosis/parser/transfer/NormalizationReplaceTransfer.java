@@ -19,7 +19,6 @@ public class NormalizationReplaceTransfer implements Transfer {
         replaceMap.put("#", "和");
         replaceMap.put("∨", "和（或）");
         replaceMap.put("\\\\", "或者");
-        replaceMap.put("\\\\", "或者");
         replaceMap.put("\\*", "伴发");
         replaceMap.put("≡", "");
         //防止全角半角误输,统一转为半角
@@ -31,7 +30,7 @@ public class NormalizationReplaceTransfer implements Transfer {
         //方括号直接去掉后典型符号生效范围会改变，预先替换到内部
         replaceMap.put("(￥)(\\[)", "$2$1");
         //方括号直接去掉后权重生效范围会改变，预先替换到内部
-        replaceMap.put("(\\[)([^\\]]*)(\\])([!|ª|º|★|√])", "$1$4$2$3");
+        replaceMap.put("(\\[)([^\\]]*)(\\])(!|ª|º|★|√)", "$1$4$2$3");
     }
 
     @Override

@@ -51,7 +51,7 @@ public class ColonTransfer implements Transfer {
      */
     @Override
     public boolean canTrans(String inputString) {
-        return StringUtils.isNotBlank(inputString) && (inputString.contains("：") || inputString.contains("‡") || inputString.contains(":") || inputString.contains("†"));
+        return StringUtils.isNotBlank(inputString) && (inputString.contains("：") || inputString.contains("‡") || inputString.contains(":") || inputString.contains("†")||inputString.contains("§"));
     }
 
     /**
@@ -90,49 +90,5 @@ public class ColonTransfer implements Transfer {
     }
 
 
-    /**
-     * ‡|:类型识别器
-     */
-    private class TypeDetection {
-        private String inputString;
-        private String rtn;
-        private String splitRegex;
-        private String splitChar;
-
-        public TypeDetection(String inputString, String rtn) {
-            this.inputString = inputString;
-            this.rtn = rtn;
-        }
-
-        public TypeDetection detection() {
-            if (StringUtils.isNotBlank(rtn)) {
-                if (inputString.contains("：") || inputString.contains(":")) {
-                    splitRegex = ":|：";
-                    splitChar = ":";
-                } else if (inputString.contains("‡")) {
-                    splitRegex = "‡";
-                    splitChar = "‡";
-                } else if (inputString.contains("§")) {
-                    splitRegex = "§";
-                    splitChar = "§";
-                } else if (inputString.contains("-†")) {
-                    splitRegex = "-†";
-                    splitChar = "-†";
-                } else if (inputString.contains("†")) {
-                    splitRegex = "†";
-                    splitChar = "†";
-                }
-            }
-            return this;
-        }
-
-        public String getSplitRegex() {
-            return splitRegex;
-        }
-
-        public String getSplitChar() {
-            return splitChar;
-        }
-    }
 }
 

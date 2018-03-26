@@ -90,29 +90,53 @@ public class SymptomParser {
         String confirmTypical = "★◎";
         String necessaryTypical = "!";
         if (null != symptom && StringUtils.isNotBlank(symptom.getContent())) {
-            boolean confirmTyped = false;
-            boolean typicalTyped = false;
-            boolean necessaryTyped = false;
-            for (int i = symptom.getContent().length() - 1; i >= 0 && !confirmTyped; i--) {
-                if (typeTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
-                    typicalTyped = true;
-                } else if (confirmTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
-                    confirmTyped = true;
-                } else if (necessaryTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
-                    necessaryTyped = true;
-                }
-            }
-            if (necessaryTyped) {
-                typedList.add(new NecessarySymptom(symptom));
-            } else if (!typicalTyped && !confirmTyped) {
-                typedList.add(new NormalSymptom(symptom));
-            } else if (confirmTyped) {
-                typedList.add(new ConfirmSymptom(symptom));
+            if (symptom.getContent().contains("§") || symptom.getContent().contains("‡") || symptom.getContent().contains("†")) {
+                TypeDetection typeDetection = new TypeDetection(symptom.getContent(), symptom.getContent()).detection();
+                String splitRegex = typeDetection.getSplitRegex();
+                String splitChar = typeDetection.getSplitChar();
+                String diseaseChild = symptom.getContent().split(splitRegex)[0];
+                Symptom diseaseChildSymptom = symptom.copy(symptom);
+                diseaseChildSymptom.setDisease(diseaseChild + splitChar + diseaseChildSymptom.getDisease());
+                addOneType(diseaseChildSymptom, typedList, typeTypical, confirmTypical, necessaryTypical);
             } else {
-                typedList.add(new TypicalSymptom(symptom));
+                addOneType(symptom, typedList, typeTypical, confirmTypical, necessaryTypical);
             }
         }
         return typedList;
+    }
+
+    /**
+     * 增加一个症状分类
+     *
+     * @param symptom
+     * @param typedList
+     * @param typeTypical
+     * @param confirmTypical
+     * @param necessaryTypical
+     * @throws TransferException
+     */
+    private static void addOneType(Symptom symptom, List<Symptom> typedList, String typeTypical, String confirmTypical, String necessaryTypical) throws TransferException {
+        boolean confirmTyped = false;
+        boolean typicalTyped = false;
+        boolean necessaryTyped = false;
+        for (int i = symptom.getContent().length() - 1; i >= 0 && !confirmTyped; i--) {
+            if (typeTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
+                typicalTyped = true;
+            } else if (confirmTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
+                confirmTyped = true;
+            } else if (necessaryTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
+                necessaryTyped = true;
+            }
+        }
+        if (necessaryTyped) {
+            typedList.add(new NecessarySymptom(symptom));
+        } else if (!typicalTyped && !confirmTyped) {
+            typedList.add(new NormalSymptom(symptom));
+        } else if (confirmTyped) {
+            typedList.add(new ConfirmSymptom(symptom));
+        } else {
+            typedList.add(new TypicalSymptom(symptom));
+        }
     }
 
 
@@ -122,7 +146,42 @@ public class SymptomParser {
      * @param symptomList
      * @return
      */
+    private static Map<String, List<Symptom>> chanceSymptomWithType(List<Symptom> symptomList) {
+        Map<String, List<Symptom>> changedSymptom = new HashMap<>();
+        for (Symptom symptom : symptomList) {
+            if (!changedSymptom.containsKey(symptom.getDisease())) {
+                changedSymptom.put(symptom.getDisease(), new ArrayList<>());
+            }
+            changedSymptom.get(symptom.getDisease()).add(symptom);
+        }
+        for (Map.Entry<String, List<Symptom>> entry : changedSymptom.entrySet()) {
+            chanceOneTypeSymptom(entry.getValue());
+        }
+        return changedSymptom;
+    }
+
+    /**
+     * 分配概率
+     *
+     * @param symptomList
+     * @return
+     */
     private static List<Symptom> chanceSymptom(List<Symptom> symptomList) {
+        List<Symptom> rtnList = new ArrayList<>();
+        Map<String, List<Symptom>> mapType = chanceSymptomWithType(symptomList);
+        for (Map.Entry<String, List<Symptom>> entry : mapType.entrySet()) {
+            rtnList.addAll(entry.getValue());
+        }
+        return rtnList;
+    }
+
+    /**
+     * 分配同一类概率
+     *
+     * @param symptomList
+     * @return
+     */
+    private static List<Symptom> chanceOneTypeSymptom(List<Symptom> symptomList) {
         if (null != symptomList && !symptomList.isEmpty()) {
             double totalWeight = 0.00001d;
             for (Symptom symptom : symptomList) {

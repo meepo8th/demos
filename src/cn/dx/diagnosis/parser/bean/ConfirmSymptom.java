@@ -11,13 +11,22 @@ public class ConfirmSymptom extends Symptom {
 
     @Override
     public String toString() {
-        return "ConfirmSymptom{" +
-                "content='" + content + '\'' +
-                ", source='" + source + '\'' +
-                ", disease='" + disease + '\'' +
-                ", weight=" + weight +
-                ", chance=" + chance +
-                ", cleanContent='" + cleanContent + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("{\"ConfirmSymptom\":{");
+        sb.append("\"content\":\"")
+                .append(content).append('\"');
+        sb.append(",\"source\":\"")
+                .append(source).append('\"');
+        sb.append(",\"disease\":\"")
+                .append(disease).append('\"');
+        sb.append(",\"weight\":")
+                .append(weight);
+        sb.append(",\"chance\":")
+                .append(chance);
+        sb.append(",\"cleanContent\":\"")
+                .append(cleanContent).append('\"');
+        sb.append(",\"childrenSymptom\":")
+                .append(childrenSymptom);
+        sb.append("}}");
+        return sb.toString();
     }
 }

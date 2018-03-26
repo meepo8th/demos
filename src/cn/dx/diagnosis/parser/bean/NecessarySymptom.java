@@ -11,13 +11,22 @@ public class NecessarySymptom extends Symptom {
 
     @Override
     public String toString() {
-        return "NecessarySymptom{" +
-                "content='" + content + '\'' +
-                ", source='" + source + '\'' +
-                ", disease='" + disease + '\'' +
-                ", weight=" + weight +
-                ", chance=" + chance +
-                ", cleanContent='" + cleanContent + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("{\"NecessarySymptom\":{");
+        sb.append("\"content\":\"")
+                .append(content).append('\"');
+        sb.append(",\"source\":\"")
+                .append(source).append('\"');
+        sb.append(",\"disease\":\"")
+                .append(disease).append('\"');
+        sb.append(",\"weight\":")
+                .append(weight);
+        sb.append(",\"chance\":")
+                .append(chance);
+        sb.append(",\"cleanContent\":\"")
+                .append(cleanContent).append('\"');
+        sb.append(",\"childrenSymptom\":")
+                .append(childrenSymptom);
+        sb.append("}}");
+        return sb.toString();
     }
 }

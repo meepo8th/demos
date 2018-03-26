@@ -1,5 +1,6 @@
 package cn.dx.diagnosis.parser.bean;
 
+import cn.dx.diagnosis.parser.transfer.SymptomUtil;
 import cn.dx.diagnosis.parser.transfer.exception.TransferException;
 
 import java.io.Serializable;
@@ -37,6 +38,14 @@ public class Symptom implements Serializable {
         symptom.disease = this.disease;
         return symptom;
     }
+
+    /**
+     * 症状拆分并分配概率，一直拆分到不可拆分为止
+     */
+    public void splitSymptom() throws TransferException {
+        SymptomUtil.splitSymptom(this);
+    }
+
 
     /**
      * 根据resource获取权重
@@ -154,14 +163,22 @@ public class Symptom implements Serializable {
 
     @Override
     public String toString() {
-        return "Symptom{" +
-                "content='" + content + '\'' +
-                ", source='" + source + '\'' +
-                ", disease='" + disease + '\'' +
-                ", weight=" + weight +
-                ", chance=" + chance +
-                ", cleanContent='" + cleanContent + '\'' +
-                ", childrenSymptom=" + childrenSymptom +
-                '}';
+        final StringBuilder sb = new StringBuilder("{\"Symptom\":{");
+        sb.append("\"content\":\"")
+                .append(content).append('\"');
+        sb.append(",\"source\":\"")
+                .append(source).append('\"');
+        sb.append(",\"disease\":\"")
+                .append(disease).append('\"');
+        sb.append(",\"weight\":")
+                .append(weight);
+        sb.append(",\"chance\":")
+                .append(chance);
+        sb.append(",\"cleanContent\":\"")
+                .append(cleanContent).append('\"');
+        sb.append(",\"childrenSymptom\":")
+                .append(childrenSymptom);
+        sb.append("}}");
+        return sb.toString();
     }
 }
