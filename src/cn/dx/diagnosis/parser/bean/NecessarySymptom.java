@@ -1,17 +1,17 @@
 package cn.dx.diagnosis.parser.bean;
 
 /**
- * 确诊症状
+ * 必备症状
  */
-public class ConfirmSymptom extends Symptom {
+public class NecessarySymptom extends Symptom {
 
-    public ConfirmSymptom(Symptom symptom) {
+    public NecessarySymptom(Symptom symptom) {
         symptom.copy(this);
     }
 
     @Override
     public String toString() {
-        return "ConfirmSymptom{" +
+        return "NecessarySymptom{" +
                 "content='" + content + '\'' +
                 ", source='" + source + '\'' +
                 ", disease='" + disease + '\'' +
