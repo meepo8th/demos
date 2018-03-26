@@ -25,23 +25,12 @@ public class BracketsTransfer implements Transfer {
         checkBrackets();
     }
 
-    public BracketsTransfer(char left, char right, boolean removeBrackets) throws BracketsException {
-        this.left.add(left);
-        this.right.add(right);
-        checkBrackets();
-    }
-
     public BracketsTransfer(Set<Character> left, Set<Character> right) throws BracketsException {
         this.left = left;
         this.right = right;
         checkBrackets();
     }
 
-    public BracketsTransfer(Set<Character> left, Set<Character> right, boolean removeBrackets) throws BracketsException {
-        this.left = left;
-        this.right = right;
-        checkBrackets();
-    }
 
     /**
      * 隐藏默认构造器 并抛出异常防止反射调用

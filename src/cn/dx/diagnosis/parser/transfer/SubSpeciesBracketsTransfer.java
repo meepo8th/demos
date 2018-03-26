@@ -23,7 +23,7 @@ public class SubSpeciesBracketsTransfer implements Transfer {
     }
 
     /**
-     * 是否是方括号处理器可以处理的
+     * 是否是≮≯处理器可以处理的
      *
      * @param inputString
      * @return
