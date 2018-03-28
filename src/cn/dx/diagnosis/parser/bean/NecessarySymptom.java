@@ -9,6 +9,10 @@ public class NecessarySymptom extends Symptom {
         symptom.copy(this);
     }
 
+    public NecessarySymptom() {
+
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{\"NecessarySymptom\":{");
@@ -28,5 +32,9 @@ public class NecessarySymptom extends Symptom {
                 .append(childrenSymptom);
         sb.append("}}");
         return sb.toString();
+    }
+    @Override
+    public NecessarySymptom getNewInstance() {
+        return new NecessarySymptom();
     }
 }

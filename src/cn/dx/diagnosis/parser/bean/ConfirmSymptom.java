@@ -9,6 +9,9 @@ public class ConfirmSymptom extends Symptom {
         symptom.copy(this);
     }
 
+    public ConfirmSymptom() {
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{\"ConfirmSymptom\":{");
@@ -28,5 +31,10 @@ public class ConfirmSymptom extends Symptom {
                 .append(childrenSymptom);
         sb.append("}}");
         return sb.toString();
+    }
+
+    @Override
+    public ConfirmSymptom getNewInstance() {
+        return new ConfirmSymptom();
     }
 }

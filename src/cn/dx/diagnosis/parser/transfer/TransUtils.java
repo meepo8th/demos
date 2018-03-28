@@ -1,7 +1,11 @@
 package cn.dx.diagnosis.parser.transfer;
 
+import cn.dx.diagnosis.parser.bean.NormalSymptom;
+import cn.dx.diagnosis.parser.bean.Symptom;
+import cn.dx.diagnosis.parser.bean.TypicalSymptom;
 import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
 import cn.dx.diagnosis.parser.transfer.inter.Transfer;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +32,16 @@ public class TransUtils {
      * @return
      */
     public static List<String> splitStrWithBracket(String symptomDesc) {
+        return splitStrWithBracket(symptomDesc, ';');
+    }
+
+    /**
+     * 症状拆分
+     *
+     * @param symptomDesc
+     * @return
+     */
+    public static List<String> splitStrWithBracket(String symptomDesc, Character splitChar) {
         List<String> symptomSplit = new ArrayList<>();
         Map<Character, Integer> inlineFlagMap = new HashMap<>();
         inlineFlagMap.put('→', 0);
@@ -38,9 +52,9 @@ public class TransUtils {
         int lastPos = 0;
         for (int i = 0; i < symptomDesc.length(); i++) {
             if (inlineFlagMap.containsKey(symptomDesc.charAt(i))) {
-                lastPos = endFlagMerge(symptomDesc, symptomSplit, inlineFlagMap, lastPos, i);
+                lastPos = endFlagMerge(symptomDesc, inlineFlagMap, lastPos, i);
             }
-            if (';' == symptomDesc.charAt(i) && inlineFlagMapMatch(inlineFlagMap)) {
+            if (splitChar == symptomDesc.charAt(i) && inlineFlagMapMatch(inlineFlagMap)) {
                 addSplit(symptomDesc, symptomSplit, lastPos, i);
                 lastPos = i + 1;
             }
@@ -50,17 +64,17 @@ public class TransUtils {
         }
         return symptomSplit;
     }
+
     /**
      * 开始结束标志闭环
      *
      * @param symptomDesc
-     * @param symptomSplit
      * @param inlineFlagMap
      * @param lastPos
      * @param i
      * @return
      */
-    private static int endFlagMerge(String symptomDesc, List<String> symptomSplit, Map<Character, Integer> inlineFlagMap, int lastPos, int i) {
+    private static int endFlagMerge(String symptomDesc, Map<Character, Integer> inlineFlagMap, int lastPos, int i) {
         if (leftOtherMap.containsKey(symptomDesc.charAt(i))) {
             inlineFlagMap.put(symptomDesc.charAt(i), inlineFlagMap.get(symptomDesc.charAt(i)) + 1);
         } else if (rightOtherMap.containsKey(symptomDesc.charAt(i))) {
@@ -104,5 +118,70 @@ public class TransUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 判断是否是空症状
+     *
+     * @param symptom
+     * @return
+     */
+    public static boolean isNotEmpty(Symptom symptom) {
+        return null != symptom && StringUtils.isNotBlank(symptom.getContent()) && symptom.getContent().length() > 1;
+    }
+
+    /**
+     * 是否是无效症状
+     *
+     * @param symptom
+     * @return
+     */
+    public static boolean isValidSymptom(String symptom) {
+        if (StringUtils.isNotBlank(symptom)) {
+            String validSymptom = "";
+            validSymptom = symptom.replaceAll(";|:|\"", "");
+            if (StringUtils.isNotBlank(validSymptom)) {
+                return (validSymptom.replaceAll("^.*(:|‡|§|†)", "")).length() < 2;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 分配同一类概率
+     *
+     * @param symptomList
+     * @param key
+     * @return
+     */
+    public static List<Symptom> chanceOneTypeSymptom(List<Symptom> symptomList, String key) {
+        return chanceOneTypeSymptom(symptomList,key,1);
+    }
+    /**
+     * 分配同一类概率
+     *
+     * @param symptomList
+     * @param key
+     * @return
+     */
+    public static List<Symptom> chanceOneTypeSymptom(List<Symptom> symptomList, String key,double allChange) {
+        if (null != symptomList && !symptomList.isEmpty()) {
+            double totalWeight = 0.00001d;
+            for (Symptom symptom : symptomList) {
+                if (symptom instanceof TypicalSymptom || symptom instanceof NormalSymptom) {
+                    if (symptom.getWeight() >= 0) {
+                        totalWeight += symptom.getWeight();
+                    }
+                }
+                symptom.setDisease(key);
+            }
+            double perWeight = allChange / totalWeight;
+            for (Symptom symptom : symptomList) {
+                if (symptom instanceof TypicalSymptom || symptom instanceof NormalSymptom) {
+                    symptom.setChance(symptom.getWeight() * perWeight);
+                }
+            }
+        }
+        return symptomList;
     }
 }

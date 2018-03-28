@@ -36,4 +36,8 @@ public class TypicalSymptom extends Symptom {
         sb.append("}}");
         return sb.toString();
     }
+    @Override
+    public TypicalSymptom getNewInstance() {
+        return new TypicalSymptom();
+    }
 }

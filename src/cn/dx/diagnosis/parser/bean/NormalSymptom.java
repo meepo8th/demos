@@ -12,6 +12,9 @@ public class NormalSymptom extends Symptom {
         this.weight = this.weight * getSourceWeight()*getWeightRatio();
     }
 
+    public NormalSymptom() {
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{\"NormalSymptom\":{");
@@ -31,5 +34,9 @@ public class NormalSymptom extends Symptom {
                 .append(childrenSymptom);
         sb.append("}}");
         return sb.toString();
+    }
+    @Override
+    public NormalSymptom getNewInstance() {
+        return new NormalSymptom();
     }
 }

@@ -18,6 +18,7 @@ public class Symptom implements Serializable {
     protected Double weight = 1d;
     protected Double chance;
     protected String cleanContent;
+    protected String parentContent;
     List<Symptom> childrenSymptom;
 
     public Symptom() {
@@ -67,8 +68,8 @@ public class Symptom implements Serializable {
      */
     protected Double getWeightRatio() throws TransferException {
         double ratio = 1d;
-        String[] flags = new String[]{"ª", "º", "n+", "p+", "√"};
-        double[] ratios = new double[]{1.1, 0.9, -0.9, -3, -3};
+        String[] flags = new String[]{"ª", "º", "n+", "s+", "√"};
+        double[] ratios = new double[]{1.1, 0.9, -10000, -0.8, -10000};
         if (flags.length != ratios.length) {
             throw new TransferException("权重比例配置错误：数量不一致");
         }
@@ -161,6 +162,14 @@ public class Symptom implements Serializable {
         return null != list && !list.isEmpty();
     }
 
+    public String getParentContent() {
+        return parentContent;
+    }
+
+    public void setParentContent(String parentContent) {
+        this.parentContent = parentContent;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{\"Symptom\":{");
@@ -176,9 +185,15 @@ public class Symptom implements Serializable {
                 .append(chance);
         sb.append(",\"cleanContent\":\"")
                 .append(cleanContent).append('\"');
+        sb.append(",\"parentContent\":\"")
+                .append(parentContent).append('\"');
         sb.append(",\"childrenSymptom\":")
                 .append(childrenSymptom);
         sb.append("}}");
         return sb.toString();
+    }
+
+    public Symptom getNewInstance() {
+        return new Symptom();
     }
 }

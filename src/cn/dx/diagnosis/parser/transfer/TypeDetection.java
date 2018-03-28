@@ -10,29 +10,29 @@ public class TypeDetection {
     private String rtn;
     private String splitRegex;
     private String splitChar;
+    String[] splitRegexList = new String[]{":", "‡", "§", "-†", "†"};
+    String[] splitChars = new String[]{":", "‡", "§", "-†", "†"};
 
     public TypeDetection(String inputString, String rtn) {
         this.inputString = inputString;
         this.rtn = rtn;
     }
 
+    public TypeDetection(String inputString, String rtn,String[] splitRegexList, String[] splitChars) {
+        this.inputString = inputString;
+        this.rtn = rtn;
+        this.splitRegexList = splitRegexList;
+        this.splitChars = splitChars;
+    }
+
     public TypeDetection detection() {
         if (StringUtils.isNotBlank(rtn)) {
-            if (inputString.contains("：") || inputString.contains(":")) {
-                splitRegex = ":|：";
-                splitChar = ":";
-            } else if (inputString.contains("‡")) {
-                splitRegex = "‡";
-                splitChar = "‡";
-            } else if (inputString.contains("§")) {
-                splitRegex = "§";
-                splitChar = "§";
-            } else if (inputString.contains("-†")) {
-                splitRegex = "-†";
-                splitChar = "-†";
-            } else if (inputString.contains("†")) {
-                splitRegex = "†";
-                splitChar = "†";
+            for (int i = 0; i < splitRegexList.length; i++) {
+                if (inputString.contains(splitRegexList[i])) {
+                    splitRegex = splitRegexList[i];
+                    splitChar = splitChars[i];
+                    break;
+                }
             }
         }
         return this;

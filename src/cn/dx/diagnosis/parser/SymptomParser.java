@@ -56,13 +56,14 @@ public class SymptomParser {
     public static List<Symptom> toSymptom(List<String> symptomList, String source, String disease) {
         List<Symptom> symptomTypeList = new ArrayList<>();
         for (String symptom : symptomList) {
-            if (";".equals(symptom) || "\";".equals(symptom)) {
+            if (TransUtils.isValidSymptom(symptom)) {
                 continue;
             }
             symptomTypeList.add(new Symptom(symptom, source, disease));
         }
         return symptomTypeList;
     }
+
 
     /**
      * 症状分类
@@ -89,13 +90,14 @@ public class SymptomParser {
         String typeTypical = "￥";
         String confirmTypical = "★◎";
         String necessaryTypical = "!";
-        if (null != symptom && StringUtils.isNotBlank(symptom.getContent())) {
-            if (symptom.getContent().contains("§") || symptom.getContent().contains("‡") || symptom.getContent().contains("†")) {
-                TypeDetection typeDetection = new TypeDetection(symptom.getContent(), symptom.getContent()).detection();
+        if (TransUtils.isNotEmpty(symptom)) {
+            if (typedSymptom(symptom.getContent())) {
+                TypeDetection typeDetection = new TypeDetection(symptom.getContent(), symptom.getContent(), new String[]{"‡", "§", "-†", "†"}, new String[]{"‡", "§", "-†", "†"}).detection();
                 String splitRegex = typeDetection.getSplitRegex();
                 String splitChar = typeDetection.getSplitChar();
                 String diseaseChild = symptom.getContent().split(splitRegex)[0];
-                Symptom diseaseChildSymptom = symptom.copy(symptom);
+                Symptom diseaseChildSymptom = new Symptom();
+                symptom.copy(diseaseChildSymptom);
                 diseaseChildSymptom.setDisease(diseaseChild + splitChar + diseaseChildSymptom.getDisease());
                 addOneType(diseaseChildSymptom, typedList, typeTypical, confirmTypical, necessaryTypical);
             } else {
@@ -103,6 +105,16 @@ public class SymptomParser {
             }
         }
         return typedList;
+    }
+
+    /**
+     * 是否是分类症状
+     *
+     * @param content
+     * @return
+     */
+    private static boolean typedSymptom(String content) {
+        return content.contains("§") || content.contains("‡") || content.contains("†");
     }
 
     /**
@@ -116,26 +128,29 @@ public class SymptomParser {
      * @throws TransferException
      */
     private static void addOneType(Symptom symptom, List<Symptom> typedList, String typeTypical, String confirmTypical, String necessaryTypical) throws TransferException {
-        boolean confirmTyped = false;
-        boolean typicalTyped = false;
-        boolean necessaryTyped = false;
-        for (int i = symptom.getContent().length() - 1; i >= 0 && !confirmTyped; i--) {
-            if (typeTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
-                typicalTyped = true;
-            } else if (confirmTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
-                confirmTyped = true;
-            } else if (necessaryTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
-                necessaryTyped = true;
+        if (TransUtils.isNotEmpty(symptom)) {
+            boolean confirmTyped = false;
+            boolean typicalTyped = false;
+            boolean necessaryTyped = false;
+            for (int i = symptom.getContent().length() - 1; i >= 0; i--) {
+                if (typeTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
+                    typicalTyped = true;
+                } else if (confirmTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
+                    confirmTyped = true;
+                    break;
+                } else if (necessaryTypical.indexOf(symptom.getContent().charAt(i)) >= 0) {
+                    necessaryTyped = true;
+                }
             }
-        }
-        if (necessaryTyped) {
-            typedList.add(new NecessarySymptom(symptom));
-        } else if (!typicalTyped && !confirmTyped) {
-            typedList.add(new NormalSymptom(symptom));
-        } else if (confirmTyped) {
-            typedList.add(new ConfirmSymptom(symptom));
-        } else {
-            typedList.add(new TypicalSymptom(symptom));
+            if (necessaryTyped) {
+                typedList.add(new NecessarySymptom(symptom));
+            } else if (!typicalTyped && !confirmTyped) {
+                typedList.add(new NormalSymptom(symptom));
+            } else if (confirmTyped) {
+                typedList.add(new ConfirmSymptom(symptom));
+            } else {
+                typedList.add(new TypicalSymptom(symptom));
+            }
         }
     }
 
@@ -154,10 +169,43 @@ public class SymptomParser {
             }
             changedSymptom.get(symptom.getDisease()).add(symptom);
         }
+        String shortKey = getShortKey(changedSymptom.keySet());
+        if (StringUtils.isNotBlank(shortKey)) {
+            for (Map.Entry<String, List<Symptom>> entry : changedSymptom.entrySet()) {
+                if (!shortKey.equals(entry.getKey())) {
+                    for (Symptom cacheSymptom : changedSymptom.get(shortKey)) {
+                        Symptom symptom = new Symptom();
+                        cacheSymptom.copy(symptom);
+                        symptom.setDisease(entry.getKey());
+                        entry.getValue().add(symptom);
+                    }
+
+                }
+            }
+        }
         for (Map.Entry<String, List<Symptom>> entry : changedSymptom.entrySet()) {
-            chanceOneTypeSymptom(entry.getValue());
+            TransUtils.chanceOneTypeSymptom(entry.getValue(), entry.getKey());
         }
         return changedSymptom;
+    }
+
+    /**
+     * 获取最短的key
+     *
+     * @param keys
+     * @return
+     */
+    private static String getShortKey(Set<String> keys) {
+        String shortKey = "";
+        boolean containsTyped = false;
+        for (String key : keys) {
+            if (typedSymptom(key)) {
+                containsTyped = true;
+            } else if (StringUtils.isEmpty(shortKey) || key.length() <= shortKey.length()) {
+                shortKey = key;
+            }
+        }
+        return containsTyped ? shortKey : "";
     }
 
     /**
@@ -175,33 +223,9 @@ public class SymptomParser {
         return rtnList;
     }
 
-    /**
-     * 分配同一类概率
-     *
-     * @param symptomList
-     * @return
-     */
-    private static List<Symptom> chanceOneTypeSymptom(List<Symptom> symptomList) {
-        if (null != symptomList && !symptomList.isEmpty()) {
-            double totalWeight = 0.00001d;
-            for (Symptom symptom : symptomList) {
-                if (symptom instanceof TypicalSymptom || symptom instanceof NormalSymptom) {
-                    totalWeight += symptom.getWeight();
-                }
-            }
-            double perWeight = 1.0 / totalWeight;
-            for (Symptom symptom : symptomList) {
-                if (symptom instanceof TypicalSymptom || symptom instanceof NormalSymptom) {
-                    symptom.setChance(symptom.getWeight() * perWeight);
-                }
-            }
-        }
-        return symptomList;
-    }
-
 
     public static void main(String[] args) throws TransferException {
-        String symptomDesc = symptomNormalization("￥围生期窒息病史ª;宫内缺氧;胎盘功能异常;脐带≡脱垂|受压|绕颈;异常分娩;胎儿发育异常;呼吸暂停;严重e+肺部感染;心搏骤停;心动过缓;先天性心脏病,重度e+心力衰竭;大量e+失血;休克;颅内疾病:颅内出血;脑水肿;围生缺氧史;围生重度窒息史\n");
+        String symptomDesc = symptomNormalization("[发热期§突起高热;*惊厥;食欲减退∪不安∪轻咳;@咽部@@扁桃体@充血;头颈部浅表淋巴结肿大;症状#体征≡轻微];[出疹期§￥高热骤降至正常c+出现皮疹;￥玫瑰红色p+压之褪色p+较少融合p+散在p+斑疹|斑丘疹;→躯干皮疹→颈∪上肢∪脸∪下肢≡皮疹→持续24～48h皮疹消退→色素沉着n+&脱皮n+→]\n");
         System.out.println(chanceSymptom(typeSymptom(toSymptom(TransUtils.splitStrWithBracket(symptomDesc), "症状", "小儿维生素A缺乏病"))));
     }
 }
