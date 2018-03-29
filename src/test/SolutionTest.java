@@ -1,4 +1,4 @@
-package test;
+
 
 import lintcode.ListNode;
 import lintcode.Solution;

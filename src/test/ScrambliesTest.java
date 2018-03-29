@@ -1,4 +1,4 @@
-package test;
+
 
 import codewars.Scramblies;
 import org.junit.Test;

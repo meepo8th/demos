@@ -1,4 +1,4 @@
-package test;
+
 
 import codewars.SolutionFactZeroEnd;
 import org.junit.Test;

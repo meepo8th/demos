@@ -1,6 +1,8 @@
-package practice.student;
+
 
 import org.junit.Test;
+import practice.student.Student;
+import practice.student.StudentManager;
 
 public class StudentManagerTest {
     @Test

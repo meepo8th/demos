@@ -1,4 +1,4 @@
-package test;
+
 
 import codewars.SumOfK;
 import org.junit.Test;

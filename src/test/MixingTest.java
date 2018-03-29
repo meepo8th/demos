@@ -1,4 +1,4 @@
-package test;
+
 
 import codewars.Mixing;
 import org.junit.Test;

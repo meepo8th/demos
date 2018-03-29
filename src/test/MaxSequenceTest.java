@@ -1,4 +1,4 @@
-package test;
+
 
 import codewars.Max;
 import org.junit.Test;

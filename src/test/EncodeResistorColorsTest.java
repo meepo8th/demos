@@ -1,4 +1,4 @@
-package test;
+
 
 import codewars.EncodeResistorColors;
 import org.junit.Test;

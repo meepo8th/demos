@@ -1,4 +1,4 @@
-package test;
+
 
 import codewars.PerfectPower;
 import org.junit.Test;
