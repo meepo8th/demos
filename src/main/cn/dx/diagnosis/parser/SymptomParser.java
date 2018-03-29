@@ -5,7 +5,7 @@ import cn.dx.diagnosis.parser.transfer.*;
 import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
 import cn.dx.diagnosis.parser.transfer.exception.TransferException;
 import cn.dx.diagnosis.parser.transfer.inter.Transfer;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -225,7 +225,7 @@ public class SymptomParser {
 
 
     public static void main(String[] args) throws TransferException {
-        String symptomDesc = symptomNormalization("[发热期§突起高热;*惊厥;食欲减退∪不安∪轻咳;@咽部@@扁桃体@充血;头颈部浅表淋巴结肿大;症状#体征≡轻微];[出疹期§￥高热骤降至正常c+出现皮疹;￥玫瑰红色p+压之褪色p+较少融合p+散在p+斑疹|斑丘疹;→躯干皮疹→颈∪上肢∪脸∪下肢≡皮疹→持续24～48h皮疹消退→色素沉着n+&脱皮n+→]\n");
+        String symptomDesc = symptomNormalization("￥分娩时胎粪污染羊水|出生时@全身皮肤@@指趾甲@@脐带@≡黄绿色\\深绿色ª;￥呼吸急促|呼吸频率﹥60次/min;￥呼吸困难|三凹征|{发绀|青紫;鼻翼扇动;呻吟;一般氧疗无效};气道阻塞|桶状胸;两肺鼾音|粗湿啰音|中湿啰音|细湿啰音|喘鸣状呼吸;气胸;{持续肺动脉高压;心脏扩大∪肝大∪心衰表现};{意识障碍;颅压↑;惊厥};{红细胞增多症∪低血糖∪低钙血症∪肺出血}\n");
         System.out.println(chanceSymptom(typeSymptom(toSymptom(TransUtils.splitStrWithBracket(symptomDesc), "症状", "小儿维生素A缺乏病"))));
     }
 }

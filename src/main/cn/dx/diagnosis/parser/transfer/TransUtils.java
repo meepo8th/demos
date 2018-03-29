@@ -5,7 +5,7 @@ import cn.dx.diagnosis.parser.bean.Symptom;
 import cn.dx.diagnosis.parser.bean.TypicalSymptom;
 import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
 import cn.dx.diagnosis.parser.transfer.inter.Transfer;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -155,8 +155,9 @@ public class TransUtils {
      * @return
      */
     public static List<Symptom> chanceOneTypeSymptom(List<Symptom> symptomList, String key) {
-        return chanceOneTypeSymptom(symptomList,key,1);
+        return chanceOneTypeSymptom(symptomList, key, 1);
     }
+
     /**
      * 分配同一类概率
      *
@@ -164,7 +165,7 @@ public class TransUtils {
      * @param key
      * @return
      */
-    public static List<Symptom> chanceOneTypeSymptom(List<Symptom> symptomList, String key,double allChange) {
+    public static List<Symptom> chanceOneTypeSymptom(List<Symptom> symptomList, String key, double allChange) {
         if (null != symptomList && !symptomList.isEmpty()) {
             double totalWeight = 0.00001d;
             for (Symptom symptom : symptomList) {

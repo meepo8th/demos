@@ -2,7 +2,7 @@ package cn.dx.diagnosis.parser.transfer;
 
 import cn.dx.diagnosis.parser.transfer.exception.TransferException;
 import cn.dx.diagnosis.parser.transfer.inter.Transfer;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;

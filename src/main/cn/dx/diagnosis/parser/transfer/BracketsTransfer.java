@@ -4,7 +4,7 @@ import cn.dx.diagnosis.parser.bean.Brackets;
 import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
 import cn.dx.diagnosis.parser.transfer.exception.TransferException;
 import cn.dx.diagnosis.parser.transfer.inter.Transfer;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Deque;
 import java.util.HashSet;

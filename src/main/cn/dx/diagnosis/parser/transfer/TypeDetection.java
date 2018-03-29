@@ -1,6 +1,6 @@
 package cn.dx.diagnosis.parser.transfer;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * ‡|:类型识别器

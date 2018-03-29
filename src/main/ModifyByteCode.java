@@ -1,3 +1,5 @@
+
+
 import org.gjt.jclasslib.io.ClassFileWriter;
 import org.gjt.jclasslib.structures.CPInfo;
 import org.gjt.jclasslib.structures.ClassFile;

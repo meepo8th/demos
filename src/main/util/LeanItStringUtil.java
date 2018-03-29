@@ -3,7 +3,8 @@ package util;
 
 import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
-import com.mysql.jdbc.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -289,7 +290,7 @@ public class LeanItStringUtil {
                 rtn += ("" + cur + units[i]);
             }
         }
-        if (StringUtils.isNullOrEmpty(rtn)) {
+        if (StringUtils.isBlank(rtn)) {
             rtn = "0″";
         }
         return rtn;
@@ -302,7 +303,7 @@ public class LeanItStringUtil {
             String[] nums = nowValue.toString().split("\\.");
             String intValue = transAngelValue(Integer.valueOf(nums[0]));
             String suffixValue = "";
-            if (nums.length > 1 && !StringUtils.isNullOrEmpty(nums[1])) {
+            if (nums.length > 1 && !StringUtils.isBlank(nums[1])) {
                 if (intValue.endsWith("″")) {
                     intValue = intValue.replaceAll("″", "");
                 } else {
@@ -323,7 +324,7 @@ public class LeanItStringUtil {
      * @return
      */
     public static String transSearchText(String result) {
-        if (StringUtils.isNullOrEmpty(result)) {
+        if (StringUtils.isBlank(result)) {
             return "";
         }
         char[] content = result.toUpperCase().toCharArray();
