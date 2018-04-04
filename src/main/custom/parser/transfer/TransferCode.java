@@ -1,6 +1,4 @@
-package cn.dx.diagnosis.parser.transfer;
-
-import cn.dx.diagnosis.parser.transfer.inter.Transfer;
+package custom.parser.transfer;
 
 /**
  * 转换编/解码 防止被重复编码/解码

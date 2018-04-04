@@ -1,10 +1,8 @@
-package cn.dx.diagnosis.parser.transfer;
+package custom.parser.transfer;
 
-import cn.dx.diagnosis.parser.bean.NormalSymptom;
-import cn.dx.diagnosis.parser.bean.Symptom;
-import cn.dx.diagnosis.parser.bean.TypicalSymptom;
-import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
-import cn.dx.diagnosis.parser.transfer.inter.Transfer;
+import custom.parser.bean.NormalSymptom;
+import custom.parser.bean.Symptom;
+import custom.parser.bean.TypicalSymptom;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;

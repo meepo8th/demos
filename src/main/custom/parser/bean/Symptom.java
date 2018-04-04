@@ -1,7 +1,7 @@
-package cn.dx.diagnosis.parser.bean;
+package custom.parser.bean;
 
-import cn.dx.diagnosis.parser.transfer.SymptomUtil;
-import cn.dx.diagnosis.parser.transfer.exception.TransferException;
+import custom.parser.transfer.SymptomUtil;
+import custom.parser.transfer.exception.TransferException;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;

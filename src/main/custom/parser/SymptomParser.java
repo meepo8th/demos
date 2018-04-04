@@ -1,10 +1,10 @@
-package cn.dx.diagnosis.parser;
+package custom.parser;
 
-import cn.dx.diagnosis.parser.bean.*;
-import cn.dx.diagnosis.parser.transfer.*;
-import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
-import cn.dx.diagnosis.parser.transfer.exception.TransferException;
-import cn.dx.diagnosis.parser.transfer.inter.Transfer;
+import custom.parser.bean.*;
+import custom.parser.transfer.*;
+import custom.parser.transfer.exception.BracketsException;
+import custom.parser.transfer.exception.TransferException;
+import custom.parser.transfer.inter.Transfer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;

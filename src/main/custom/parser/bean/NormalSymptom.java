@@ -1,6 +1,6 @@
-package cn.dx.diagnosis.parser.bean;
+package custom.parser.bean;
 
-import cn.dx.diagnosis.parser.transfer.exception.TransferException;
+import custom.parser.transfer.exception.TransferException;
 
 /**
  * 普通症状

@@ -1,11 +1,9 @@
-package cn.dx.diagnosis.parser.bean;
+package custom.parser.bean;
 
-import cn.dx.diagnosis.parser.transfer.exception.AtsException;
-import cn.dx.diagnosis.parser.transfer.exception.BracketsException;
+import custom.parser.transfer.exception.AtsException;
+import custom.parser.transfer.exception.BracketsException;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 
 /**

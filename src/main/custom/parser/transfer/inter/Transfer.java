@@ -1,6 +1,6 @@
-package cn.dx.diagnosis.parser.transfer.inter;
+package custom.parser.transfer.inter;
 
-import cn.dx.diagnosis.parser.transfer.exception.TransferException;
+import custom.parser.transfer.exception.TransferException;
 
 /**
  * 诊断消息转换器

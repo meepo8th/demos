@@ -1,4 +1,4 @@
-package cn.dx.diagnosis.parser.transfer.exception;
+package custom.parser.transfer.exception;
 
 public class BracketsException extends TransferException {
     public static final String BRACKET_NOT_MATCH = "括号数量不匹配";

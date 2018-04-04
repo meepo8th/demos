@@ -1,4 +1,4 @@
-package cn.dx.diagnosis.parser.transfer;
+package custom.parser.transfer;
 
 import org.apache.commons.lang3.StringUtils;
 

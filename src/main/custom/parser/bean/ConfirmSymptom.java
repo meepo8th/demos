@@ -1,21 +1,20 @@
-package cn.dx.diagnosis.parser.bean;
+package custom.parser.bean;
 
 /**
- * 必备症状
+ * 确诊症状
  */
-public class NecessarySymptom extends Symptom {
+public class ConfirmSymptom extends Symptom {
 
-    public NecessarySymptom(Symptom symptom) {
+    public ConfirmSymptom(Symptom symptom) {
         symptom.copy(this);
     }
 
-    public NecessarySymptom() {
-
+    public ConfirmSymptom() {
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("{\"NecessarySymptom\":{");
+        final StringBuilder sb = new StringBuilder("{\"ConfirmSymptom\":{");
         sb.append("\"content\":\"")
                 .append(content).append('\"');
         sb.append(",\"source\":\"")
@@ -33,8 +32,9 @@ public class NecessarySymptom extends Symptom {
         sb.append("}}");
         return sb.toString();
     }
+
     @Override
-    public NecessarySymptom getNewInstance() {
-        return new NecessarySymptom();
+    public ConfirmSymptom getNewInstance() {
+        return new ConfirmSymptom();
     }
 }

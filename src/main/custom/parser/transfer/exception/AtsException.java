@@ -1,4 +1,4 @@
-package cn.dx.diagnosis.parser.transfer.exception;
+package custom.parser.transfer.exception;
 
 public class AtsException extends TransferException {
     public AtsException() {

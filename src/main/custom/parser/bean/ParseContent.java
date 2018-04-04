@@ -1,4 +1,4 @@
-package cn.dx.diagnosis.parser.bean;
+package custom.parser.bean;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

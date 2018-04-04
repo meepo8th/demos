@@ -1,24 +1,21 @@
-package cn.dx.diagnosis.parser.bean;
-
-import cn.dx.diagnosis.parser.transfer.exception.TransferException;
+package custom.parser.bean;
 
 /**
- * 典型症状
+ * 必备症状
  */
-public class TypicalSymptom extends Symptom {
+public class NecessarySymptom extends Symptom {
 
-    public TypicalSymptom() {
+    public NecessarySymptom(Symptom symptom) {
+        symptom.copy(this);
     }
 
-    public TypicalSymptom(Symptom symptom) throws TransferException {
-        symptom.copy(this);
-        //典型症状不根据来源算权重
-        this.weight = this.weight * 3 * getWeightRatio();
+    public NecessarySymptom() {
+
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("{\"TypicalSymptom\":{");
+        final StringBuilder sb = new StringBuilder("{\"NecessarySymptom\":{");
         sb.append("\"content\":\"")
                 .append(content).append('\"');
         sb.append(",\"source\":\"")
@@ -37,7 +34,7 @@ public class TypicalSymptom extends Symptom {
         return sb.toString();
     }
     @Override
-    public TypicalSymptom getNewInstance() {
-        return new TypicalSymptom();
+    public NecessarySymptom getNewInstance() {
+        return new NecessarySymptom();
     }
 }
