@@ -225,7 +225,7 @@ public class SymptomParser {
 
 
     public static void main(String[] args) throws TransferException {
-        String symptomDesc = symptomNormalization("￥分娩时胎粪污染羊水|出生时@全身皮肤@@指趾甲@@脐带@≡黄绿色\\深绿色ª;￥呼吸急促|呼吸频率﹥60次/min;￥呼吸困难|三凹征|{发绀|青紫;鼻翼扇动;呻吟;一般氧疗无效};气道阻塞|桶状胸;两肺鼾音|粗湿啰音|中湿啰音|细湿啰音|喘鸣状呼吸;气胸;{持续肺动脉高压;心脏扩大∪肝大∪心衰表现};{意识障碍;颅压↑;惊厥};{红细胞增多症∪低血糖∪低钙血症∪肺出血}\n");
+        String symptomDesc = symptomNormalization("￥眼部干燥|眼干燥症;眼部溃疡;￥眼角膜干燥&眼结合膜干燥;￥角膜软化症;毕脱斑;视力障碍|失明;￥蟾蜍皮病;￥暗适应障碍|夜盲;面部皮疹;面部黑头;体格发育↓;智能↓;牙釉质发育不良;反复f+呼吸道感染;味觉↓&嗅觉↓;腹泻;￥@四肢伸侧@毛囊性角化丘疹\n");
         System.out.println(chanceSymptom(typeSymptom(toSymptom(TransUtils.splitStrWithBracket(symptomDesc), "症状", "小儿维生素A缺乏病"))));
     }
 }
