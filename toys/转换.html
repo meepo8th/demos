@@ -2,12 +2,12 @@
 
 	<head>
 			<meta charset="UTF-8"> <!-- for HTML5 -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<script>
 			function text2json(text){
 				var arrays=text.split(";");
 				var rtn="{ \"content\": \"\",	\"weight\": 1,	\"relation\": \"\;\",\"child\":[";
-				for(i in arrays ){
+				for(var i in arrays ){
 					rtn+=("{\"content\":\""+arrays[i].trim()+"\",\"weight\": 1},")
 				}
 				rtn=rtn.replace(/,$/,"");
