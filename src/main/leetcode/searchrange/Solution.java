@@ -1,5 +1,8 @@
 package leetcode.searchrange;
 
+/**
+ * 范围查找
+ */
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         int[] rtn = new int[]{-1, -1};

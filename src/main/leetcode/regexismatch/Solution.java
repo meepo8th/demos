@@ -2,6 +2,9 @@ package leetcode.regexismatch;
 
 import java.util.Arrays;
 
+/**
+ * 正则表达式匹配
+ */
 class Solution {
     public boolean isMatch(String s, String p) {
         int i = 0, j = 0;

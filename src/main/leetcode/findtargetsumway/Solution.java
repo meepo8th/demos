@@ -3,6 +3,9 @@ package leetcode.findtargetsumway;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 找到目标数，动态规划思想
+ */
 class Solution {
     public int findTargetSumWays(int[] nums, int S) {
         Map<Integer, Integer>[] cache = new HashMap[nums.length];

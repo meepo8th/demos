@@ -1,7 +1,7 @@
 package leetcode.atoi;
 
 /**
- * atoi,如果超过了int范围就取最近的值，非法输入返回0
+ * atoi,如果超过了int范围就取最近的值，非法输入返回0，主要考虑边界
  */
 public class Solution {
     public int myAtoi(String str) {

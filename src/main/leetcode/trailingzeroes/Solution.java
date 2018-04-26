@@ -1,5 +1,8 @@
 package leetcode.trailingzeroes;
 
+/**
+ * 阶乘末尾的0，其实就是找5的个数
+ */
 class Solution {
     public int trailingZeroes(int n) {
         int sum = 0;
