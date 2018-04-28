@@ -2,20 +2,20 @@ package leetcode.int2roman;
 
 class Solution {
     public String intToRoman(int num) {
-        char[] romanChars = new char[]{'I', 'V', 'X', 'L', 'C', 'D', 'M'};
-        int[] romanValues = new int[]{1, 5, 10, 50, 100, 500, 1000};
-        StringBuilder sb = new StringBuilder();
-        while (num > 0) {
-            for (int i = romanValues.length - 1; i >= 0; i--) {
-                if (num / romanValues[i] > 0) {
-                    int last = num % romanValues[i];
-                    if (last % 4 == 0) {
+        if (num <= 0) return "";
+        StringBuilder ret = new StringBuilder();
+        int[] number = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] flags = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
-                    }
-                }
+        for (int i = 0; i < 13 && num > 0; i++) {
+            if (num < number[i]) continue;
+            while (num >= number[i]) {
+                num -= number[i];
+                ret.append(flags[i]);
             }
+
         }
-        return sb.toString();
+        return ret.toString();
     }
 
     public static void main(String[] args) {
