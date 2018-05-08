@@ -1,5 +1,7 @@
 package leetcode.int2roman;
 
+import java.io.IOException;
+
 class Solution {
     public String intToRoman(int num) {
         if (num <= 0) return "";
@@ -18,7 +20,10 @@ class Solution {
         return ret.toString();
     }
 
-    public static void main(String[] args) {
-        System.out.println(new Solution().intToRoman(3));
+    public static void main(String args[]) throws IOException, InterruptedException {
+        for (int i = 0; i < 100000; i++) {
+            System.out.println(1);
+            System.out.print((char)13);
+        }
     }
 }

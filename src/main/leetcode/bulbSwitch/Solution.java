@@ -1,16 +1,25 @@
 package leetcode.bulbSwitch;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     public int bulbSwitch(int n) {
         int count = 0;
+        Map<Integer, Integer> cache = new HashMap<>();
         for (int i = 1; i <= n; i++) {
             int now = 0;
             for (int j = 1; j * j <= i; j++) {
                 if (i % j == 0) {
-                    now++;
+                    if (j * j == i) {
+                        now += 1;
+                    } else {
+                        now += 2;
+                    }
                 }
             }
-            if (now % 2 == 0) {
+            cache.put(i, now);
+            if (now % 2 == 1) {
                 count++;
             }
         }
@@ -18,6 +27,8 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().bulbSwitch(6));
+        long l1 = System.currentTimeMillis();
+        System.out.println(new Solution().bulbSwitch(999999));
+        System.out.println(System.currentTimeMillis() - l1);
     }
 }
