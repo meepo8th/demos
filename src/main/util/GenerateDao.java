@@ -60,20 +60,69 @@ public class GenerateDao {
         generateClassFile(outpath, tableName);
     }
 
+    public void generateSqlFile(String tableName) {
+        String outpath = "/generateSql/";
+        generateSqlFile(outpath, tableName);
+    }
+
     public void generateClassFile(String path, String tableName) {
         String classContent = generateClassString(tableName);
         if (!new File(path).exists()) {
             new File(path).mkdirs();
         }
-        String fileName = path + "/" + LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(tableName)) + ".java";
-        File classFile = new File(fileName);
-        if (classFile.exists()) {
-            classFile.delete();
+        createAndWriteFile(path, tableName, classContent, ".java", "%s class file complete\r\n");
+    }
+
+    public void generateSqlFile(String path, String tableName) {
+        String classContent = generatSqlString(tableName);
+        if (!new File(path).exists()) {
+            new File(path).mkdirs();
+        }
+        createAndWriteFile(path, tableName, classContent, ".sql", "%s sql file complete\r\n");
+    }
+
+    private String generatSqlString(String tableName) {
+        Connection conn = null;
+        StringBuffer sb = new StringBuffer();
+        try {
+            conn = DriverManager.getConnection(connectStr);
+            Statement stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery(String.format(typeSql.get(connectType), tableName));// executeQuery会返回结果的集合，否则返回空值
+            String columnFormat = "    %s,%s\r\n";
+            String name;
+            String fieldName;
+
+            while (rs.next()) {
+                name = rs.getString("name");
+                fieldName = ( "get"+LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(name))+"();");
+                sb.append(String.format(columnFormat, name, fieldName));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != conn) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        sb.append("}");
+        return sb.toString();
+    }
+
+    private void createAndWriteFile(String path, String tableName, String classContent, String s, String s2) {
+        String sqlFileName = path + "/" + LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(tableName)) + s;
+        File sqlFile = new File(sqlFileName);
+        if (sqlFile.exists()) {
+            sqlFile.delete();
         }
         BufferedWriter bufferedWriter = null;
         try {
-            classFile.createNewFile();
-            bufferedWriter = new BufferedWriter(new FileWriter(classFile));
+            sqlFile.createNewFile();
+            bufferedWriter = new BufferedWriter(new FileWriter(sqlFile));
             bufferedWriter.write(classContent);
             bufferedWriter.flush();
             bufferedWriter.close();
@@ -89,7 +138,7 @@ public class GenerateDao {
                 }
             }
         }
-        System.out.format("%s class file complete\r\n", fileName);
+        System.out.format(s2, sqlFileName);
     }
 
     public String generateClassString(String tableName) {
@@ -122,8 +171,6 @@ public class GenerateDao {
                 }
                 sb.append(String.format(columnFormat, sqlType, type, LeanItStringUtil.transLateUnderLine2Upper(name), comment));
             }
-            System.out.println(columnNames);
-            System.out.println(columnValues);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -140,17 +187,17 @@ public class GenerateDao {
     }
 
     public static void main(String[] args) throws Exception {
-        String connectStr = "jdbc:mysql://115.28.243.207:3306/totalstation?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&user=totalstation&password=totalstation@207";
-        String[] tables = new String[]{"t_road",
-                "t_road_coordinate",
-                "t_road_jdcoordinate",
-                "t_road_curve",
-                "t_road_slope",
-                "t_road_breaklink"
+        String connectStr = "jdbc:mysql://192.168.2.205:3306/openfire?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Hongkong&user=root&password=root";
+        String[] tables = new String[]{"t_disease",
+                "t_parse_disease",
+                "t_parse_symptom",
+                "t_parse_properties",
+                "t_parse_symptom_properties",
         };
         GenerateDao generateDao = new GenerateDao(connectStr);
         for (String table : tables) {
             generateDao.generateClassFile(table);
+            generateDao.generateSqlFile(table);
         }
     }
 }
