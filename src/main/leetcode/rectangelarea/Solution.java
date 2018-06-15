@@ -3,10 +3,12 @@ package leetcode.rectangelarea;
 class Solution {
     public int rectangleArea(int[][] rectangles) {
         int sum = 0;
-        long mod = (long) (Math.pow(10,9)+7);
-        for (int[] rectangle:rectangles) {
-            long cache = 1L*(rectangle[3]-rectangle[1])*(rectangle[2]-rectangle[0]);
-            sum+=cache%(mod);
+        long mod = (long) (Math.pow(10, 9) + 7);
+        for (int i = 0; i < rectangles.length; i++) {
+            int[] rectangle = rectangles[i];
+
+            long cache = 1L * (rectangle[3] - rectangle[1]) * (rectangle[2] - rectangle[0]);
+            sum += cache % (mod);
         }
         return sum;
     }
