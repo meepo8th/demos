@@ -5,11 +5,13 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Main {
     public static void main(String[] args) {
-        translate("3");
+        System.out.println(translate("?"));
     }
 
-    public static void translate(String areaDesc) {
+    public static long translate(String areaDesc) {
         long days = -1;
+        String units = "岁月天";
+        int[] unitTrans = new int[]{365, 30, 1};
         if (StringUtils.isNotBlank(areaDesc)) {
             int start = -1;
             int end = -1;
@@ -23,17 +25,20 @@ public class Main {
                         end = i;
                     }
                 } else {
-                    System.err.println("格式错误：" + areaDesc);
-                    break;
+                    if (!"?".equals(areaDesc)) {
+                        System.err.println("格式错误：" + areaDesc);
+                        break;
+                    }
                 }
 
-                if (start >= 0 && end >=start) {
-                    System.out.println("number:" + areaDesc.substring(start, end) + ",unit:" + areaDesc.substring(end , end+1));
+                if (start >= 0 && end >= start) {
+                    days += (Integer.valueOf(areaDesc.substring(start, end)) * unitTrans[units.indexOf(areaDesc.substring(end, end + 1))]);
                     start = -1;
                     end = -1;
                 }
             }
         }
+        return days;
     }
 
     private static boolean isValidUnit(char c) {
