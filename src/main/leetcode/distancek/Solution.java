@@ -37,7 +37,7 @@ class Solution {
     }
 
     public TreeNode buildTree(Integer[] array) {
-        List<TreeNode> queue = new ArrayList<>();
+        List<TreeNode> queue = new LinkedList<>();
         TreeNode node = new TreeNode(array[0]);
         queue.add(node);
         int i = 1;
