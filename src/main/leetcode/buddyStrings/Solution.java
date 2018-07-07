@@ -25,6 +25,7 @@ class Solution {
                 for (int j = i + 1; j < B.length(); j++) {
                     if (A.charAt(i) == B.charAt(j)) {
                         return true;
+
                     }
                 }
             }
