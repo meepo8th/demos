@@ -1,7 +1,9 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 树节点
@@ -60,12 +62,17 @@ public class TreeNode {
      * @param parent
      * @param node
      * @param treeNodes
+     * @param levels
      */
-    public static void traversals(TreeNode parent, TreeNode node, int level, TreeNodeWithParentLevel[] treeNodes) {
+    public static void traversals(TreeNodeWithParentLevel parent, TreeNode node, int level, TreeNodeWithParentLevel[] treeNodes, Map<Integer, List<TreeNodeWithParentLevel>> levels) {
         if (null != node) {
             treeNodes[node.val] = new TreeNodeWithParentLevel(node, parent, level);
-            traversals(node, node.left, level + 1, treeNodes);
-            traversals(node, node.right, level + 1, treeNodes);
+            if (!levels.containsKey(level)) {
+                levels.put(level, new ArrayList<>());
+            }
+            levels.get(level).add(treeNodes[node.val]);
+            traversals(treeNodes[node.val], node.left, level + 1, treeNodes, levels);
+            traversals(treeNodes[node.val], node.right, level + 1, treeNodes, levels);
         }
     }
 }
