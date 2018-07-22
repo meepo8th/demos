@@ -1,12 +1,11 @@
 package leetcode.leafSimilar;
 
-import lintcode.BuildTree;
-import lintcode.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+
+
+import leetcode.TreeNode;
+
+import java.util.*;
 
 /**
  * Definition for a binary tree node.
@@ -27,24 +26,25 @@ class Solution {
     private List<Integer> findAllLeaf(TreeNode root) {
         List<Integer> leaf = new ArrayList<>();
         Deque<TreeNode> queue = new ArrayDeque<>();
-        queue.offer(root);
+        queue.push(root);
         while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
+            TreeNode node = queue.pop();
             if (null != node.left) {
-                queue.offer(node.left);
+                queue.push(node.left);
             }
             if (null != node.right) {
-                queue.offer(node.right);
+                queue.push(node.right);
             }
 
-            if (null == leaf && null == node.right) {
+            if (null == node.left && null == node.right) {
                 leaf.add(node.val);
             }
         }
         return leaf;
     }
 
+
     public static void main(String[] args){
-        System.out.println(new Solution().leafSimilar(BuildTree.class));
+        System.out.println(new Solution().leafSimilar(TreeNode.buildTree(new Integer[]{1,2,3}),TreeNode.buildTree(new Integer[]{1,3,2})));
     }
 }
