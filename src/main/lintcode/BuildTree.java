@@ -19,7 +19,7 @@ public class BuildTree {
      *@param inorder : A list of integers that inorder traversal of a tree
      *@return : Root of a tree
      */
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
+    public static TreeNode buildTree(int[] preorder, int[] inorder) {
         if(preorder.length==inorder.length&&preorder.length>0){
             return null;
         }else{
