@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class OnlyFunny {
     public static void main(String[] args) {
-        int[] array = new int[100000];
+        int[] array = new int[10000];
         for (int i = 0; i < 3; i++) {
             sortAndPrint(array);
         }
@@ -16,7 +16,7 @@ public class OnlyFunny {
 
     private static void sortAndPrint(int[] array) {
         randomArray(array);
-        System.out.println(Arrays.toString(array));
+//        System.out.println(Arrays.toString(array));
         long l1 = System.currentTimeMillis();
         quickSort(array);
         System.out.format("use:%d\r\n", System.currentTimeMillis() - l1);
@@ -84,10 +84,13 @@ public class OnlyFunny {
         if (start >= end) {
             return;
         }
-        int newStart = start + new Random().nextInt(end - start);
-        int tmp = array[newStart];
-        array[newStart] = array[start];
-        array[start] = tmp;
+        int tmp;
+        if (end - start > 15) {
+            int newStart = start + new Random().nextInt(end - start);
+            tmp = array[newStart];
+            array[newStart] = array[start];
+            array[start] = tmp;
+        }
         int base = array[start];
         int i = start, j = end;
         while (i != j) {
