@@ -16,7 +16,7 @@ public class OnlyFunny {
 
     private static void sortAndPrint(int[] array) {
         randomArray(array);
-//        System.out.println(Arrays.toString(array));
+        System.out.println(Arrays.toString(array));
         long l1 = System.currentTimeMillis();
         quickSort(array);
         System.out.format("use:%d\r\n", System.currentTimeMillis() - l1);
