@@ -54,6 +54,13 @@
             <systemPath>${project.basedir}/lib/jclasslib-library.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>tools</artifactId>
+            <version>library</version>
+            <scope>system</scope>
+            <systemPath>C:/Program Files/Java/jdk1.8.0_162/lib/tools.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>com.netflix.devinsight.rewrite</groupId>
             <artifactId>rewrite-core</artifactId>
             <version>1.2.0</version>
