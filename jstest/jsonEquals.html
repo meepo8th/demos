@@ -1,0 +1,36 @@
+<html>
+<head>
+    <script>
+        function testJsonEquals() {
+            var jsonStringA = "{}"
+            jsonA = JSON.parse(jsonStringA);
+            var jsonStringB = "{}"
+            jsonB = JSON.parse(jsonStringB);
+            console.log(jsonEquals(jsonA, jsonB));
+        }
+
+        function jsonEquals(A, B) {
+            var simpleTypes = ["number", "boolean", "undefined", "string"];
+            var typeA = typeof A;
+            var typeB = typeof B;
+            if (A instanceof Object && B instanceof Object) {
+                if (A.keys()) {
+
+                }
+            } else if (A instanceof Array && B instanceof Array) {
+                if (A.size() != B.size()) {
+                    return false;
+                } else {
+
+                }
+            } else {
+                return A == B;
+            }
+        }
+
+    </script>
+</head>
+<body>
+<button onclick="testJsonEquals()" value="测试"></button>
+</body>
+<html/>
