@@ -8,10 +8,7 @@ import java.util.Random;
  */
 public class OnlyFunny {
     public static void main(String[] args) {
-        int[] array = new int[10000000];
-        for (int i = 0; i < 3; i++) {
-            sortAndPrint(array);
-        }
+        System.out.println(Long.valueOf("111",2));
     }
 
     private static void sortAndPrint(int[] array) {

@@ -53,6 +53,11 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/jclasslib-library.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>com.netflix.devinsight.rewrite</groupId>
+            <artifactId>rewrite-core</artifactId>
+            <version>1.2.0</version>
+        </dependency>
 
     </dependencies>
     <build>
