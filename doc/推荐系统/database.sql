@@ -21,7 +21,7 @@ CREATE TABLE ai_article_comment (
 	id INT (11) AUTO_INCREMENT COMMENT '自增id(主键)',
 	article_id INT (11) COMMENT '文章id',
 	user_id INT (11) COMMENT '用户id',
-	ref_comment_id INT (11) COMMENT '回复评论id',
+	ref_id INT (11) COMMENT '回复评论id',
 	comment_content VARCHAR (512) COMMENT '评论内容',
 	like_count INT (11) COMMENT '点赞数',
 	dis_like_count INT (11) COMMENT '点踩数',
