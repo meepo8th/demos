@@ -74,6 +74,7 @@ IF EXISTS ai_tag_content;
 CREATE TABLE ai_tag_content (
 	id INT (11) AUTO_INCREMENT COMMENT '自增id(主键)',
 	content VARCHAR (512) COMMENT '标签内容',
+	ratio INT COMMENT '标签热度',
 	PRIMARY KEY (id)
 ) COMMENT = '标签表';
 
@@ -91,6 +92,44 @@ CREATE TABLE ai_article (
 	pic VARCHAR (1024),
 	vedio VARCHAR (256),
 	url VARCHAR (256),
+	like_count INT (11),
+	dis_like_count INT (11),
 	PRIMARY KEY (id)
 ) COMMENT = '文章表';
+
+-- 文章点赞表
+DROP TABLE
+IF EXISTS ai_article_like;
+
+CREATE TABLE ai_article_like (
+	id INT (11) AUTO_INCREMENT COMMENT '自增id(主键)',
+	article_id INT (11) COMMENT '文章id',
+	user_id INT (11) COMMENT '用户id',
+	STATUS SMALLINT COMMENT '点赞情况1:点赞,-1:点踩,0:未操作',
+	PRIMARY KEY (id)
+) COMMENT = '文章点赞表';
+
+CREATE UNIQUE INDEX uni_article_like ON ai_article_like (article_id, user_id);
+
+CREATE INDEX idx_article_like_user ON ai_article_like (user_id);
+
+CREATE INDEX idx_article_like_article ON ai_article_like (article_id, STATUS);
+
+-- 评论点赞表
+DROP TABLE
+IF EXISTS ai_comment_like;
+
+CREATE TABLE ai_comment_like (
+	id INT (11) AUTO_INCREMENT COMMENT '自增id(主键)',
+	comment_id INT (11) COMMENT '评论id',
+	user_id INT (11) COMMENT '用户id',
+	STATUS SMALLINT COMMENT '点赞情况1:点赞,-1:点踩,0:未操作',
+	PRIMARY KEY (id)
+) COMMENT = '评论点赞表';
+
+CREATE UNIQUE INDEX uni_comment_like ON ai_comment_like (comment_id, user_id);
+
+CREATE INDEX idx_comment_like_user ON ai_comment_like (user_id);
+
+CREATE INDEX idx_comment_like_article ON ai_comment_like (comment_id, STATUS);
 
