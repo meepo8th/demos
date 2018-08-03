@@ -188,11 +188,8 @@ public class GenerateDao {
 
     public static void main(String[] args) throws Exception {
         String connectStr = "jdbc:mysql://192.168.2.205:3306/database_user?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Hongkong&user=root&password=root";
-        String[] tables = new String[]{"ai_user_log",
-                "ai_article_comment",
-                "ai_user_tag",
-                "ai_article_tag",
-                "ai_tag_content","ai_article"
+        String[] tables = new String[]{"ai_article_like",
+                "ai_comment_like"
         };
         GenerateDao generateDao = new GenerateDao(connectStr);
         for (String table : tables) {
