@@ -115,6 +115,24 @@ CREATE INDEX idx_article_like_user ON ai_article_like (user_id);
 
 CREATE INDEX idx_article_like_article ON ai_article_like (article_id, STATUS);
 
+-- 文章收藏表
+DROP TABLE
+IF EXISTS ai_article_collect;
+
+CREATE TABLE ai_article_collect (
+	id INT (11) AUTO_INCREMENT COMMENT '自增id(主键)',
+	article_id INT (11) COMMENT '文章id',
+	user_id INT (11) COMMENT '用户id',
+	STATUS SMALLINT COMMENT '收藏情况1:收藏;0:未收藏',
+	PRIMARY KEY (id)
+) COMMENT = '文章点赞表';
+
+CREATE UNIQUE INDEX uni_article_collect ON ai_article_collect (article_id, user_id);
+
+CREATE INDEX idx_articlecollect_user ON ai_article_collect (user_id);
+
+CREATE INDEX idx_article_collect_article ON ai_article_collect (article_id, STATUS);
+
 -- 评论点赞表
 DROP TABLE
 IF EXISTS ai_comment_like;
