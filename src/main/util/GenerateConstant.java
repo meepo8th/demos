@@ -9,6 +9,7 @@ public class GenerateConstant {
     public static final String TYPE_MYSQL = "MYSQL";
     public static final String MY_SQL_CLASS = "com.mysql.jdbc.Driver";
     public static final String MY_SQL_SQL_COLUMN = "select column_name name, column_comment comment,data_type type from information_schema.columns where table_schema='%s' and table_name ='%s' order by table_name";
+    public static final String MY_SQL_SQL_COLUMN_DESIGN = "select column_name name, column_comment comment,column_type type from information_schema.columns where table_schema='%s' and table_name ='%s' order by table_name";
     public static final String MY_SQL_SQL_TABLE = "select * from information_schema.`TABLES` where TABLE_SCHEMA='%s' and table_name='%s' order by table_name";
     public static final String MY_SQL_SQL_TABLE_ALL = "select * from information_schema.`TABLES` where TABLE_SCHEMA='%s' order by table_name";
     public static final String MY_SQL_SQL_INDEX = "show index from %s.%s";

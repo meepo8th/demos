@@ -27,7 +27,7 @@ public class GenerateDatabaseDesign {
     }};
 
     private static HashMap<String, String> typeColumnSql = new HashMap() {{
-        put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL_COLUMN);
+        put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL_COLUMN_DESIGN);
     }};
 
     private static HashMap<String, String> typeTableSql = new HashMap() {{
