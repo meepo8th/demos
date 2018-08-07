@@ -14,7 +14,8 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|PRIMARY|唯一索引|,id|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
 
 
 - ai_article_collect 文章点赞表
@@ -28,7 +29,11 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|idx_article_collect_article|普通索引|,id,article_id,user_id,user_id,article_id,STATUS|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
+|uni_article_collect|普通索引|article_id,user_id|无|
+|idx_articlecollect_user|普通索引|user_id|无|
+|idx_article_collect_article|普通索引|article_id,STATUS|无|
 
 
 - ai_article_comment 文章评论表,记录文章评论
@@ -46,7 +51,10 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|idx_comment_user|普通索引|,id,article_id,user_id|无|
+||唯一索引||无|
+|PRIMARY|普通索引|id|无|
+|idx_comment_article|普通索引|article_id|无|
+|idx_comment_user|普通索引|user_id|无|
 
 
 - ai_article_like 文章点赞表
@@ -60,7 +68,11 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|idx_article_like_article|普通索引|,id,article_id,user_id,user_id,article_id,status|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
+|uni_article_like|普通索引|article_id,user_id|无|
+|idx_article_like_user|普通索引|user_id|无|
+|idx_article_like_article|普通索引|article_id,status|无|
 
 
 - ai_article_tag 用户标签表
@@ -75,7 +87,9 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|uni_article_tag|唯一索引|,id,article_id,tag_id|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
+|uni_article_tag|唯一索引|article_id,tag_id|无|
 
 
 - ai_comment_like 评论点赞表
@@ -89,7 +103,11 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|idx_comment_like_article|普通索引|,id,comment_id,user_id,user_id,comment_id,status|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
+|uni_comment_like|普通索引|comment_id,user_id|无|
+|idx_comment_like_user|普通索引|user_id|无|
+|idx_comment_like_article|普通索引|comment_id,status|无|
 
 
 - ai_sys_info 
@@ -117,7 +135,9 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|uni_tag_content|唯一索引|,id,content|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
+|uni_tag_content|唯一索引|content|无|
 
 
 - ai_user_log 用户日志表,记录所有用户操作日志
@@ -133,7 +153,8 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|PRIMARY|唯一索引|,id|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
 
 
 - ai_user_tag 用户标签表
@@ -150,7 +171,11 @@
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|idx_tag_user_type_order|普通索引|,id,user_id,tag_id,tag_id,user_id,tag_type,tag_order|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
+|uni_user_tag|普通索引|user_id,tag_id|无|
+|idx_tag_user|普通索引|tag_id|无|
+|idx_tag_user_type_order|普通索引|user_id,tag_type,tag_order|无|
 
 
 - deviceinfo 参数名称	参数说明	备注
@@ -173,7 +198,9 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|device_sn_index|普通索引|,id,device_sn|无|
+||唯一索引||无|
+|PRIMARY|普通索引|id|无|
+|device_sn_index|普通索引|device_sn|无|
 
 
 - springboot_permission 
@@ -192,7 +219,8 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|PRIMARY|唯一索引|,id|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
 
 
 - springboot_role 
@@ -210,7 +238,8 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|PRIMARY|唯一索引|,id|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
 
 
 - springboot_role_permission 
@@ -229,7 +258,10 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|rolepermissionfkid2|普通索引|,id,permissionid,roleId|无|
+||唯一索引||无|
+|PRIMARY|普通索引|id|无|
+|rolepermissionfkid|普通索引|permissionid|无|
+|rolepermissionfkid2|普通索引|roleId|无|
 
 
 - springboot_user 
@@ -255,7 +287,8 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|PRIMARY|唯一索引|,id|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
 
 
 - springboot_user_role 
@@ -274,7 +307,10 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|roleidfk|普通索引|,id,userId,roleId|无|
+||唯一索引||无|
+|PRIMARY|普通索引|id|无|
+|useridfk|普通索引|userId|无|
+|roleidfk|普通索引|roleId|无|
 
 
 - toutiao 
@@ -293,6 +329,7 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
-|PRIMARY|唯一索引|,id|无|
+||唯一索引||无|
+|PRIMARY|唯一索引|id|无|
 
 
