@@ -1,6 +1,8 @@
 package util;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -154,13 +156,15 @@ public class GenerateDatabaseDesign {
             String cols = "";
             String type = "";
             while (rs.next()) {
-                name = rs.getString("Key_name");
                 type = rs.getString("Non_unique");
                 if (name.equals(rs.getString("Key_name"))) {
                     cols += ("," + rs.getString("Column_name"));
                 } else {
-                    sb.append(String.format(columnFormat, name, "0".equals(type) ? "唯一索引" : "普通索引", cols, comment));
+                    if (!StringUtils.isEmpty(name)) {
+                        sb.append(String.format(columnFormat, name, "0".equals(type) ? "唯一索引" : "普通索引", cols, comment));
+                    }
                     cols = rs.getString("Column_name");
+                    name = rs.getString("Key_name");
                 }
             }
             if (!sb.toString().contains(String.format(columnFormat, name, "0".equals(type) ? "唯一索引" : "普通索引", cols, comment))) {
