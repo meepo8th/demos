@@ -120,7 +120,7 @@ public class GenerateDatabaseDesign {
      * @return
      */
     private String generateColumnString(String user, String tableName) {
-        StringBuffer sb = new StringBuffer("|列名|类型|列注释|\r\n");
+        StringBuffer sb = new StringBuffer("|列名|类型|列注释|\r\n|----|------|----|\r\n");
         try (Connection conn = DriverManager.getConnection(connectStr); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(String.format(typeColumnSql.get(connectType), user, tableName))) {
             String columnFormat = "|%s|%s|%s|\r\n";
             String name;
@@ -146,7 +146,7 @@ public class GenerateDatabaseDesign {
      * @return
      */
     private String generateIndexString(String userName, String tableName) {
-        StringBuffer sb = new StringBuffer("|索引名称|索引类型|索引字段|索引注释|\r\n");
+        StringBuffer sb = new StringBuffer("|索引名称|索引类型|索引字段|索引注释|\r\n|----|------|----|---|\r\n");
         try (Connection conn = DriverManager.getConnection(connectStr); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(String.format(typeIndexSql.get(connectType), userName, tableName))) {
             String columnFormat = "|%s|%s|%s|%s|\r\n";
             String name = "";
@@ -154,14 +154,14 @@ public class GenerateDatabaseDesign {
             String cols = "";
             String type = "";
             while (rs.next()) {
+                name = rs.getString("Key_name");
+                type = rs.getString("Non_unique");
                 if (name.equals(rs.getString("Key_name"))) {
                     cols += ("," + rs.getString("Column_name"));
                 } else {
+                    sb.append(String.format(columnFormat, name, "0".equals(type) ? "唯一索引" : "普通索引", cols, comment));
                     cols = rs.getString("Column_name");
                 }
-                name = rs.getString("Key_name");
-                type = rs.getString("Non_unique");
-                sb.append(String.format(columnFormat, name, "0".equals(type) ? "唯一索引" : "普通索引", cols, comment));
             }
             if (!sb.toString().contains(String.format(columnFormat, name, "0".equals(type) ? "唯一索引" : "普通索引", cols, comment))) {
                 sb.append(String.format(columnFormat, name, "0".equals(type) ? "唯一索引" : "普通索引", cols, comment));
@@ -243,6 +243,6 @@ public class GenerateDatabaseDesign {
     public static void main(String[] args) throws Exception {
         String connectStr = "jdbc:mysql://192.168.2.205:3306/database_user?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Hongkong&user=root&password=root";
         GenerateDatabaseDesign generateDatabaseDesign = new GenerateDatabaseDesign(connectStr);
-        generateDatabaseDesign.generateClassFile("f:/databaseDesign","database_user");
+        generateDatabaseDesign.generateClassFile("f:/databaseDesign", "database_user");
     }
 }
