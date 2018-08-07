@@ -22,7 +22,7 @@ public class GenerateDao {
     }};
 
     private static HashMap<String, String> typeSql = new HashMap() {{
-        put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL);
+        put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL_COLUMN);
     }};
 
     private static HashMap<String, HashMap<String, String>> typeConvert = new HashMap() {{
@@ -188,8 +188,7 @@ public class GenerateDao {
 
     public static void main(String[] args) throws Exception {
         String connectStr = "jdbc:mysql://192.168.2.205:3306/database_user?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Hongkong&user=root&password=root";
-        String[] tables = new String[]{"ai_article_like",
-                "ai_comment_like"
+        String[] tables = new String[]{"ai_user_tag"
         };
         GenerateDao generateDao = new GenerateDao(connectStr);
         for (String table : tables) {
