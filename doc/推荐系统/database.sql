@@ -43,6 +43,7 @@ CREATE TABLE ai_user_tag (
 	tag_id INT (11) COMMENT '标签id',
 	tag_type INT(3) COMMENT '标签类型:0:用户添加 1:系统添加',
 	tag_ratio INT COMMENT '标签评分',
+	tag_order INT COMMENT '标签排序',
 	tag_time BIGINT COMMENT '标签时间',
 	PRIMARY KEY (id)
 ) COMMENT = '用户标签表';
@@ -50,6 +51,8 @@ CREATE TABLE ai_user_tag (
 CREATE UNIQUE INDEX uni_user_tag ON ai_user_tag (user_id, tag_id);
 
 CREATE INDEX idx_tag_user ON ai_user_tag (tag_id);
+CREATE INDEX idx_tag_user_type_order ON ai_user_tag (user_id,tag_type,tag_order);
+
 
 -- 文章标签表
 DROP TABLE
