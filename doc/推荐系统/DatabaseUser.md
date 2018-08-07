@@ -2,15 +2,15 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
+|id|int(11)|自增id(主键)|
 |info|text|内容|
 |content|text|格式化内容|
-|TITLE|varchar||
-|pic|varchar||
-|vedio|varchar||
-|url|varchar||
-|like_count|int||
-|dis_like_count|int||
+|TITLE|varchar(256)||
+|pic|varchar(1024)||
+|vedio|varchar(256)||
+|url|varchar(256)||
+|like_count|int(11)||
+|dis_like_count|int(11)||
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -21,10 +21,10 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
-|article_id|int|文章id|
-|user_id|int|用户id|
-|STATUS|smallint|收藏情况1:收藏;0:未收藏|
+|id|int(11)|自增id(主键)|
+|article_id|int(11)|文章id|
+|user_id|int(11)|用户id|
+|STATUS|smallint(6)|收藏情况1:收藏;0:未收藏|
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -38,14 +38,14 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
-|article_id|int|文章id|
-|user_id|int|用户id|
-|ref_id|int|回复评论id|
-|comment_content|varchar|评论内容|
-|like_count|int|点赞数|
-|dis_like_count|int|点踩数|
-|comment_time|bigint|评论时间戳|
+|id|int(11)|自增id(主键)|
+|article_id|int(11)|文章id|
+|user_id|int(11)|用户id|
+|ref_id|int(11)|回复评论id|
+|comment_content|varchar(512)|评论内容|
+|like_count|int(11)|点赞数|
+|dis_like_count|int(11)|点踩数|
+|comment_time|bigint(20)|评论时间戳|
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -58,10 +58,10 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
-|article_id|int|文章id|
-|user_id|int|用户id|
-|status|smallint|点赞情况1:点赞,-1:点踩,0:未操作|
+|id|int(11)|自增id(主键)|
+|article_id|int(11)|文章id|
+|user_id|int(11)|用户id|
+|status|smallint(6)|点赞情况1:点赞,-1:点踩,0:未操作|
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -75,11 +75,11 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
-|article_id|int|用户id|
-|tag_id|int|标签id|
-|tag_ratio|int|标签评分|
-|tag_time|bigint|标签时间|
+|id|int(11)|自增id(主键)|
+|article_id|int(11)|用户id|
+|tag_id|int(11)|标签id|
+|tag_ratio|int(11)|标签评分|
+|tag_time|bigint(20)|标签时间|
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -91,10 +91,10 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
-|comment_id|int|评论id|
-|user_id|int|用户id|
-|status|smallint|点赞情况1:点赞,-1:点踩,0:未操作|
+|id|int(11)|自增id(主键)|
+|comment_id|int(11)|评论id|
+|user_id|int(11)|用户id|
+|status|smallint(6)|点赞情况1:点赞,-1:点踩,0:未操作|
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -108,11 +108,11 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|para_name|varchar|苹果最新版本|
-|para_value|varchar||
-|description|varchar||
+|para_name|varchar(255)|苹果最新版本|
+|para_value|varchar(255)||
+|description|varchar(255)||
 |para_text|text||
-|para_type|varchar||
+|para_type|varchar(10)||
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -123,9 +123,9 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
-|content|varchar|标签内容|
-|ratio|int|标签热度|
+|id|int(11)|自增id(主键)|
+|content|varchar(512)|标签内容|
+|ratio|int(11)|标签热度|
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -137,12 +137,12 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
-|user_id|int|用户ID|
-|log_type|int|日志类型|
-|log_value|varchar|日志内容|
-|log_detail|varchar|日志详情|
-|log_time|bigint|日志时间戳|
+|id|int(11)|自增id(主键)|
+|user_id|int(11)|用户ID|
+|log_type|int(3)|日志类型|
+|log_value|varchar(1024)|日志内容|
+|log_detail|varchar(128)|日志详情|
+|log_time|bigint(20)|日志时间戳|
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -153,13 +153,13 @@
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int|自增id(主键)|
-|user_id|int|用户id|
-|tag_id|int|标签id|
-|tag_type|int|标签类型:0:用户添加 1:系统添加|
-|tag_ratio|int|标签评分|
-|tag_order|int|标签排序|
-|tag_time|bigint|标签时间|
+|id|int(11)|自增id(主键)|
+|user_id|int(11)|用户id|
+|tag_id|int(11)|标签id|
+|tag_type|int(3)|标签类型:0:用户添加 1:系统添加|
+|tag_ratio|int(11)|标签评分|
+|tag_order|int(11)|标签排序|
+|tag_time|bigint(20)|标签时间|
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -180,12 +180,12 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int||
-|device_type|varchar||
-|device_sn|varchar||
-|version|varchar||
-|mac|varchar||
-|idfa|varchar||
+|id|int(12)||
+|device_type|varchar(1)||
+|device_sn|varchar(255)||
+|version|varchar(6)||
+|mac|varchar(255)||
+|idfa|varchar(255)||
 
 |索引名称|索引类型|索引字段|索引注释|
 |----|------|----|---|
@@ -197,13 +197,13 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |列名|类型|列注释|
 |----|------|----|
-|id|varchar||
-|permissionName|varchar|权限名称|
-|permissionNumber|varchar|权限编码|
-|description|varchar|权限描述|
-|permissionEnable|varchar|是否可用|
-|createBy|varchar||
-|modifyBy|varchar||
+|id|varchar(32)||
+|permissionName|varchar(60)|权限名称|
+|permissionNumber|varchar(60)|权限编码|
+|description|varchar(255)|权限描述|
+|permissionEnable|varchar(1)|是否可用|
+|createBy|varchar(32)||
+|modifyBy|varchar(32)||
 |createDate|datetime||
 |modifyDate|datetime||
 
@@ -216,12 +216,12 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |列名|类型|列注释|
 |----|------|----|
-|id|varchar||
-|roleName|varchar|角色名称|
-|description|varchar|描述|
-|roleNumber|varchar|编码|
-|createBy|varchar|创建人|
-|modifyBy|varchar|修改人|
+|id|varchar(32)||
+|roleName|varchar(60)|角色名称|
+|description|varchar(255)|描述|
+|roleNumber|varchar(60)|编码|
+|createBy|varchar(32)|创建人|
+|modifyBy|varchar(32)|修改人|
 |createDate|datetime|创建日期|
 |modifyDate|datetime|修改日期|
 
@@ -234,13 +234,13 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |列名|类型|列注释|
 |----|------|----|
-|id|varchar||
-|roleId|varchar|角色id|
-|permissionid|varchar|权限id|
-|description|varchar|描述|
-|isWork|varchar||
-|createBy|varchar|创建人|
-|modifyBy|varchar|修改时间|
+|id|varchar(32)||
+|roleId|varchar(32)|角色id|
+|permissionid|varchar(32)|权限id|
+|description|varchar(255)|描述|
+|isWork|varchar(1)||
+|createBy|varchar(32)|创建人|
+|modifyBy|varchar(32)|修改时间|
 |createDate|datetime|新增时间|
 |modifyDate|datetime|修改时间|
 
@@ -255,20 +255,20 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int||
-|name|varchar|显示名称，可以重复|
-|mobilePhone|varchar|手机号,多个手机号用逗号隔开|
-|telPhone|varchar|座机号|
-|gender|varchar|性别|
-|passwd|varchar|密码|
-|emailaddress|varchar| 邮箱|
+|id|int(32)||
+|name|varchar(60)|显示名称，可以重复|
+|mobilePhone|varchar(55)|手机号,多个手机号用逗号隔开|
+|telPhone|varchar(20)|座机号|
+|gender|varchar(1)|性别|
+|passwd|varchar(150)|密码|
+|emailaddress|varchar(50)| 邮箱|
 |birthday|datetime|出生日期|
-|isLocked|varchar|是否被锁定|
-|salt|varchar|密码随机盐|
-|passwordExpired|varchar|密码是否失效|
-|account|varchar|登陆名|
-|createBy|varchar|创建人|
-|modifyBy|varchar|修改人|
+|isLocked|varchar(1)|是否被锁定|
+|salt|varchar(50)|密码随机盐|
+|passwordExpired|varchar(1)|密码是否失效|
+|account|varchar(20)|登陆名|
+|createBy|varchar(32)|创建人|
+|modifyBy|varchar(32)|修改人|
 |createDate|datetime|创建时间|
 |modifyDate|datetime|修改时间|
 
@@ -281,13 +281,13 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |列名|类型|列注释|
 |----|------|----|
-|id|varchar||
-|userId|varchar|用户id|
-|roleId|varchar|角色id|
-|description|varchar|描述|
-|isWork|varchar|是否可用|
-|createBy|varchar|新增人|
-|modifyBy|varchar|修改人|
+|id|varchar(32)||
+|userId|varchar(32)|用户id|
+|roleId|varchar(32)|角色id|
+|description|varchar(255)|描述|
+|isWork|varchar(1)|是否可用|
+|createBy|varchar(32)|新增人|
+|modifyBy|varchar(32)|修改人|
 |createDate|datetime|新增时间|
 |modifyDate|datetime|修改时间|
 
@@ -302,11 +302,11 @@ idfa	苹果广告标示符	可选参数，安卓版本不传值
 
 |列名|类型|列注释|
 |----|------|----|
-|id|int||
-|office|varchar|科室|
-|key_word|varchar|关键词|
-|title|varchar|标题|
-|article_url|varchar|文章链接|
+|id|int(11)||
+|office|varchar(20)|科室|
+|key_word|varchar(50)|关键词|
+|title|varchar(200)|标题|
+|article_url|varchar(100)|文章链接|
 |info|text|文章内容|
 |content|text|文章源码内容|
 |pic|text|图片|
