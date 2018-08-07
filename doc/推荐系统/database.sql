@@ -41,6 +41,7 @@ CREATE TABLE ai_user_tag (
 	id INT (11) AUTO_INCREMENT COMMENT '自增id(主键)',
 	user_id INT (11) COMMENT '用户id',
 	tag_id INT (11) COMMENT '标签id',
+	tag_type INT(3) COMMENT '标签类型:0:用户添加 1:系统添加',
 	tag_ratio INT COMMENT '标签评分',
 	tag_time BIGINT COMMENT '标签时间',
 	PRIMARY KEY (id)
