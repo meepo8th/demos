@@ -18,9 +18,32 @@ public class Test {
         System.out.println(Arrays.toString(array));
     }
 
+    /**
+     * @param str
+     * @param content
+     * @return
+     */
+    public static Long parseContentOfPosAndLength(String str, Long content) {
+        String direct = str.split("@")[1];
+        String posAndLength = str.split("@")[0];
+        int start = Integer.valueOf(posAndLength.split("\\|")[0]);
+        int length = Integer.valueOf(posAndLength.split("\\|")[1]);
+        Long rtn = content;
+        switch (direct) {
+            case "0+":
+                rtn <<= start;
+                rtn >>>= 64 - length;
+                break;
+            default:
+                break;
+        }
+        return rtn;
+    }
+
     public static void main(String[] args) {
-        System.out.println(3.3 - 3);
-        System.out.println(3 == 3.0);
-        setRandom100();
+        System.out.println(parseContentOfPosAndLength("62|1@0+", 4L));
+        System.out.println(parseContentOfPosAndLength("63|1@0+", 4L));
+        System.out.println(parseContentOfPosAndLength("61|1@0+", 4L));
+
     }
 }

@@ -98,6 +98,7 @@ CREATE TABLE ai_article (
 	url VARCHAR (256),
 	like_count INT (11),
 	dis_like_count INT (11),
+	comment_count INT (11),
 	PRIMARY KEY (id)
 ) COMMENT = '文章表';
 
