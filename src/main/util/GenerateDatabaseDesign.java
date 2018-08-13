@@ -179,7 +179,7 @@ public class GenerateDatabaseDesign {
     }
 
     private void createAndWriteFile(String path, String tableName, String classContent, String suffix, String log) {
-        String sqlFileName = path + "/" + LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(tableName)) + suffix;
+        String sqlFileName = path + "/" + CustomeStringUtil.capFirst(CustomeStringUtil.transLateUnderLine2Upper(tableName)) + suffix;
         File sqlFile = new File(sqlFileName);
         if (sqlFile.exists()) {
             sqlFile.delete();
