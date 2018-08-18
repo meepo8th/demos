@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 /**
  * 字符串工具类
  */
-public class LeanItStringUtil {
+public class CustomeStringUtil {
 
     /**
      * 驼峰命名改为下划线命名
@@ -147,22 +147,6 @@ public class LeanItStringUtil {
         return getNowTime("yyyyMMddHHmmss");
     }
 
-
-    /*
-        '1': "未申报", '2': "已申报", '3': "退回", '4': "已受理", '5': "已通过", 6: "未受理", 7: "已办理"
-        */
-    public static Map<String, Boolean> mapEditAble = new HashMap<String, Boolean>() {
-        {
-            put("1", true);
-            put("2", false);
-            put("3", true);
-            put("4", false);
-            put("5", false);
-            put("6", false);
-            put("7", false);
-            put("", false);
-        }
-    };
 
 
     /**

@@ -95,7 +95,7 @@ public class GenerateDao {
 
             while (rs.next()) {
                 name = rs.getString("name");
-                fieldName = ( "get"+LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(name))+"();");
+                fieldName = ( "get"+ CustomeStringUtil.capFirst(CustomeStringUtil.transLateUnderLine2Upper(name))+"();");
                 sb.append(String.format(columnFormat, name, fieldName));
             }
         } catch (Exception e) {
@@ -114,7 +114,7 @@ public class GenerateDao {
     }
 
     private void createAndWriteFile(String path, String tableName, String classContent, String s, String s2) {
-        String sqlFileName = path + "/" + LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(tableName)) + s;
+        String sqlFileName = path + "/" + CustomeStringUtil.capFirst(CustomeStringUtil.transLateUnderLine2Upper(tableName)) + s;
         File sqlFile = new File(sqlFileName);
         if (sqlFile.exists()) {
             sqlFile.delete();
@@ -144,7 +144,7 @@ public class GenerateDao {
     public String generateClassString(String tableName) {
         Connection conn = null;
         StringBuffer sb = new StringBuffer();
-        sb.append("public class " + LeanItStringUtil.capFirst(LeanItStringUtil.transLateUnderLine2Upper(tableName)) + "{");
+        sb.append("public class " + CustomeStringUtil.capFirst(CustomeStringUtil.transLateUnderLine2Upper(tableName)) + "{");
         try {
             conn = DriverManager.getConnection(connectStr);
             Statement stmt = conn.createStatement();
@@ -160,7 +160,7 @@ public class GenerateDao {
             while (rs.next()) {
                 name = rs.getString("name");
                 columnNames += ("," + name);
-                columnValues += (String.format(",#{item.%s,jdbcType=%s}", LeanItStringUtil.transLateUnderLine2Upper(name), rs.getString("type").toUpperCase()));
+                columnValues += (String.format(",#{item.%s,jdbcType=%s}", CustomeStringUtil.transLateUnderLine2Upper(name), rs.getString("type").toUpperCase()));
                 type = (typeConvert.get(connectType)).get(rs.getString("type").toUpperCase());
                 comment = rs.getString("comment");
                 if (type.split("#").length > 1) {
@@ -169,7 +169,7 @@ public class GenerateDao {
                 } else {
                     sqlType = "";
                 }
-                sb.append(String.format(columnFormat, sqlType, type, LeanItStringUtil.transLateUnderLine2Upper(name), comment));
+                sb.append(String.format(columnFormat, sqlType, type, CustomeStringUtil.transLateUnderLine2Upper(name), comment));
             }
         } catch (Exception e) {
             e.printStackTrace();

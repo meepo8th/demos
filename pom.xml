@@ -25,6 +25,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.11</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.stuxuhai/jpinyin -->
+        <dependency>
+            <groupId>com.github.stuxuhai</groupId>
+            <artifactId>jpinyin</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
@@ -40,12 +46,7 @@
             <version>2.9.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.github.stuxuhai/jpinyin -->
-        <dependency>
-            <groupId>com.github.stuxuhai</groupId>
-            <artifactId>jpinyin</artifactId>
-            <version>1.0</version>
-        </dependency>
+
         <dependency>
             <groupId>org.gjt</groupId>
             <artifactId>jclasslib</artifactId>
