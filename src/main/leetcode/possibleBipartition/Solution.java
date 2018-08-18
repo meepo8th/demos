@@ -27,7 +27,7 @@ class Solution {
         visit.add(i);
         System.out.print(i);
         for (Integer node : graph.get(i)) {
-            if(node.equals(i)){
+            if (node.equals(i)) {
                 continue;
             }
             dfs(graph, node, visit);
@@ -35,9 +35,10 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}, {1, 3}, {2, 4}, {6, 1}}));
-        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}, {1, 3}, {2, 3}}));
-        System.out.println(new Solution().possibleBipartition(5, new int[][]{{1, 2}, {2, 3}, {3, 4}, {4, 5}, {1, 5}}));
+        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}}));
+//        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}, {1, 3}, {2, 4}, {6, 1}}));
+//        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}, {1, 3}, {2, 3}}));
+//        System.out.println(new Solution().possibleBipartition(5, new int[][]{{1, 2}, {2, 3}, {3, 4}, {4, 5}, {1, 5}}));
 
     }
 }
