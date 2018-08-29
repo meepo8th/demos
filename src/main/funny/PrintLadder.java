@@ -27,7 +27,7 @@ public class PrintLadder {
     }
 
     public static void main(String[] args) {
-        printLadder(3);
-        printLadder(2);
+        int i = 3;
+        System.out.println(i++ + "1");
     }
 }

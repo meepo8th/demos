@@ -10,13 +10,13 @@ class Solution {
         int i = 0, j = 0;
         char last = 0;
         for (; i < p.length() && j < s.length(); ) {
-            if (p.charAt(i) == s.charAt(j) || p.charAt(i) == '.') {
+            if (p.charAt(i) == s.charAt(j) || p.charAt(i) == '?') {
                 last = p.charAt(i);
                 i++;
                 j++;
             } else {
                 if (p.charAt(i) == '*') {
-                    if (last == s.charAt(j) || last == '.') {
+                    if (last == s.charAt(j) || last == '?') {
                         j++;
                     } else {
                         i++;
@@ -34,6 +34,6 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString("你或者我或他".split("\\||或者|或")));
+        System.out.println(new Solution().isMatch("abbc","a*c"));
     }
 }
