@@ -24,7 +24,7 @@ public class ModifyByteCode {
             int pos = 89;
             if (infos[pos] != null) {
                 ConstantUtf8Info uInfo = (ConstantUtf8Info) infos[pos];
-                uInfo.setBytes("设备连接断开".getBytes("utf8"));
+                uInfo.setString("设备连接断开");
                 infos[pos] = uInfo;
             }
             cf.setConstantPool(infos);
@@ -32,7 +32,7 @@ public class ModifyByteCode {
             pos = 96;
             if (infos[pos] != null) {
                 ConstantUtf8Info uInfo = (ConstantUtf8Info) infos[pos];
-                uInfo.setBytes("连接设备失败".getBytes("utf8"));
+                uInfo.setString("连接设备失败");
                 infos[pos] = uInfo;
             }
             cf.setConstantPool(infos);
@@ -45,7 +45,8 @@ public class ModifyByteCode {
 
         }
     }
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         new ModifyByteCode().Run();
     }
 }

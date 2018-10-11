@@ -87,29 +87,30 @@ public class HexadecimalEncoder {
     }
 
     public static void main(String[] args) {
-        long l1 = System.nanoTime();
-        for (int i = 0; i < 100000; i++) {
+        System.out.println(Long.parseLong("FFFFFFFF",16)*0.000001);
+        long l1 = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
             encode(9999999999L);
         }
-        System.out.println(System.nanoTime() - l1);
+        System.out.println(System.currentTimeMillis() - l1);
         long time = System.currentTimeMillis();
-        l1 = System.nanoTime();
-        for (int i = 0; i < 100000; i++) {
+        l1 = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
             encode(time);
         }
-        System.out.println(System.nanoTime() - l1);
+        System.out.println(System.currentTimeMillis() - l1);
         String unDecode = encode(9999999999L);
-        l1 = System.nanoTime();
-        for (int i = 0; i < 100000; i++) {
+        l1 = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
             decode2Long(unDecode);
         }
-        System.out.println(System.nanoTime() - l1);
+        System.out.println(System.currentTimeMillis() - l1);
         unDecode = encode(time);
-        l1 = System.nanoTime();
-        for (int i = 0; i < 100000; i++) {
+        l1 = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
             decode2Long(unDecode);
         }
-        System.out.println(System.nanoTime() - l1);
+        System.out.println(System.currentTimeMillis() - l1);
 
     }
 }
