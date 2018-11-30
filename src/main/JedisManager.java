@@ -28,9 +28,9 @@ public class JedisManager {
         pools = new ConcurrentHashMap<>();
     }
 
-    private String defaultHost = "r-bp1bee17013ca7a4.redis.rds.aliyuncs.com";
+    private String defaultHost = "111.230.176.200";
     private int defaultPort = 6379;
-    private String defaultPwd = "5m0W8aTB";
+    private String defaultPwd = "#bailey88bikeman";
     private Map<String, JedisPool> pools;
     JedisPoolConfig jedisPoolConfig;
 

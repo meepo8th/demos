@@ -1,12 +1,11 @@
 package demo;
 
+import com.sun.tools.javac.util.Assert;
 import org.apache.commons.lang3.StringUtils;
 
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println(translate("?"));
-    }
+
 
     public static long translate(String areaDesc) {
         long days = -1;
@@ -48,4 +47,41 @@ public class Main {
     private static boolean isValidNumber(char c) {
         return "01234567890.-".indexOf(c) >= 0;
     }
+
+
+    public static void main(String[] args) {
+        long l1=System.currentTimeMillis();
+        BitMap bitMap = new BitMap(Integer.MAX_VALUE/2);
+        for (int i = 1; i < bitMap.length; i++) {
+            try {
+                //Assert.check(!bitMap.get(i));
+                bitMap.set(i);
+                //Assert.check(bitMap.get(i));
+            }catch (AssertionError e){
+                System.out.println(i);
+                return;
+            }
+        }
+        System.out.println(System.currentTimeMillis()-l1);
+        System.out.println(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory());
+    }
+
+    static class BitMap {
+        long[] cache;
+        long length;
+
+        public BitMap(int length) {
+            this.length = length;
+            cache = new long[length / 64 + 1];
+        }
+
+        public boolean get(int i) {
+            return (cache[i / 64] >> i % 64 & 0x1L) == 1;
+        }
+
+        public void set(int i) {
+            cache[i / 64] = cache[i / 64] | 0x1L << i % 64;
+        }
+    }
+
 }

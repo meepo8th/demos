@@ -3,9 +3,11 @@ package demo;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
+@SuppressWarnings("ALL")
 public class Lock {
     static Object lockObj;
     static ReentrantLock reentrantLock = new ReentrantLock();
+    @SuppressWarnings("AlibabaAvoidManuallyCreateThread")
     static Thread lockTread = new Thread(new Runnable() {
         @Override
         public void run() {

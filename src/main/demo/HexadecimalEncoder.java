@@ -1,7 +1,8 @@
 package demo;
 
 
-import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * 进制编码
@@ -9,8 +10,37 @@ import java.math.BigInteger;
  * @author Administrator
  */
 public class HexadecimalEncoder {
-    static char[] encodeStr = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
-    static int encodeLength = encodeStr.length;
+    private String encodeStr = "jklm0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghinopqrstuvwxyz";
+    private char[] encodeArray;
+    private int encodeLength;
+    private int codeSize = 1;
+    Random random = new Random();
+
+    public HexadecimalEncoder() {
+        init();
+    }
+
+    private void init() {
+        encodeArray = encodeStr.toCharArray();
+        Arrays.sort(encodeArray);
+        encodeLength = (encodeArray.length / codeSize) * codeSize;
+    }
+
+    public HexadecimalEncoder(String encodeStr) {
+        this.encodeStr = encodeStr;
+        init();
+    }
+
+    public HexadecimalEncoder(String encodeStr, int codeSize) {
+        this.encodeStr = encodeStr;
+        this.codeSize = codeSize;
+        init();
+    }
+
+    public HexadecimalEncoder(int codeSize) {
+        this.codeSize = codeSize;
+        init();
+    }
 
     /**
      * 编码
@@ -18,7 +48,7 @@ public class HexadecimalEncoder {
      * @param unEncode
      * @return
      */
-    public static String encode(String unEncode) {
+    public String encode(String unEncode) {
         return encode(Long.valueOf(unEncode));
     }
 
@@ -28,11 +58,12 @@ public class HexadecimalEncoder {
      * @param unEncode
      * @return
      */
-    public static String encode(long unEncode) {
+    public String encode(long unEncode) {
         StringBuffer encode = new StringBuffer();
+        int size = encodeLength / codeSize;
         while (unEncode > 0) {
-            encode.append(encodeStr[(int) (unEncode % encodeLength)]);
-            unEncode = unEncode / encodeLength;
+            encode.append(encodeArray[(int) (unEncode % size + size * random.nextInt(codeSize))]);
+            unEncode = unEncode / size;
         }
         return encode.reverse().toString();
     }
@@ -43,7 +74,7 @@ public class HexadecimalEncoder {
      * @param unEncode
      * @return
      */
-    public static String decode2Str(String unEncode) {
+    public String decode2Str(String unEncode) {
         return String.valueOf(decode2Long(unEncode));
     }
 
@@ -53,10 +84,11 @@ public class HexadecimalEncoder {
      * @param unEncode
      * @return
      */
-    public static long decode2Long(String unEncode) {
+    public long decode2Long(String unEncode) {
         long encode = 0;
+        int size = encodeLength / codeSize;
         for (int i = 0; i < unEncode.length(); i++) {
-            encode = encode * encodeLength + indexOf(unEncode.charAt(i));
+            encode = encode * size + indexOf(unEncode.charAt(i)) % size;
         }
         return encode;
     }
@@ -67,16 +99,16 @@ public class HexadecimalEncoder {
      * @param c
      * @return
      */
-    private static int indexOf(char c) {
+    private int indexOf(char c) {
         int index = 0;
         int low = 0;
         int high = encodeLength - 1;
         int mid;
         while (low <= high) {
             mid = (low + high) / 2;
-            if (encodeStr[mid] > c) {
+            if (encodeArray[mid] > c) {
                 high = mid - 1;
-            } else if (encodeStr[mid] < c) {
+            } else if (encodeArray[mid] < c) {
                 low = mid + 1;
             } else {
                 index = mid;
@@ -87,30 +119,12 @@ public class HexadecimalEncoder {
     }
 
     public static void main(String[] args) {
-        System.out.println(Long.parseLong("FFFFFFFF",16)*0.000001);
+        HexadecimalEncoder hexadecimalEncoder = new HexadecimalEncoder(10);
+        String testStr = "100000001";
         long l1 = System.currentTimeMillis();
-        for (int i = 0; i < 1000000; i++) {
-            encode(9999999999L);
+        for (int i = 0; i < 3000000; i++) {
+            testStr.equals(hexadecimalEncoder.decode2Str(hexadecimalEncoder.encode(testStr)));
         }
         System.out.println(System.currentTimeMillis() - l1);
-        long time = System.currentTimeMillis();
-        l1 = System.currentTimeMillis();
-        for (int i = 0; i < 1000000; i++) {
-            encode(time);
-        }
-        System.out.println(System.currentTimeMillis() - l1);
-        String unDecode = encode(9999999999L);
-        l1 = System.currentTimeMillis();
-        for (int i = 0; i < 1000000; i++) {
-            decode2Long(unDecode);
-        }
-        System.out.println(System.currentTimeMillis() - l1);
-        unDecode = encode(time);
-        l1 = System.currentTimeMillis();
-        for (int i = 0; i < 1000000; i++) {
-            decode2Long(unDecode);
-        }
-        System.out.println(System.currentTimeMillis() - l1);
-
     }
 }
