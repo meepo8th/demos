@@ -1,21 +1,28 @@
 package demo;
 
-import com.alibaba.fastjson.JSONObject;
-
-import java.util.Arrays;
-import java.util.Map;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ADemo {
+    public static int timeSeconds() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        long start = calendar.getTime().getTime();
+        long end = System.currentTimeMillis();
+        int seconds = (int) ((start - end) / 1000);
+        return seconds;
+    }
+
+    public static int time2DayLast() {
+        long dayMillSecond = 24 * 3600 * 1000L;
+        return (int) (dayMillSecond - ((System.currentTimeMillis() + 8 * 3600 * 1000) % dayMillSecond)) / 1000;
+    }
 
     public static void main(String[] args) {
-        String[] array = new String[]{"a", "b", "c"};
-        System.out.println(array[Integer.valueOf(null)]);
-        String jsonContent = "{\"a\":{\"count\":1,\"result\":\"success\"},\"b\":{\"count\":2,\"result\":\"error\"},\"c\":{\"count\":3,\"result\":\"success\"},\"d\":{\"count\":4,\"result\":\"exception\"}}";
-        JSONObject jsonObject = JSONObject.parseObject(jsonContent);
-        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
-        }
+
     }
 
 }

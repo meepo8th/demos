@@ -12,7 +12,7 @@ class Solution {
     private String parseOption(String pathWay) {
         File file = new File(pathWay);
         BufferedReader br = null;
-        StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         try {
             br = new BufferedReader(new FileReader(file));
             String str;
@@ -27,11 +27,11 @@ class Solution {
 
             // 现在创建 matcher 对象
             Matcher m = r.matcher(contentHtml);
-            if (m.find( )) {
-                String content=m.group(1).trim().replaceAll(";$","");
-                content=content.substring(content.indexOf("=")+1);
+            if (m.find()) {
+                String content = m.group(1).trim().replaceAll(";$", "");
+                content = content.substring(content.indexOf("=") + 1);
                 JSONObject object = JSON.parseObject(content);
-                System.out.println(object.get("result") );
+                System.out.println(object.get("result"));
             } else {
                 System.out.println("no match");
             }
@@ -50,6 +50,7 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().parseOption("f:/123.txt"));
+        //System.out.println(new Solution().parseOption("f:/123.txt"));
+        System.out.println(12.0 / '0');
     }
 }
