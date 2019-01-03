@@ -14,9 +14,9 @@ class Solution {
 
     private List<Map<String, String>> preCache(String[] wordlist) {
         List<Map<String, String>> rtn = new ArrayList<>(3);
-        rtn.add(new HashMap<>());
-        rtn.add(new HashMap<>());
-        rtn.add(new HashMap<>());
+        rtn.add(new TreeMap<>());
+        rtn.add(new TreeMap<>());
+        rtn.add(new TreeMap<>());
         String[] words ;
         for (String word : wordlist) {
             words = preCache(word);
