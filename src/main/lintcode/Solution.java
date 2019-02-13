@@ -1,5 +1,7 @@
 package lintcode;
 
+import java.util.*;
+
 /**
  * Definition for ListNode
  * public class ListNode {
@@ -15,7 +17,7 @@ package lintcode;
 
 public class Solution {
     /*
-     * @param head: ListNode head is the head of the linked list 
+     * @param head: ListNode head is the head of the linked list
      * @param m: An integer
      * @param n: An integer
      * @return: The head of the reversed ListNode
@@ -46,12 +48,4 @@ public class Solution {
         return answerFlag ^ strFlag;
     }
 
-    public static void main(String[] args) {
-        System.out.println(checkAnswer("AB", "ABC"));
-        System.out.println(checkAnswer("AB", "BA"));
-        System.out.println(checkAnswer("AB", "BAC"));
-        System.out.println(checkAnswer("ACB", "ABC"));
-        System.out.println(checkAnswer("ABCD", "BAC"));
-        System.out.println(checkAnswer("BCD", "A"));
-    }
 }

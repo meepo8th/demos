@@ -49,6 +49,8 @@ class Solution {
         return new String[]{lower.toString(), yuan.toString()};
     }
 
+
+
     private String find(String query, List<Map<String, String>> preCache) {
         if (preCache.get(0).containsKey(query)) {
             return preCache.get(0).get(query);
@@ -65,6 +67,6 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.asList(new Solution().spellchecker(new String[]{"KiTe", "kite", "hare", "Hare"}, new String[]{"kite", "Kite", "KiTe", "Hare", "HARE", "Hear", "hear", "keti", "keet", "keto"})));
+        System.out.println((int)(System.currentTimeMillis()/1000));
     }
 }
