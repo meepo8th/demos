@@ -473,7 +473,223 @@ public class CatSolution {
         return Math.max(maxDepth(root.left, level + 1), maxDepth(root.right, level + 1));
     }
 
+    /**
+     * 反转二叉树
+     *
+     * @param root: a TreeNode, the root of the binary tree
+     * @return: nothing
+     */
+    public void invertBinaryTree(TreeNode root) {
+        // write your code here
+        if (null != root) {
+            TreeNode cache = root.left;
+            root.left = root.right;
+            root.right = cache;
+            invertBinaryTree(root.left);
+            invertBinaryTree(root.right);
+        }
+    }
+
+    /**
+     * 二叉树的路径和
+     *
+     * @param root:   the root of binary tree
+     * @param target: An integer
+     * @return: all valid paths
+     */
+    public List<List<Integer>> binaryTreePathSum(TreeNode root, int target) {
+        int nowSum = 0;
+        List<List<Integer>> rtnList = new ArrayList<>();
+        if (null != root) {
+            binaryTreePathSum(root, target, nowSum, new ArrayList<>(), rtnList);
+        }
+        return rtnList;
+    }
+
+    private void binaryTreePathSum(TreeNode root, int target, int nowSum, List<Integer> cacheList, List<List<Integer>> rtnList) {
+        List<Integer> nowList = new ArrayList<>();
+        nowList.addAll(cacheList);
+        nowList.add(root.val);
+        nowSum = nowSum + root.val;
+        if (null == root.left && null == root.right) {
+            if (nowSum == target) {
+                rtnList.add(nowList);
+            }
+            return;
+        }
+        if (null != root.left) {
+            binaryTreePathSum(root.left, target, nowSum, nowList, rtnList);
+        }
+        if (null != root.right) {
+            binaryTreePathSum(root.right, target, nowSum, nowList, rtnList);
+        }
+    }
+
+    /**
+     * 二叉树的所有路径
+     *
+     * @param root: the root of the binary tree
+     * @return: all root-to-leaf paths
+     */
+    public static List<String> binaryTreePaths(TreeNode root) {
+        List<String> rtnList = new ArrayList<>();
+        if (null != root) {
+            binaryTreePaths(root, "", rtnList);
+        }
+        return rtnList;
+    }
+
+    private static void binaryTreePaths(TreeNode root, String s, List<String> rtnList) {
+        String nowString = String.format("%s->%s", s, root.val);
+        if (null == root.left && null == root.right) {
+            rtnList.add(nowString.replaceFirst("->", ""));
+            return;
+        }
+        if (null != root.left) {
+            binaryTreePaths(root.left, nowString, rtnList);
+        }
+        if (null != root.right) {
+            binaryTreePaths(root.right, nowString, rtnList);
+        }
+    }
+
+    /**
+     * 中序遍历
+     *
+     * @param root: A Tree
+     * @return: Inorder in ArrayList which contains node values.
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        // write your code here
+        List<Integer> rtnList = new ArrayList<>();
+        inorderTraversal(root, rtnList);
+        return rtnList;
+    }
+
+    private void inorderTraversal(TreeNode root, List<Integer> rtnList) {
+        if (null != root) {
+            inorderTraversal(root.left, rtnList);
+            rtnList.add(root.val);
+            inorderTraversal(root.right, rtnList);
+        }
+    }
+
+    /**
+     * 前序遍历
+     *
+     * @param root: A Tree
+     * @return: Preorder in ArrayList which contains node values.
+     */
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> rtnList = new ArrayList<>();
+        inorderTraversal(root, rtnList);
+        return rtnList;
+    }
+
+    private void preorderTraversal(TreeNode root, List<Integer> rtnList) {
+        if (null != root) {
+            rtnList.add(root.val);
+            preorderTraversal(root.left, rtnList);
+            preorderTraversal(root.right, rtnList);
+        }
+    }
+
+    /**
+     * 组合加判断素数
+     *
+     * @param a: the n numbers
+     * @param k: the number of integers you can choose
+     * @return: how many ways that the sum of the k integers is a prime number
+     */
+    public int getWays(int[] a, int k) {
+        // Write your code here
+        int ways = 0;
+        for (int i = 0; i < k; i++) {
+
+        }
+        return ways;
+    }
+
+    /**
+     * 是否是素数
+     *
+     * @param n
+     * @return
+     */
+    public boolean isPrime(int n) {
+        if (n <= 2) {
+            return n == 2;
+        }
+        for (int i = 3; i <= (int) Math.sqrt(n); i += 2) {
+            if (n % i == 0 && n != i) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 返回节点数
+     *
+     * @param root: the root of the binary tree
+     * @return: the number of nodes
+     */
+    public static int getAns(TreeNode root) {
+        // Write your code here
+        if (null == root) {
+            return 0;
+        }
+        int count = 0;
+        Deque<TreeNode> queue = new ArrayDeque();
+        queue.push(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.pop();
+            if (node != null) {
+                count++;
+            }
+            if (null != node.left) {
+                queue.push(node.left);
+            }
+            if (null != node.right) {
+                queue.push(node.right);
+            }
+        }
+        return count;
+    }
+
+    class Position {
+        int x;
+        int y;
+
+        @Override
+        public int hashCode() {
+            return x * 31 + y;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return o != null && o instanceof Position && ((Position) o).x == x && ((Position) o).y == y;
+        }
+    }
+
+    /**
+     * 搜索
+     *
+     * @param maze: the maze
+     * @return: Can they reunion?
+     */
+    public boolean findHer(String[] maze) {
+        // Write your code here
+        return false;
+    }
+
     public static void main(String[] args) {
-        System.out.println(deleteNode(new ListNode(new int[]{1, 2, 3, 4, 5}), 1, 3));
+        TreeNode head = new TreeNode(1);
+        head.left = new TreeNode(2);
+        head.right = new TreeNode(3);
+        head.left.left = new TreeNode(5);
+        head.left.right = new TreeNode(4);
+        head.right.right = new TreeNode(6);
+        System.out.println(getAns(head));
     }
 }
