@@ -785,31 +785,49 @@ public class CatSolution {
      */
     public List<List<Integer>> threeSum(int[] numbers) {
         // write your code here
-        Arrays.sort(numbers);
-        List<Integer> selected = new ArrayList<>();
-        List<Integer> unSelect = new ArrayList<>();
-        for(Integer n:numbers){
-            unSelect.add(n);
-        }
         List<List<Integer>> rtn = new ArrayList<>();
+        Arrays.sort(numbers);
+        if (numbers.length == 0 || numbers[0] > 0 || numbers[numbers.length - 1] < 0) {
+            return rtn;
+        }
+        List<Pos> selected = new ArrayList<>();
+        List<Pos> unSelect = new ArrayList<>();
+        int i = 0;
+        for (Integer n : numbers) {
+            unSelect.add(new Pos(n, i++));
+        }
         numSum(rtn, selected, unSelect, 0, 3, 0);
         return rtn;
     }
 
-    private void numSum(List<List<Integer>> rtn, List<Integer> selected, List<Integer> unSelect, int sum, int n, int target) {
+    class Pos {
+        Integer value;
+        Integer pos;
+
+        public Pos(Integer value, Integer pos) {
+            this.value = value;
+            this.pos = pos;
+        }
+    }
+
+    private void numSum(List<List<Integer>> rtn, List<Pos> selected, List<Pos> unSelect, int sum, int n, int target) {
         if (selected.size() == n) {
             if (sum == target) {
-                rtn.add(selected);
+                List<Integer> nowList = new ArrayList<>(n);
+                for (Pos pos : selected) {
+                    nowList.add(pos.value);
+                }
+                rtn.add(nowList);
             }
             return;
         }
-        for (Integer i : unSelect) {
-            List<Integer> nowSelected = new ArrayList<>(selected);
-            List<Integer> nowUnSelect = new ArrayList<>(unSelect);
-            if (nowSelected.size()==0||i >= nowSelected.get(nowSelected.size() - 1)) {
-                nowSelected.add(i);
-                nowUnSelect.remove(i);
-                numSum(rtn, nowSelected, nowUnSelect, sum + i, n, target);
+        for (Pos pos : unSelect) {
+            List<Pos> nowSelected = new ArrayList<>(selected);
+            List<Pos> nowUnSelect = new ArrayList<>(unSelect);
+            if (nowSelected.size() == 0 || pos.pos > nowSelected.get(nowSelected.size() - 1).pos) {
+                nowSelected.add(pos);
+                nowUnSelect.remove(pos);
+                numSum(rtn, nowSelected, nowUnSelect, sum + pos.value, n, target);
             }
         }
     }
