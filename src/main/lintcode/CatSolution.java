@@ -683,6 +683,137 @@ public class CatSolution {
         return false;
     }
 
+    /**
+     * 颜色排序
+     *
+     * @param colors: A list of integer
+     * @param k:      An integer
+     * @return: nothing
+     */
+    public void sortColors2(int[] colors, int k) {
+        // write your code here
+        quickSort(colors, 0, colors.length - 1);
+    }
+
+    /**
+     * 快速排序，添加随机因子，使其更稳定
+     *
+     * @param array
+     * @param start
+     * @param end
+     */
+    public static void quickSort(int[] array, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+        int tmp;
+        if (end - start > 15) {
+            int newStart = start + new Random().nextInt(end - start);
+            tmp = array[newStart];
+            array[newStart] = array[start];
+            array[start] = tmp;
+        }
+        int base = array[start];
+        int i = start, j = end;
+        while (i != j) {
+            while (array[j] >= base && j > i) {
+                j--;
+            }
+            while (array[i] <= base && j > i) {
+                i++;
+            }
+            if (i < j) {
+                tmp = array[i];
+                array[i] = array[j];
+                array[j] = tmp;
+            }
+        }
+        array[start] = array[i];
+        array[i] = base;
+        quickSort(array, start, i - 1);
+        quickSort(array, i + 1, end);
+    }
+
+    /**
+     * 划分数组
+     *
+     * @param nums: The integer array you should partition
+     * @param k:    An integer
+     * @return: The index after partition
+     */
+    public int partitionArray(int[] nums, int k) {
+        boolean found = false;
+        int start = 0;
+        int end = nums.length - 1;
+        int tmp;
+        while (start != end) {
+            while (nums[end] >= k) {
+                end--;
+                found = true;
+            }
+            while (nums[end] < k) {
+                start++;
+            }
+            if (start < end) {
+                tmp = nums[start];
+                nums[start] = nums[end];
+                nums[end] = tmp;
+                found = true;
+            }
+        }
+        return found ? start + 1 : 0;
+    }
+
+    /**
+     * 找到一个无序数组中第K小的数
+     *
+     * @param k:    An integer
+     * @param nums: An integer array
+     * @return: kth smallest element
+     */
+    public int kthSmallest(int k, int[] nums) {
+        // write your code here
+        Arrays.sort(nums);
+        return nums[k + 1];
+    }
+
+    /**
+     * 三数之和
+     *
+     * @param numbers: Give an array numbers of n integer
+     * @return: Find all unique triplets in the array which gives the sum of zero.
+     */
+    public List<List<Integer>> threeSum(int[] numbers) {
+        // write your code here
+        Arrays.sort(numbers);
+        List<Integer> selected = new ArrayList<>();
+        List<Integer> unSelect = new ArrayList<>();
+        for(Integer n:numbers){
+            unSelect.add(n);
+        }
+        List<List<Integer>> rtn = new ArrayList<>();
+        numSum(rtn, selected, unSelect, 0, 3, 0);
+        return rtn;
+    }
+
+    private void numSum(List<List<Integer>> rtn, List<Integer> selected, List<Integer> unSelect, int sum, int n, int target) {
+        if (selected.size() == n) {
+            if (sum == target) {
+                rtn.add(selected);
+            }
+            return;
+        }
+        for (Integer i : unSelect) {
+            List<Integer> nowSelected = new ArrayList<>(selected);
+            List<Integer> nowUnSelect = new ArrayList<>(unSelect);
+            if (nowSelected.size()==0||i >= nowSelected.get(nowSelected.size() - 1)) {
+                nowSelected.add(i);
+                nowUnSelect.remove(i);
+                numSum(rtn, nowSelected, nowUnSelect, sum + i, n, target);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         TreeNode head = new TreeNode(1);
         head.left = new TreeNode(2);
