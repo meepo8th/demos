@@ -1,5 +1,6 @@
 package lintcode;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 import static funny.OnlyFunny.quickSort;
@@ -604,10 +605,30 @@ public class CatSolution {
     public int getWays(int[] a, int k) {
         // Write your code here
         int ways = 0;
-        for (int i = 0; i < k; i++) {
-
+        List<Integer> combine = new ArrayList<>();
+        ArrayList select = new ArrayList(a.length);
+        for (int i : a) {
+            select.add(i);
         }
-        return ways;
+        combine(combine, select, 0, k);
+        for (Integer i : combine) {
+            if (isPrime(i)) {
+                ways++;
+            }
+        }
+        return combine.size();
+    }
+
+    private void combine(List<Integer> combine, ArrayList<Integer> unSelect, int sum, int last) {
+        if (last == 0 || unSelect.isEmpty()) {
+            combine.add(sum);
+            return;
+        }
+        for (Integer i : unSelect) {
+            ArrayList<Integer> select = new ArrayList<>(unSelect);
+            select.remove(i);
+            combine(combine, select, sum + i, last - 1);
+        }
     }
 
     /**
@@ -619,6 +640,9 @@ public class CatSolution {
     public boolean isPrime(int n) {
         if (n <= 2) {
             return n == 2;
+        }
+        if (n % 2 == 0) {
+            return false;
         }
         for (int i = 3; i <= (int) Math.sqrt(n); i += 2) {
             if (n % i == 0 && n != i) {
@@ -657,39 +681,260 @@ public class CatSolution {
         return count;
     }
 
-    class Position {
-        int x;
-        int y;
-
-        @Override
-        public int hashCode() {
-            return x * 31 + y;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            return o != null && o instanceof Position && ((Position) o).x == x && ((Position) o).y == y;
-        }
-    }
 
     /**
-     * 搜索
+     * 矩阵迷宫搜索，dfs
      *
      * @param maze: the maze
      * @return: Can they reunion?
      */
     public boolean findHer(String[] maze) {
         // Write your code here
+        int[] startPosition = new int[2];
+        char[][] mazeCache = findStartPosition(maze, startPosition);
+        Stack<int[]> stack = new Stack<>();
+        stack.add(startPosition);
+        while (!stack.isEmpty()) {
+            int[] nowPos = stack.pop();
+            if (mazeCache[nowPos[0]][nowPos[1]] == 'T') {
+                return true;
+            }
+            flagVisited(mazeCache, '*', nowPos);
+            List<int[]> paths = findNextPaths(mazeCache, nowPos, '*');
+            for (int[] pos : paths) {
+                stack.push(pos);
+            }
+        }
         return false;
     }
 
+
+    public static Field charField;
+
+    static {
+        Field[] fs = String.class.getDeclaredFields();
+        for (Field f : fs) {
+            if ("value".equals(f.getName())) {
+                charField = f;
+                f.setAccessible(true);
+            }
+        }
+    }
+
+    /**
+     * 标记已读
+     *
+     * @param maze
+     * @param blockChar
+     * @param nowPosition
+     */
+    private void flagVisited(char[][] maze, char blockChar, int[] nowPosition) {
+        char[] value = maze[nowPosition[0]];
+        value[nowPosition[1]] = blockChar;
+    }
+
+    /**
+     * 通过反射获取字符串的char[]
+     *
+     * @param s
+     * @return
+     */
+    public static char[] getStringValue(String s) {
+        try {
+            return (char[]) charField.get(s);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return new char[]{};
+    }
+
+
+    /**
+     * 查找起始位置
+     *
+     * @param maze
+     * @param startPosition
+     * @return
+     */
+    private final char[][] findStartPosition(String[] maze, int[] startPosition) {
+        char[][] rtn = new char[maze.length][];
+        for (int i = 0; i < maze.length; i++) {
+            String line = maze[i];
+            for (int j = 0; j < line.length(); j++) {
+                if ('S' == line.charAt(j)) {
+                    startPosition[0] = i;
+                    startPosition[1] = j;
+                }
+                rtn[i] = getStringValue(line);
+            }
+        }
+        return rtn;
+    }
+
+    /**
+     * 查找下一步路径
+     *
+     * @param maze
+     * @param nowPosition
+     * @param blockChar
+     * @return
+     */
+    private final List<int[]> findNextPaths(char[][] maze, int[] nowPosition, char blockChar) {
+        List<int[]> rtnList = new LinkedList<>();
+        /**
+         * 上
+         */
+        if (nowPosition[0] - 1 >= 0) {
+            int[] upPosition = new int[]{nowPosition[0] - 1, nowPosition[1]};
+            if (!positionBlock(maze, upPosition, blockChar)) {
+                rtnList.add(upPosition);
+            }
+        }
+        /**
+         * 下
+         */
+        if (nowPosition[0] + 1 < maze.length) {
+            int[] downPosition = new int[]{nowPosition[0] + 1, nowPosition[1]};
+            if (!positionBlock(maze, downPosition, blockChar)) {
+                rtnList.add(downPosition);
+            }
+        }
+        /**
+         * 左
+         */
+        if (nowPosition[1] - 1 >= 0) {
+            int[] leftPosition = new int[]{nowPosition[0], nowPosition[1] - 1};
+            if (!positionBlock(maze, leftPosition, blockChar)) {
+                rtnList.add(leftPosition);
+            }
+        }
+        /**
+         * 右
+         */
+        if (nowPosition[1] + 1 < maze[nowPosition[0]].length) {
+            int[] rightPosition = new int[]{nowPosition[0], nowPosition[1] + 1};
+            if (!positionBlock(maze, rightPosition, blockChar)) {
+                rtnList.add(rightPosition);
+            }
+        }
+        return rtnList;
+    }
+
+    /**
+     * 是否是阻塞的位置
+     *
+     * @param maze
+     * @param position
+     * @param blockChar
+     * @return
+     */
+    private final boolean positionBlock(char[][] maze, int[] position, char blockChar) {
+        return maze[position[0]][position[1]] == blockChar;
+    }
+
+    /**
+     * 排序
+     *
+     * @param A: an integer array
+     * @return: nothing
+     */
+    public void sortIntegers2(int[] A) {
+        // write your code here
+        quickSort(A);
+    }
+
+    /**
+     * 三数之和为0
+     *
+     * @param numbers: Give an array numbers of n integer
+     * @return: Find all unique triplets in the array which gives the sum of zero.
+     */
+    public List<List<Integer>> threeSum(int[] numbers) {
+        // write your code here
+        List<List<Integer>> rtn = new ArrayList<>();
+        List<Integer> selected = new ArrayList<>();
+        List<Integer> unSelect = new ArrayList<>();
+        for (int n : numbers) {
+            unSelect.add(n);
+        }
+        numSum(rtn, selected, unSelect, 0, 3, 0);
+        return rtn;
+    }
+
+    private void numSum(List<List<Integer>> rtn, List<Integer> selected, List<Integer> unSelect, int sum, int num, int target) {
+        if (selected.size() == num) {
+            if (sum == target) {
+                rtn.add(selected);
+            }
+            Iterator<Integer> iterator = unSelect.iterator();
+            while (iterator.hasNext()) {
+                List<Integer> nowSelect = new ArrayList<>(selected);
+                List<Integer> nowUnSelect = new ArrayList<>(unSelect);
+                Integer now = iterator.next();
+                nowSelect.add(now);
+                nowUnSelect.remove(now);
+                numSum(rtn, nowSelect, nowUnSelect, sum + now, num, target);
+            }
+        }
+    }
+
+    /**
+     * 数组划分
+     *
+     * @param nums: The integer array you should partition
+     * @param k:    An integer
+     * @return: The index after partition
+     */
+    public static int partitionArray(int[] nums, int k) {
+        // write your code here
+        boolean find = false;
+        int start = 0;
+        int end = nums.length - 1;
+        int tmp;
+        while (start != end) {
+            while (nums[end] >= k && end > start) {
+                end--;
+            }
+            while (nums[start] < k && end > start) {
+                find = true;
+                start++;
+            }
+            if (start < end) {
+                tmp = nums[start];
+                nums[start] = nums[end];
+                nums[end] = tmp;
+                find = true;
+            }
+        }
+        return find ? start + 1 : 0;
+    }
+
+    /**
+     * 第k小的数(O(nlogn))
+     *
+     * @param k:    An integer
+     * @param nums: An integer array
+     * @return: kth smallest element
+     */
+    public int kthSmallest(int k, int[] nums) {
+        // write your code here
+        return 0;
+    }
+
+    /**
+     * 第k大的数
+     *
+     * @param n:    An integer
+     * @param nums: An array
+     * @return: the Kth largest element
+     */
+    public int kthLargestElement(int n, int[] nums) {
+        // write your code here
+        return 0;
+    }
+
     public static void main(String[] args) {
-        TreeNode head = new TreeNode(1);
-        head.left = new TreeNode(2);
-        head.right = new TreeNode(3);
-        head.left.left = new TreeNode(5);
-        head.left.right = new TreeNode(4);
-        head.right.right = new TreeNode(6);
-        System.out.println(getAns(head));
+        System.out.println(Math.ceil(0.01));
+        System.out.println(Math.floor(0.01));
     }
 }
