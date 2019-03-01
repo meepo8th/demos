@@ -934,7 +934,12 @@ public class CatSolution {
     }
 
     public static void main(String[] args) {
-        System.out.println(Math.ceil(0.01));
-        System.out.println(Math.floor(0.01));
+        TreeNode head = new TreeNode(1);
+        head.left = new TreeNode(2);
+        head.right = new TreeNode(3);
+        head.left.left = new TreeNode(5);
+        head.left.right = new TreeNode(4);
+        head.right.right = new TreeNode(6);
+        System.out.println(getAns(head));
     }
 }
