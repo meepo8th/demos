@@ -741,7 +741,11 @@ public class CatSolution {
      */
     public static char[] getStringValue(String s) {
         try {
-            return (char[]) charField.get(s);
+            if (s.length() > 1000) {
+                return (char[]) charField.get(s);
+            } else {
+                return s.toCharArray();
+            }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
