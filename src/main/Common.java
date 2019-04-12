@@ -154,14 +154,19 @@ public class Common {
         int lengthB = strB.length() + 1;
         int[][] dis = new int[lengthA][lengthB];
         for (int i = 0; i < lengthA; i++) {
-            for (int j = 0; j < lengthB; j++)
+            for (int j = 0; j < lengthB; j++) {
                 dis[i][j] = Integer.MAX_VALUE;
+            }
         }
         dis[0][0] = 0;
         for (int i = 0; i < lengthA; i++) {
             for (int j = 0; j < lengthB; j++) {
-                if (i > 0) dis[i][j] = Math.min(dis[i][j], dis[i - 1][j] + 1); //delete
-                if (j > 0) dis[i][j] = Math.min(dis[i][j], dis[i][j - 1] + 1);//insert
+                if (i > 0) {
+                    dis[i][j] = Math.min(dis[i][j], dis[i - 1][j] + 1); //delete
+                }
+                if (j > 0) {
+                    dis[i][j] = Math.min(dis[i][j], dis[i][j - 1] + 1);//insert
+                }
 
                 //substitute
                 if (i > 0 && j > 0) {
@@ -199,23 +204,23 @@ public class Common {
                 start = 0;
                 end = A.length - 1;
             } else {
-                if (A[(A.length + 1) / 2-1] > 0) {
+                if (A[(A.length + 1) / 2 - 1] > 0) {
                     start = 1;
                     end = A.length - 1;
                 } else {
-                    start=0;
-                    end=A.length-2;
+                    start = 0;
+                    end = A.length - 2;
                 }
             }
-            while(start<end){
-                swap(A,start,start+(end-start+1)/2);
-                start+=2;
+            while (start < end) {
+                swap(A, start, start + (end - start + 1) / 2);
+                start += 2;
             }
         }
     }
 
     public static void main(String args[]) {
-        int[] num = new int[]{-2, 1, 2, 3, 5, -3, -4,-5};
+        int[] num = new int[]{-2, 1, 2, 3, 5, -3, -4, -5};
         System.out.println(num);
         rerange(num);
         System.out.println(Arrays.toString(num));

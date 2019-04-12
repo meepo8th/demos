@@ -7,8 +7,8 @@ public class MinStack {
     Stack<Integer> minStack;
 
     /*
-    * @param a: An integer
-    */
+     * @param a: An integer
+     */
     public MinStack(int a) {
         // do intialization if necessary
         stack = new Stack<>();
@@ -21,12 +21,16 @@ public class MinStack {
      */
     public void push(int number) {
         // write your code here
-        int top = minStack.pop();
-        minStack.push(top);
-        if (top > number) {
-            minStack.push(number);
-        } else {
+        if (!minStack.isEmpty()) {
+            int top = minStack.pop();
             minStack.push(top);
+            if (top > number) {
+                minStack.push(number);
+            } else {
+                minStack.push(top);
+            }
+        }else{
+            minStack.push(number);
         }
         stack.push(number);
     }
