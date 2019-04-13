@@ -1,5 +1,6 @@
 package lintcode;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -1662,53 +1663,20 @@ public class CatSolution {
      */
     public int leastInterval(char[] tasks, int n) {
         // write your code here
-        int[] cache = new int[26];
-        for (char task : tasks) {
-            cache[task - 'A'] = cache[task - 'A'] + 1;
+        int[] c = new int[26];
+        for (char t : tasks) {
+            //System.out.print(t + " ");
+            c[t - 'A']++;
         }
-        int i = 0;
-        while (!taskEnd(cache)) {
-            int[] visited = new int[n];
-            for (int j = 0; j < n; j++) {
-                i += findNextTask(cache, visited);
-            }
+        Arrays.sort(c);
+        int i = 25;
+        while (i >= 0 && c[i] == c[25]) {
+            i--;
         }
-        return tasks.length + i;
+
+        return Math.max(tasks.length, (c[25] - 1) * (n + 1) + 25 - i);
     }
 
-    private int findNextTask(int[] cache, int[] visited) {
-        int maxPos = -1;
-        for (int i = 0; i < 26; i++) {
-            if (cache[i] == 0) {
-                continue;
-            }
-            boolean finded=false;
-            for (int visit : visited) {
-                if (i == visit) {
-                    finded=true;
-                    break;
-                }
-            }
-            if(finded){
-                continue;
-            }
-            if (maxPos < 0) {
-                maxPos = i;
-            } else {
-                maxPos = (cache[i] >= cache[maxPos] ? maxPos : i);
-            }
-        }
-        if (maxPos >= 0) {
-            cache[maxPos] = cache[maxPos] - 1;
-            for (int i = 0; i < visited.length; i++) {
-                if (visited[i] == 0) {
-                    visited[i] = maxPos;
-                    break;
-                }
-            }
-        }
-        return -1 == maxPos ? 1 : 0;
-    }
 
     /**
      * 任务结束
@@ -1801,8 +1769,9 @@ public class CatSolution {
     public void stackSorting(Stack<Integer> stk) {
         // write your code here
         Stack<Integer> cacheStack = new Stack<>();
-        for (int i = 0; i < stk.size(); i++) {
-            for (int j = i; j < stk.size(); j++) {
+        int length = stk.size();
+        for (int i = 0; i < length; i++) {
+            for (int j = i; j < length; j++) {
                 int pop = stk.pop();
                 if (cacheStack.isEmpty()) {
                     cacheStack.push(pop);
@@ -1821,6 +1790,16 @@ public class CatSolution {
                 stk.push(cacheStack.pop());
             }
         }
+    }
+
+    private boolean stackSorting(int[] nums) {
+        Stack<Integer> stack = new Stack<>();
+        for (int n : nums) {
+            stack.push(n);
+        }
+        stackSorting(stack);
+        System.out.println(Arrays.toString(stack.toArray()));
+        return true;
     }
 
     /**
@@ -1850,21 +1829,21 @@ public class CatSolution {
         int[] rtn = new int[2];
         Map<Integer, List<Integer>> cacheMap = new HashMap<>(nums.length);
         for (int i = 0; i < nums.length; i++) {
-            if(cacheMap.containsKey(nums[i])){
-                cacheMap.get(nums[i]).add(i+1);
-            }else {
+            if (cacheMap.containsKey(nums[i])) {
+                cacheMap.get(nums[i]).add(i + 1);
+            } else {
                 cacheMap.put(nums[i], new ArrayList(Arrays.asList(new Integer[]{i + 1})));
             }
         }
         for (int i = 0; i < nums.length; i++) {
-            if(cacheMap.containsKey(target-nums[i])){
+            if (cacheMap.containsKey(target - nums[i])) {
                 rtn[0] = i + 1;
-                if(cacheMap.get(target-nums[i]).size()==1) {
+                if (cacheMap.get(target - nums[i]).size() == 1) {
                     rtn[1] = cacheMap.get(target - nums[i]).get(0);
-                }else{
-                    for(Integer j:cacheMap.get(target-nums[i])){
-                        if(j!=i+1){
-                            rtn[1]=j;
+                } else {
+                    for (Integer j : cacheMap.get(target - nums[i])) {
+                        if (j != i + 1) {
+                            rtn[1] = j;
                             break;
                         }
                     }
@@ -1875,7 +1854,153 @@ public class CatSolution {
         return rtn;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new CatSolution().leastInterval("AAABBB".toCharArray(),2));
+    /**
+     * 栈的push-pop序列
+     * cat-only-icon
+     * CAT 专属题目
+     * 中文English
+     * 给定一个栈的 push 和 pop 序列。判定其中是否有合法序列。
+     * <p>
+     * 样例
+     * 样例 1：
+     * <p>
+     * 输入：push = [1, 2, 3], pop = [3, 2, 1]
+     * 输出：True
+     * 解释：
+     * 1，2，3 依次入栈，3，2，1 再依次出栈。
+     * 样例 2：
+     * <p>
+     * 输入：push = [1, 2, 3], pop = [3, 1, 2]
+     * 输出：False
+     * 解释：
+     * 如果想优先 pop 3，那么 1 和 2 必须已经存在于栈中，且 2 在 1 的上面。且这种情况下，1 不能先于 2 被 pop。
+     * 注意事项
+     * 元素数量不超过1000
+     *
+     * @param push: the array push
+     * @param pop:  the array pop
+     * @return: return whether there are legal sequences
+     */
+    public boolean isLegalSeq(int[] push, int[] pop) {
+        // write your code here
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < push.length; i++) {
+            stack.push(push[i]);
+            for (int j = 0; j < pop.length; j++) {
+                if (push[i] == pop[j]) {
+                    stack.pop();
+                }
+            }
+        }
+        return stack.size() == 0;
     }
+
+    /**
+     * 存钱
+     * cat-only-icon
+     * CAT 专属题目
+     * 中文English
+     * 现在你需要负责一家银行的存取款系统,给定大小为 n 的三个数组 op[], name[], w[] 表示按时间顺序记录的 n 条信息。
+     * 其中 op[] 代表信息的类型,而系统中可能出现的信息有两类，对于每一条信息，按照要求输出答案，最后答案以数组形式返回。
+     * op = 0 代表用户名为 name 的用户要存 w 元钱进自己的账户，输出存钱后该用户账户的金额。
+     * op = 1 代表用户名为 name 的用户要从自己账户里取走 w 元钱，如果该用户账户里有足够的钱,输出该用户账户里的剩余存款，否则输出 -1，并且不处理账户。
+     * 一开始所有用户的存款都是 0。
+     * <p>
+     * 样例
+     * 样例 1：
+     * <p>
+     * 输入：
+     * op = [1,0,0,0,1,1,1],
+     * name = ["zzl","gyc","zzl","zzl","zzl","zzl","gyc"],
+     * w = [20,30,40,50,30,70,30]
+     * 输出：[-1,30,40,90,60,-1,0]
+     * 样例 2：
+     * <p>
+     * 输入：
+     * [1,1,1,1,1,0,1,0,0],
+     * ["lvh","lvh","iyf","jek","unv","lvh","lvh","jek","jek"],
+     * [110,8,98,72,142,99,39,89,108]
+     * 输出：[-1,-1,-1,-1,-1,99,60,89,197]
+     * 注意事项
+     * n <= 200000
+     *
+     * @param ops:   the type of information
+     * @param names: the name of user
+     * @param ws:    the money need to save or take
+     * @return: output the remaining money of the user.if the operation is illegal,output -1
+     */
+    public int[] getAns(int[] ops, String[] names, int[] ws) {
+        // Write your code here
+        int[] ans = new int[ops.length];
+        Map<String, Integer> cache = new HashMap<>();
+        for (String name : names) {
+            cache.put(name, 0);
+        }
+        for (int i = 0; i < ops.length; i++) {
+            switch (ops[i]) {
+                case 0:
+                    cache.put(names[i], cache.get(names[i]) + ws[i]);
+                    ans[i] = cache.get(names[i]);
+                    break;
+                case 1:
+                    if (cache.get(names[i]) >= ws[i]) {
+                        ans[i] = cache.get(names[i]) - ws[i];
+                        cache.put(names[i], ans[i]);
+                    } else {
+                        ans[i] = -1;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 火车车厢问题
+     * cat-only-icon
+     * CAT 专属题目
+     * 中文English
+     * 有一条铁轨, 铁轨中间有一个中转站, 你可以想象成一个 "T" 型的结构. 中转站相当于一个栈, 车厢是先进后出的. 有 n 节火车车厢在中转站右边的铁轨上从 1 到 n 排列.
+     * <p>
+     * 现在需要借助中转站将这 n 节火车转移到左边的铁轨上, 并且在每个车厢最多进入中转站一次的前提下, 按照数组 arr 中的顺序排列.
+     * <p>
+     * 你的任务是判断是否可以达到 arr 要求的顺序, 如果可以, 返回中转站中车厢数量最多时的数量, 如果不可以, 返回 -1 .
+     * <p>
+     * 样例
+     * 样例 1:
+     * <p>
+     * 输入: arr = [4,5,3,2,1]
+     * 输出: 3
+     * 解释:
+     * 1 进入中转站，
+     * 2 进入中转站，
+     * 3 进入中转站，
+     * 4 直接到左边的铁轨，
+     * 5 直接到左边的铁轨，
+     * 3 从中转站到左边的铁轨，
+     * 2 中转站到左边的铁轨，
+     * 1 中转站到左边的铁轨。
+     * 所以[4,5,3,2,1]合法，且中转站数量最多时为3，返回3。
+     * 样例 2:
+     * <p>
+     * 输入: arr = [3,1,2]
+     * 输出: -1
+     * 解释: 想要 3 排在第一个, 我们需要使 1, 2 连续进入中转站. 中转站是先进后出的, 1 没有办法在 2 之前到达左边的车轨.
+     * 注意事项
+     * n ≤ 10^5
+     *
+     * @param arr: the arr
+     * @return: the number of train carriages in this transfer station with the largest number of train carriages
+     */
+    public int trainCompartmentProblem(int[] arr) {
+        // Write your code here.
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new CatSolution().isLegalSeq(new int[]{1, 2, 3}, new int[]{3, 2, 1}));
+    }
+
 }
