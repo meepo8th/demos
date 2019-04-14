@@ -1884,15 +1884,18 @@ public class CatSolution {
     public boolean isLegalSeq(int[] push, int[] pop) {
         // write your code here
         Stack<Integer> stack = new Stack<>();
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i : pop) {
+            queue.add(i);
+        }
         for (int i = 0; i < push.length; i++) {
             stack.push(push[i]);
-            for (int j = 0; j < pop.length; j++) {
-                if (push[i] == pop[j]) {
-                    stack.pop();
-                }
+            while (!queue.isEmpty() && !stack.isEmpty() && queue.peek().equals(stack.peek())) {
+                stack.pop();
+                queue.poll();
             }
         }
-        return stack.size() == 0;
+        return stack.isEmpty();
     }
 
     /**
@@ -1996,11 +1999,317 @@ public class CatSolution {
      */
     public int trainCompartmentProblem(int[] arr) {
         // Write your code here.
-        return 0;
+        Stack<Integer> stack = new Stack<>();
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < arr.length; i++) {
+            queue.add(arr[i]);
+        }
+        int n = 0;
+        for (int i = 1; i <= arr.length; i++) {
+            stack.push(i);
+            while (!queue.isEmpty() && !stack.isEmpty() && queue.peek().equals(stack.peek())) {
+                stack.pop();
+                queue.poll();
+            }
+            n = Math.max(n, stack.size());
+        }
+        return stack.isEmpty() ? n : -1;
     }
 
+    /**
+     * 将二叉树按照层级转化为链表
+     * 中文English
+     * 给一棵二叉树，设计一个算法为每一层的节点建立一个链表。也就是说，如果一棵二叉树有 D 层，那么你需要创建 D 条链表。
+     * <p>
+     * 样例
+     * 样例 1：
+     * <p>
+     * 输入：
+     * {1,2,3,4}
+     * 1
+     * / \
+     * 2   3
+     * /
+     * 4
+     * 输出：
+     * [
+     * 1->null,
+     * 2->3->null,
+     * 4->null
+     * ]
+     * 样例 2：
+     * <p>
+     * 输入：
+     * {1,#,2,3}
+     * 1
+     * \
+     * 2
+     * /
+     * 3
+     * 输出：
+     * [
+     * 1->null,
+     * 2->null,
+     * 3->null
+     * ]
+     *
+     * @param root the root of binary tree
+     * @return a lists of linked list
+     */
+    public List<ListNode> binaryTreeToLists(TreeNode root) {
+        // Write your code here
+        List<ListNode> list = new ArrayList<>();
+        binaryTreeToLists(root, list, 0);
+        return list;
+    }
+
+    private void binaryTreeToLists(TreeNode node, List<ListNode> list, int level) {
+        if (null == node) {
+            return;
+        }
+        if (list.size() - 1 < level) {
+            list.add(new ListNode(node.val));
+        } else {
+            ListNode next = list.get(level);
+            while (null != next.next) {
+                next = next.next;
+            }
+            next.next = new ListNode(node.val);
+        }
+        binaryTreeToLists(node.left, list, level + 1);
+        binaryTreeToLists(node.right, list, level + 1);
+    }
+
+    /**
+     * 二叉树的层次遍历
+     * 中文English
+     * 给出一棵二叉树，返回其节点值的层次遍历（逐层从左往右访问）
+     * <p>
+     * 样例
+     * Example 1:
+     * <p>
+     * Input：{1,2,3}
+     * Output：[[1],[2,3]]
+     * Explanation：
+     * level traversal
+     * Example 2:
+     * <p>
+     * Input：{1,#,2,3}
+     * Output：[[1],[2],[3]]
+     * Explanation：
+     * level traversal
+     * 挑战
+     * 挑战1：只使用一个队列去实现它
+     * <p>
+     * 挑战2：用BFS算法来做
+     * <p>
+     * 注意事项
+     * The first data is the root node, followed by the value of the left and right son nodes, and "#" indicates that there is no child node.
+     * The number of nodes does not exceed 20.
+     *
+     * @param root: A Tree
+     * @return: Level order a list of lists of integer
+     */
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        // write your code here
+        List<List<Integer>> list = new ArrayList<>();
+        levelOrder(root, list, 0);
+        return list;
+    }
+
+    private void levelOrder(TreeNode node, List<List<Integer>> list, int level) {
+        if (null == node) {
+            return;
+        }
+        if (list.size() - 1 < level) {
+            list.add(new ArrayList<>());
+        }
+        list.get(level).add(node.val);
+        levelOrder(node.left, list, level + 1);
+        levelOrder(node.right, list, level + 1);
+    }
+
+    /**
+     * 到达一个数字
+     * 中文English
+     * 你站在一个无穷数轴上的 0 位置。在位置目标上有一个目标。
+     * 在每一个动作中，你可以向左或向右。在第n次移动中(从1开始)，你行走n步。
+     * 返回到达目的地所需的最小步骤数。
+     * <p>
+     * 样例
+     * 样例1
+     * <p>
+     * 输入: target = 3
+     * 输出: 2
+     * 解释:
+     * 在第一步，我们从0到1。
+     * 在第二步，我们从1到3。
+     * 样例2
+     * <p>
+     * 输入: target = 2
+     * 输出: 3
+     * 解释:
+     * 在第一步，我们从0到1。
+     * 在第二个步骤中，我们从1到-1。
+     * 在第三步，从-1到2。
+     * 注意事项
+     * 目标将是一个非零的整数范围[-10^9, 10^9]。
+     *
+     * @param target: the destination
+     * @return: the minimum number of steps
+     */
+
+    public int reachNumber(int target) {
+        // Write your code here
+        int n = (int) Math.ceil((Math.sqrt(1 + 8.0 * Math.abs(target)) - 1) / 2), d = n * (n + 1) / 2 - target;
+        return n + (d % 2) * (n % 2 + 1);
+    }
+
+    /**
+     * 能否到达终点
+     * 中文English
+     * 给一个大小为 m*n 的map，1 代表空地，0 代表障碍物，9代表终点。请问如果你从 (0, 0) 开始能否到达终点？
+     * <p>
+     * 样例
+     * 样例1
+     * <p>
+     * 输入:
+     * [
+     * [1,1,1],
+     * [1,1,1],
+     * [1,1,9]
+     * ]
+     * 输出: true
+     * 样例2
+     * <p>
+     * 输入:
+     * [
+     * [1,1,1],
+     * [1,0,0],
+     * [1,0,9]
+     * ]
+     * 输出: false
+     *
+     * @param map: the map
+     * @return: can you reach the endpoint
+     */
+    public boolean reachEndpoint(int[][] map) {
+        // Write your code here
+        Queue<Position> queue = new LinkedList<>();
+        queue.add(new Position(0, 0));
+        while (!queue.isEmpty()) {
+            Position now = queue.poll();
+            if (map[now.x][now.y] == 9) {
+                return true;
+            } else if (map[now.x][now.y] != 0) {
+                map[now.x][now.y] = 0;
+            } else {
+                continue;
+            }
+            /**
+             * 上
+             */
+            if (now.x - 1 >= 0) {
+                if (map[now.x - 1][now.y] != 0) {
+                    queue.add(new Position(now.x - 1, now.y));
+                }
+            }
+            /**
+             * 下
+             */
+            if (now.x + 1 < map.length) {
+                if (map[now.x + 1][now.y] != 0) {
+                    queue.add(new Position(now.x + 1, now.y));
+                }
+
+            }
+            /**
+             * 左
+             */
+            if (now.y - 1 >= 0) {
+                if (map[now.x][now.y - 1] != 0) {
+                    queue.add(new Position(now.x, now.y - 1));
+                }
+            }
+            /**
+             * 右
+             */
+            if (now.y + 1 < map[0].length) {
+                if (map[now.x][now.y + 1] != 0) {
+                    queue.add(new Position(now.x, now.y + 1));
+                }
+            }
+        }
+        return false;
+    }
+
+    private class Position {
+        int x;
+        int y;
+
+        public Position(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public String toString() {
+            return "Position{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    '}';
+        }
+    }
+
+    /**
+     * 区间异或 I
+     * cat-only-icon
+     * CAT 专属题目
+     * 中文English
+     * 给定数组A（下标从0到n-1，n为数组长度），和一个查询列表。每一项查询包括两个整数i和k。对于每次查询，计算Ai, A(i + 1), ..., A(i+k-1)的异或和。结果保存在列表中。
+     * <p>
+     * 样例
+     * 样例1
+     * <p>
+     * 输入: A = [1,2,3,4] and query = [(0,2),(1,2)]
+     * 输出: [3,1]
+     * 解释:
+     * 1 ^ 2 = 3
+     * 2 ^ 3 = 1
+     * 样例2
+     * <p>
+     * 输入: A = [1,2,4,8] and query = [(0,2),(2,2)]
+     * 输出: [3,12]
+     * 解释:
+     * 1 ^ 2 = 3
+     * 4 ^ 8 = 12
+     * 注意事项
+     * 在大部分编程语言中你可以使用 '^'来进行异或运算。
+     * 在这个问题中，k永远等于2。
+     * 数组长度小于10000，查询次数小于1000。
+     * 保证Ai<1000,i+k<n。
+     *
+     * @param A:
+     * @param query:
+     * @return: nothing
+     */
+    public List<Integer> intervalXOR(int[] A, List<Interval> query) {
+        //
+        List<Integer> rtn = new ArrayList<>(query.size());
+        for (Interval interval : query) {
+            int i = A[interval.start];
+            for (int j = 1; j < interval.end; j++) {
+                i ^= A[interval.start + j];
+            }
+            rtn.add(i);
+        }
+        return rtn;
+    }
+
+
     public static void main(String[] args) {
-        System.out.println(new CatSolution().isLegalSeq(new int[]{1, 2, 3}, new int[]{3, 2, 1}));
+        System.out.println(2 ^ 3);
+
     }
 
 }

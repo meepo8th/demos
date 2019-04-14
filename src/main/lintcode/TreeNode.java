@@ -8,4 +8,9 @@ public class TreeNode {
         this.val = val;
         this.left = this.right = null;
     }
+
+    public TreeNode(String nodeArray) {
+        String[] nodes = nodeArray.split(",");
+
+    }
 }
