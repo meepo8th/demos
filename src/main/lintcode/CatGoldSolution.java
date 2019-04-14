@@ -311,19 +311,19 @@ public class CatGoldSolution {
         // write your code here
         Set<Integer> treeSet = new TreeSet<>();
         bfs(treeSet, root);
-        int last=Integer.MIN_VALUE;
+        int last = Integer.MIN_VALUE;
         int length = 1;
         int maxLength = 0;
         for (Integer i : treeSet) {
-            if(i-last==1){
+            if (i - last == 1) {
                 length++;
-            }else{
-                maxLength = Math.max(length,maxLength);
-                length=1;
+            } else {
+                maxLength = Math.max(length, maxLength);
+                length = 1;
             }
-            last=i;
+            last = i;
         }
-        return Math.max(maxLength,length);
+        return Math.max(maxLength, length);
     }
 
     private void bfs(Set<Integer> treeSet, TreeNode node) {
@@ -335,11 +335,40 @@ public class CatGoldSolution {
         bfs(treeSet, node.right);
     }
 
+    /**
+     * 中文English
+     * 给一个由 1 - n 的整数随机组成的一个字符串序列，其中丢失了一个整数，请找到它。
+     * <p>
+     * 样例
+     * 样例1
+     * <p>
+     * 输入: n = 20 和 str = 19201234567891011121314151618
+     * 输出: 17
+     * 解释:
+     * 19'20'1'2'3'4'5'6'7'8'9'10'11'12'13'14'15'16'18
+     * 样例2
+     * <p>
+     * 输入: n = 6 和 str = 56412
+     * 输出: 3
+     * 解释:
+     * 5'6'4'1'2
+     * 注意事项
+     * n <= 30
+     *
+     * @param n:   An integer
+     * @param str: a string with number from 1-n in random order and miss one number
+     * @return: An integer
+     */
+    public int findMissing2(int n, String str) {
+        // write your code here
+        return 0;
+    }
+
     public static void main(String[] args) {
-        TreeNode root=new TreeNode(1);
-        root.left=new TreeNode(2);
-        root.right=new TreeNode(3);
-        root.left.left=new TreeNode(0);
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(0);
         System.out.println(new CatGoldSolution().longestConsecutive2(root));
 
     }
