@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.List;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(new Solution().advantageCount(new int[]{12, 24, 8, 32}, new int[]{13, 25, 32, 11})));
+    }
+
     public int[] advantageCount(int[] A, int[] B) {
         int[] rtn = new int[A.length];
         List<ValuePos> valuePos = new ArrayList<>(A.length);
@@ -33,11 +37,6 @@ class Solution {
         valuePos.remove(0);
 
         return rtn;
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().advantageCount(new int[]{12, 24, 8, 32}, new int[]{13, 25, 32, 11})));
     }
 }
 

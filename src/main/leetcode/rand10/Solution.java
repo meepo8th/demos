@@ -12,6 +12,22 @@ import java.util.Random;
 class Solution {
     static Random random = new Random();
 
+    public static void main(String[] args) {
+        int size = 10000;
+        int[] array = new int[11];
+        int[] array2 = new int[11];
+        Solution solution = new Solution();
+        for (int i = 0; i < size; i++) {
+            array[solution.rand10()] += 1;
+        }
+        System.out.println(Arrays.toString(array));
+
+        for (int i = 0; i < size; i++) {
+            array2[solution.answerRand10()] += 1;
+        }
+        System.out.println(Arrays.toString(array2));
+    }
+
     public int rand7() {
         return random.nextInt(7) + 1;
     }
@@ -35,21 +51,5 @@ class Solution {
             x = (rand7() - 1) * 7 + rand7();
         } while (x > 40);
         return x % 10 + 1;
-    }
-
-    public static void main(String[] args) {
-        int size = 10000;
-        int[] array = new int[11];
-        int[] array2 = new int[11];
-        Solution solution = new Solution();
-        for (int i = 0; i < size; i++) {
-            array[solution.rand10()] += 1;
-        }
-        System.out.println(Arrays.toString(array));
-
-        for (int i = 0; i < size; i++) {
-            array2[solution.answerRand10()] += 1;
-        }
-        System.out.println(Arrays.toString(array2));
     }
 }

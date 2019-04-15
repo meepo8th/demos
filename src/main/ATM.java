@@ -2,8 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Stack;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * ATM类
@@ -12,10 +12,7 @@ import java.util.Map;
  */
 public class ATM {
 
-    Account nowAccount; //当前登陆用户
-    Stack<ATMMenu> menuStack = new Stack<>();//菜单栈 用于返回
     public static final Map<String, ATMMenu> MENU_MAP = new HashMap<>();//菜单映射
-    boolean quit = false;
 
     //初始化菜单映射
     static {
@@ -24,6 +21,26 @@ public class ATM {
         MENU_MAP.put("3", new MoneyInMenu());
         MENU_MAP.put("4", new MoneyOutMenu());
         MENU_MAP.put("5", new LoginOutMenu());
+    }
+
+    Account nowAccount; //当前登陆用户
+    Stack<ATMMenu> menuStack = new Stack<>();//菜单栈 用于返回
+    boolean quit = false;
+
+    /**
+     * 运行ATM
+     *
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        ATM atm = new ATM();
+        atm.showMenu();
+        while (!atm.quit) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String input = br.readLine();
+            atm.processInput(input);
+        }
     }
 
     /**
@@ -50,22 +67,6 @@ public class ATM {
         ATMMenu menu = menuStack.pop();
         menu.processInput(this, input);
         menuStack.push(menu);
-    }
-
-    /**
-     * 运行ATM
-     *
-     * @param args
-     * @throws IOException
-     */
-    public static void main(String[] args) throws IOException {
-        ATM atm = new ATM();
-        atm.showMenu();
-        while (!atm.quit) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String input = br.readLine();
-            atm.processInput(input);
-        }
     }
 }
 

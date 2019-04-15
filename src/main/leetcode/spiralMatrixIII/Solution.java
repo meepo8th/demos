@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().spiralMatrixIII(1, 4, 0, 0));
+        System.out.println(new Solution().spiralMatrixIII(5, 6, 1, 4));
+    }
+
     public int[][] spiralMatrixIII(int R, int C, int r0, int c0) {
         List<int[]> rtn = new ArrayList<>();
         int max = R * C;
@@ -25,7 +30,7 @@ class Solution {
                     pos = new int[]{pos[0] + 1, pos[1]};
                     if (visit[pos[0] + 1][pos[1]] != -1) {
                         if (visit[pos[0] + 1][pos[1]] == 1) {
-                            rtn.add(new int[]{pos[0]-C,pos[1]-R});
+                            rtn.add(new int[]{pos[0] - C, pos[1] - R});
                             max--;
                         }
                         direct += 1;
@@ -67,10 +72,5 @@ class Solution {
             }
         }
         return rtn.toArray(new int[0][]);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().spiralMatrixIII(1, 4, 0, 0));
-        System.out.println(new Solution().spiralMatrixIII(5, 6, 1, 4));
     }
 }

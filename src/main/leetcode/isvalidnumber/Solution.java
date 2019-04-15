@@ -4,6 +4,10 @@ package leetcode.isvalidnumber;
  * 是否是有效数字
  */
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().isNumber("6e6.5"));
+    }
+
     public boolean isNumber(String s) {
         if (null != s && !s.trim().equals("")) {
             s = s.trim().toLowerCase();
@@ -56,10 +60,5 @@ class Solution {
             }
         }
         return num.replaceAll("[-|\\+|\\.]", "").length() > 0;
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().isNumber("6e6.5"));
     }
 }

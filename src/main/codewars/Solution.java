@@ -15,7 +15,7 @@ public class Solution {
                 } else {
                     sb.append(s.charAt(i));
                 }
-                needCamel=false;
+                needCamel = false;
 
             }
         }

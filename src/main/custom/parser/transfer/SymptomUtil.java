@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SymptomUtil {
+    private static CleanReplaceTransfer cleanReplaceTransfer = new CleanReplaceTransfer();
+
     private SymptomUtil() {
 
     }
-
-    private static CleanReplaceTransfer cleanReplaceTransfer = new CleanReplaceTransfer();
 
     /**
      * 症状递归分割，直到不能分割为止

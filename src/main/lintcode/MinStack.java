@@ -29,7 +29,7 @@ public class MinStack {
             } else {
                 minStack.push(top);
             }
-        }else{
+        } else {
             minStack.push(number);
         }
         stack.push(number);

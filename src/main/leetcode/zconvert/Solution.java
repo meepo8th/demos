@@ -4,6 +4,14 @@ package leetcode.zconvert;
  * Z字型变换
  */
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().convert("PAYPALISHIRING", 2));
+        System.out.println(new Solution().convert("PAYPALISHIRING", 3));
+        System.out.println(new Solution().convert("PAYPALISHIRING", 4));
+        System.out.println(new Solution().convert("PAYPALISHIRING", 3).equals("PAHNAPLSIIGYIR"));
+        System.out.println(new Solution().convert("PAYPALISHIRING", 4).equals("PINALSIGYAHRPI"));
+    }
+
     public String convert(String s, int numRows) {
         if (1 == numRows) {
             return s;
@@ -25,13 +33,5 @@ class Solution {
             }
         }
         return String.valueOf(rtn);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().convert("PAYPALISHIRING", 2));
-        System.out.println(new Solution().convert("PAYPALISHIRING", 3));
-        System.out.println(new Solution().convert("PAYPALISHIRING", 4));
-        System.out.println(new Solution().convert("PAYPALISHIRING", 3).equals("PAHNAPLSIIGYIR"));
-        System.out.println(new Solution().convert("PAYPALISHIRING", 4).equals("PINALSIGYAHRPI"));
     }
 }

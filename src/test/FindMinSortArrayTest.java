@@ -1,5 +1,3 @@
-
-
 import lintcode.FindMinSortArray;
 import org.junit.Test;
 

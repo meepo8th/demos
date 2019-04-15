@@ -1,6 +1,10 @@
 package leetcode.minRefuelStops;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().minRefuelStops(1, 1, new int[][]{}));
+    }
+
     public int minRefuelStops(int target, int startFuel, int[][] stations) {
         Car[][] travel = new Car[stations.length][stations.length];
         for (int j = 0; j < stations.length; j++) {
@@ -11,10 +15,6 @@ class Solution {
             }
         }
         return 0;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().minRefuelStops(1, 1, new int[][]{}));
     }
 }
 

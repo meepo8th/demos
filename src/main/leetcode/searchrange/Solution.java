@@ -4,6 +4,10 @@ package leetcode.searchrange;
  * 范围查找
  */
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().binarySearch(new int[]{1, 3, 3, 3, 3, 5, 7}, 3));
+    }
+
     public int[] searchRange(int[] nums, int target) {
         int[] rtn = new int[]{-1, -1};
         if (nums.length > 0) {
@@ -33,18 +37,14 @@ class Solution {
             while (start <= end) {
                 int nowPos = (start + end) / 2;
                 if (nums[nowPos] < target) {
-                    start = nowPos+1;
+                    start = nowPos + 1;
                 } else if (nums[nowPos] > target) {
-                    end = nowPos-1;
+                    end = nowPos - 1;
                 } else {
                     return nowPos;
                 }
             }
         }
         return -1;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().binarySearch(new int[]{1, 3, 3,3,3,5,7}, 3));
     }
 }

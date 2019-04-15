@@ -4,19 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
-    class Car implements Comparable<Car> {
-        Integer pos;
-        Integer speed;
-
-        public Car(int pos, int speed) {
-            this.pos = pos;
-            this.speed = speed;
-        }
-
-        @Override
-        public int compareTo(Car o) {
-            return pos.compareTo(o.pos);
-        }
+    public static void main(String[] args) {
+        System.out.println(new Solution().carFleet(12, new int[]{10, 8, 0, 5, 3}, new int[]{2, 4, 1, 1, 3}));
     }
 
     public int carFleet(int target, int[] position, int[] speed) {
@@ -37,7 +26,18 @@ class Solution {
         return fleet;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new Solution().carFleet(12, new int[]{10, 8, 0, 5, 3}, new int[]{2, 4, 1, 1, 3}));
+    class Car implements Comparable<Car> {
+        Integer pos;
+        Integer speed;
+
+        public Car(int pos, int speed) {
+            this.pos = pos;
+            this.speed = speed;
+        }
+
+        @Override
+        public int compareTo(Car o) {
+            return pos.compareTo(o.pos);
+        }
     }
 }

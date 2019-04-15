@@ -4,6 +4,10 @@ package leetcode.maxarea;
  *
  */
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().maxArea(new int[]{1, 2, 3}));
+    }
+
     public int maxArea(int[] height) {
         int maxArea = 0;
         int left = 0;
@@ -21,9 +25,5 @@ class Solution {
             }
         }
         return maxArea;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().maxArea(new int[]{1, 2, 3}));
     }
 }

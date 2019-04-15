@@ -20,23 +20,6 @@ public class Student implements Serializable {
         this.score = score;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("{\"Student\":{");
-        sb.append("\"stuID\":\"")
-                .append(stuID).append('\"');
-        sb.append(",\"name\":\"")
-                .append(name).append('\"');
-        sb.append(",\"score\":")
-                .append(score);
-        sb.append("}}");
-        return sb.toString();
-    }
-
-    public void show() {
-        System.out.println(toString());
-    }
-
     public static void saveStudents(ArrayList<Student> students, String fileName) throws IOException {
         File saveFile = new File(fileName);
         if (!saveFile.exists()) {
@@ -76,5 +59,22 @@ public class Student implements Serializable {
         for (Student student : students) {
             student.show();
         }
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{\"Student\":{");
+        sb.append("\"stuID\":\"")
+                .append(stuID).append('\"');
+        sb.append(",\"name\":\"")
+                .append(name).append('\"');
+        sb.append(",\"score\":")
+                .append(score);
+        sb.append("}}");
+        return sb.toString();
+    }
+
+    public void show() {
+        System.out.println(toString());
     }
 }

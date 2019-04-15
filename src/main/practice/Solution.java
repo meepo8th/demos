@@ -1,13 +1,23 @@
 package practice;
-class Parent{
-    Class thisClass(){
+
+class Parent {
+    Class thisClass() {
         return this.getClass();
     }
 }
-class Child extends Parent{
+
+class Child extends Parent {
 
 }
+
 public class Solution {
+    public static void main(String[] args) {
+        int i = 0;
+        i = i++;
+        String sql = String.format("update stuInfo set stuName='%s' where stuNo='%s'", "123", "456");
+        System.out.println();
+    }
+
     /*
      * @param s: A string
      * @return: A string
@@ -25,10 +35,10 @@ public class Solution {
     }
 
     /*
-         * @param A: An integer array
-         * @param B: An integer array
-         * @return: a double whose format is *.5 or *.0
-         */
+     * @param A: An integer array
+     * @param B: An integer array
+     * @return: a double whose format is *.5 or *.0
+     */
     public double findMedianSortedArrays(int[] A, int[] B) {
         // write your code here
         int[] sortedArray = new int[A.length + B.length];
@@ -124,12 +134,5 @@ public class Solution {
             }
         }
         return s.substring(longStart, longStart + longest);
-    }
-
-    public static void main(String[] args) {
-        int i=0;
-        i=i++;
-        String sql=String.format("update stuInfo set stuName='%s' where stuNo='%s'","123","456");
-        System.out.println();
     }
 }

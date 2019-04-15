@@ -13,7 +13,7 @@ public class ListNode {
         ListNode cur = head;
         for (int i = 1; i < array.length; i++) {
             cur.next = new ListNode(array[i]);
-            cur=cur.next;
+            cur = cur.next;
         }
         return head;
     }

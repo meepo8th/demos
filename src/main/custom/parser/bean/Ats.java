@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class Ats {
     public static final String ATS_NOT_MATCH = "部位数量不匹配";
+    private static char FLAG = '@';
     private int left = -1;//左括号位置
     private int right = -1;//右括号位置
-    private static char FLAG = '@';
 
     public Ats(int left, int right) {
         this.left = left;

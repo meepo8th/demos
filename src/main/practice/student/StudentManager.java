@@ -13,10 +13,6 @@ public class StudentManager {
     int size;
 
 
-    private void init() {
-        students = new Student[maxSize];
-    }
-
     public StudentManager() {
         init();
     }
@@ -24,6 +20,10 @@ public class StudentManager {
     public StudentManager(int maxSize) {
         this.maxSize = maxSize;
         init();
+    }
+
+    private void init() {
+        students = new Student[maxSize];
     }
 
     public void add(Student student) {

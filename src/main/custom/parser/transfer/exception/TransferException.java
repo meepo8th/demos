@@ -1,6 +1,6 @@
 package custom.parser.transfer.exception;
 
-public class TransferException extends Exception{
+public class TransferException extends Exception {
     public TransferException() {
     }
 

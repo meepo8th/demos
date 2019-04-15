@@ -3,6 +3,13 @@ package leetcode.int2roman;
 import java.io.IOException;
 
 class Solution {
+    public static void main(String args[]) throws IOException, InterruptedException {
+        for (int i = 0; i < 100000; i++) {
+            System.out.println(1);
+            System.out.print((char) 13);
+        }
+    }
+
     public String intToRoman(int num) {
         if (num <= 0) return "";
         StringBuilder ret = new StringBuilder();
@@ -18,12 +25,5 @@ class Solution {
 
         }
         return ret.toString();
-    }
-
-    public static void main(String args[]) throws IOException, InterruptedException {
-        for (int i = 0; i < 100000; i++) {
-            System.out.println(1);
-            System.out.print((char)13);
-        }
     }
 }

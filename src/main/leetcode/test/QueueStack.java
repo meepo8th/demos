@@ -12,6 +12,16 @@ public class QueueStack<T> {
     Queue<T> nowQue = new ArrayDeque<>();
     Queue<T> otherQue = new ArrayDeque<>();
 
+    public static void main(String[] args) {
+        QueueStack<String> queueStack = new QueueStack();
+        queueStack.push("1");
+        queueStack.push("2");
+        queueStack.push("3");
+        queueStack.push("4");
+        while (!queueStack.isEmpty()) {
+            System.out.println(queueStack.pop());
+        }
+    }
 
     public T pop() {
         T last = null;
@@ -52,16 +62,5 @@ public class QueueStack<T> {
                 .append(otherQue);
         sb.append("}}");
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        QueueStack<String> queueStack = new QueueStack();
-        queueStack.push("1");
-        queueStack.push("2");
-        queueStack.push("3");
-        queueStack.push("4");
-        while (!queueStack.isEmpty()) {
-            System.out.println(queueStack.pop());
-        }
     }
 }

@@ -1,6 +1,10 @@
 package leetcode.shfitingletters;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().shiftingLetters("abc", new int[]{3, 5, 9}));
+    }
+
     public String shiftingLetters(String S, int[] shifts) {
         char[] array = S.toCharArray();
         int sum = 0;
@@ -9,10 +13,5 @@ class Solution {
             array[i] = (char) ((sum + array[i] - 'a') % 26 + 'a');
         }
         return new String(array);
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().shiftingLetters("abc", new int[]{3, 5, 9}));
     }
 }

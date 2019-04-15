@@ -1,8 +1,7 @@
 package leetcode.numDistinct;
 
-import org.junit.jupiter.api.Test;
-
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class Solution {
     public int numDistinct(String s, String t) {

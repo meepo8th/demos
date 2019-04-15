@@ -1,6 +1,8 @@
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Collection;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,6 +24,10 @@ interface ButttonAction {
     public void click();
 }
 
+interface Do {
+    void doSomething();
+}
+
 class Rect {
     //使用原子类保证并发安全
     private final static AtomicInteger useTime = new AtomicInteger(0);
@@ -33,10 +39,6 @@ class Rect {
     public static int getUseTime() {
         return useTime.get();
     }
-}
-
-interface Do {
-    void doSomething();
 }
 
 class MyDo implements Do {

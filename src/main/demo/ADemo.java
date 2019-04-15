@@ -1,7 +1,6 @@
 package demo;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class ADemo {
     public static int timeSeconds() {

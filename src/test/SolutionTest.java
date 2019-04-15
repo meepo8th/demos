@@ -1,5 +1,3 @@
-
-
 import lintcode.ListNode;
 import lintcode.Solution;
 import org.junit.Test;

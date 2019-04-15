@@ -10,12 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.*;
 
 public class SymptomParser {
-    private SymptomParser() {
-
-    }
-
     private static final List<Transfer> normalizationTransfer = new ArrayList<>();
-
 
     static {
         normalizationTransfer.add(new NormalizationReplaceTransfer());
@@ -25,6 +20,11 @@ public class SymptomParser {
         } catch (BracketsException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private SymptomParser() {
+
     }
 
     /**

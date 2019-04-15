@@ -51,7 +51,7 @@ public class ColonTransfer implements Transfer {
      */
     @Override
     public boolean canTrans(String inputString) {
-        return StringUtils.isNotBlank(inputString) && (inputString.contains("：") || inputString.contains("‡") || inputString.contains(":") || inputString.contains("†")||inputString.contains("§"));
+        return StringUtils.isNotBlank(inputString) && (inputString.contains("：") || inputString.contains("‡") || inputString.contains(":") || inputString.contains("†") || inputString.contains("§"));
     }
 
     /**

@@ -20,7 +20,7 @@ public class MultipleThreeValidator {
         } else {
             int sum = 0;
             for (char ch : number.toCharArray()) {
-                sum += (ch-48);
+                sum += (ch - 48);
             }
             return multipleByThree(String.valueOf(sum));
         }
@@ -30,7 +30,7 @@ public class MultipleThreeValidator {
         return multipleByThree(String.valueOf(Math.abs(number)));
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.println(multipleByThree("361"));
         System.out.println(multipleByThree(361L));
         System.out.println(multipleByThree("360"));

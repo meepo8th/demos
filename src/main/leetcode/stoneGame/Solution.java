@@ -1,6 +1,10 @@
 package leetcode.stoneGame;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().stoneGame(new int[]{3, 7, 2, 3}));
+    }
+
     public boolean stoneGame(int[] piles) {
         int start = 0, end = piles.length - 1;
         int totalLi = 0;
@@ -20,9 +24,5 @@ class Solution {
             }
         }
         return totalLi > totalOther;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().stoneGame(new int[]{3, 7, 2, 3}));
     }
 }

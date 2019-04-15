@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        long l1 = System.currentTimeMillis();
+        System.out.println(solution.isPrime(100090001));
+        System.out.println(System.currentTimeMillis() - l1);
+    }
+
     public int primePalindrome(int N) {
         for (int num = N; num <= 2 * N; num = getNextEchoNumber(num)) {
             if (isPrime(num)) {
@@ -61,12 +68,5 @@ class Solution {
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        long l1 = System.currentTimeMillis();
-        System.out.println(solution.isPrime(100090001));
-        System.out.println(System.currentTimeMillis() - l1);
     }
 }

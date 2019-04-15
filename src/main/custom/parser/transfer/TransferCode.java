@@ -4,17 +4,17 @@ package custom.parser.transfer;
  * 转换编/解码 防止被重复编码/解码
  */
 public class TransferCode {
-    private TransferCode() {
-    }
-
-    private static String ENCODE_CHAR = "";
     private static final String DECODE_CHAR = ":：‡§†{}≮≯【】&|∪;";
     private static final int CAN_REPEAT_DECODE = 4;
+    private static String ENCODE_CHAR = "";
 
     static {
         for (int i = 0; i < DECODE_CHAR.length(); i++) {
             ENCODE_CHAR += (char) (Character.MAX_VALUE - i);
         }
+    }
+
+    private TransferCode() {
     }
 
     /**

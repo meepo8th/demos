@@ -1,6 +1,7 @@
 package codewars;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class SumDigPower {
     public static long[][] cache = new long[][]{
@@ -24,6 +25,7 @@ class SumDigPower {
             {pow(1, 18), pow(2, 18), pow(3, 18), pow(4, 18), pow(5, 18), pow(6, 18), pow(7, 18), pow(8, 18), pow(9, 18)},
             {pow(1, 19), pow(2, 19), pow(3, 19), pow(4, 19), pow(5, 19), pow(6, 19), pow(7, 19), pow(8, 19), pow(9, 19)}
     };
+
     public static long pow(long a, long b) {
         long rtn = 1;
         if (a == 0) {
@@ -37,6 +39,7 @@ class SumDigPower {
         }
         return rtn;
     }
+
     public static List<Long> sumDigPow(long a, long b) {
         return (calculateList(a, b));
     }
@@ -56,14 +59,15 @@ class SumDigPower {
         long sum = 0;
         for (int i = 0; i < longString.length(); i++) {
             long digit = Long.parseLong(String.valueOf(longString.charAt(i)));
-            sum += Math.pow(digit, i+1);
+            sum += Math.pow(digit, i + 1);
         }
         return (sum == number);
     }
-    public static void main(String args[]){
-        Long l1=System.currentTimeMillis();
-        System.out.println(sumDigPow(0,6000000));
-        System.out.println(System.currentTimeMillis()-l1);
+
+    public static void main(String args[]) {
+        Long l1 = System.currentTimeMillis();
+        System.out.println(sumDigPow(0, 6000000));
+        System.out.println(System.currentTimeMillis() - l1);
     }
 
 }

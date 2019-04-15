@@ -8,8 +8,17 @@ public class MyQueue {
 
     public MyQueue() {
         // do intialization if necessary
-        stack=new Stack<>();
+        stack = new Stack<>();
         otherStack = new Stack<>();
+    }
+
+    public static void main(String[] args) {
+        MyQueue myQueue = new MyQueue();
+        myQueue.push(1);
+        myQueue.push(2);
+        myQueue.push(3);
+        System.out.println(myQueue.top());
+        System.out.println(myQueue.pop());
     }
 
     /*
@@ -18,8 +27,8 @@ public class MyQueue {
      */
     public void push(int element) {
         // write your code here
-        if(stack.isEmpty()){
-            while(!otherStack.isEmpty()){
+        if (stack.isEmpty()) {
+            while (!otherStack.isEmpty()) {
                 stack.push(otherStack.pop());
             }
         }
@@ -32,7 +41,7 @@ public class MyQueue {
      */
     public int pop() {
         // write your code here
-        if(otherStack.isEmpty()) {
+        if (otherStack.isEmpty()) {
             while (!stack.isEmpty()) {
                 otherStack.push(stack.pop());
             }
@@ -48,14 +57,5 @@ public class MyQueue {
         int pop = pop();
         otherStack.push(pop);
         return pop;
-    }
-
-    public static void main(String[] args){
-        MyQueue myQueue = new MyQueue();
-        myQueue.push(1);
-        myQueue.push(2);
-        myQueue.push(3);
-        System.out.println(myQueue.top());
-        System.out.println(myQueue.pop());
     }
 }

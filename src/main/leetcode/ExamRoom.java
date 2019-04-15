@@ -34,15 +34,15 @@ public class ExamRoom {
         System.out.println(Arrays.asList(element));
     }
 
+    public static void main(String[] args) {
+        System.out.println(new ExamRoom(10));
+    }
+
     public int seat() {
         return 0;
     }
 
     public void leave(int p) {
         element[p] = false;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new ExamRoom(10));
     }
 }

@@ -13,21 +13,18 @@ import java.util.HashMap;
  */
 public class GenerateDao {
     private static HashMap<String, Boolean> hasInit = new HashMap<>();
-    private String connectStr;
-    private String connectType;
-
     //数据库类型配置，如新增需配置加载类与查询sql
     private static HashMap<String, String> typeClass = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_CLASS);
     }};
-
     private static HashMap<String, String> typeSql = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL_COLUMN);
     }};
-
     private static HashMap<String, HashMap<String, String>> typeConvert = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.typeMySqlConvert);
     }};
+    private String connectStr;
+    private String connectType;
 
 
     public GenerateDao(String connectStr, String connectType) {
@@ -40,6 +37,17 @@ public class GenerateDao {
         this.connectStr = connectStr;
         this.connectType = GenerateConstant.TYPE_MYSQL;
         init();
+    }
+
+    public static void main(String[] args) throws Exception {
+        String connectStr = "jdbc:mysql://192.168.2.205:3306/database_user?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Hongkong&user=root&password=root";
+        String[] tables = new String[]{"ai_user_tag"
+        };
+        GenerateDao generateDao = new GenerateDao(connectStr);
+        for (String table : tables) {
+            generateDao.generateClassFile(table);
+            generateDao.generateSqlFile(table);
+        }
     }
 
     private void init() {
@@ -95,7 +103,7 @@ public class GenerateDao {
 
             while (rs.next()) {
                 name = rs.getString("name");
-                fieldName = ( "get"+ CustomeStringUtil.capFirst(CustomeStringUtil.transLateUnderLine2Upper(name))+"();");
+                fieldName = ("get" + CustomeStringUtil.capFirst(CustomeStringUtil.transLateUnderLine2Upper(name)) + "();");
                 sb.append(String.format(columnFormat, name, fieldName));
             }
         } catch (Exception e) {
@@ -184,16 +192,5 @@ public class GenerateDao {
         }
         sb.append("}");
         return sb.toString();
-    }
-
-    public static void main(String[] args) throws Exception {
-        String connectStr = "jdbc:mysql://192.168.2.205:3306/database_user?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Hongkong&user=root&password=root";
-        String[] tables = new String[]{"ai_user_tag"
-        };
-        GenerateDao generateDao = new GenerateDao(connectStr);
-        for (String table : tables) {
-            generateDao.generateClassFile(table);
-            generateDao.generateSqlFile(table);
-        }
     }
 }

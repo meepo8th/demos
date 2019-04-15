@@ -1,5 +1,3 @@
-
-
 import codewars.PerfectPower;
 import org.junit.Test;
 
@@ -9,6 +7,15 @@ import static java.lang.Math.log;
 import static org.junit.Assert.*;
 
 public class PerfectPowerTest {
+
+    private static int ipow(int b, int e) {
+        int p = 1;
+        for (; e > 0; e >>= 1) {
+            if ((e & 1) == 1) p *= b;
+            b *= b;
+        }
+        return p;
+    }
 
     @Test
     public void test0() {
@@ -77,15 +84,6 @@ public class PerfectPowerTest {
             int[] r = PerfectPower.isPerfectPower(l);
             if (r != null) assertEquals(r[0] + "^" + r[1] + "!=" + l, l, ipow(r[0], r[1]));
         }
-    }
-
-    private static int ipow(int b, int e) {
-        int p = 1;
-        for (; e > 0; e >>= 1) {
-            if ((e & 1) == 1) p *= b;
-            b *= b;
-        }
-        return p;
     }
 
 }

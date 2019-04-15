@@ -1,6 +1,12 @@
 package leetcode.lemonadechange;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().lemonadeChange(new int[]{10, 10}));
+        System.out.println(new Solution().lemonadeChange(new int[]{5, 5, 5, 10, 20}));
+        System.out.println(new Solution().lemonadeChange(new int[]{5, 5, 10, 10, 20}));
+    }
+
     public boolean lemonadeChange(int[] bills) {
         int[] lasts = new int[4];
         int price = 5;
@@ -38,11 +44,5 @@ class Solution {
             }
         }
         return last == 0;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().lemonadeChange(new int[]{10, 10}));
-        System.out.println(new Solution().lemonadeChange(new int[]{5, 5, 5, 10, 20}));
-        System.out.println(new Solution().lemonadeChange(new int[]{5, 5, 10, 10, 20}));
     }
 }

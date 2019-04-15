@@ -7,6 +7,12 @@ import java.util.Map;
  * 找到目标数，动态规划思想
  */
 class Solution {
+    public static void main(String[] args) {
+        long l1 = System.currentTimeMillis();
+        System.out.println(new Solution().findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
+        System.out.println(System.currentTimeMillis() - l1);
+    }
+
     public int findTargetSumWays(int[] nums, int S) {
         Map<Integer, Integer>[] cache = new HashMap[nums.length];
         cache[0] = new HashMap<>();
@@ -32,12 +38,5 @@ class Solution {
             map.put(num, value + map.get(num));
         }
 
-    }
-
-
-    public static void main(String[] args) {
-        long l1 = System.currentTimeMillis();
-        System.out.println(new Solution().findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
-        System.out.println(System.currentTimeMillis() - l1);
     }
 }

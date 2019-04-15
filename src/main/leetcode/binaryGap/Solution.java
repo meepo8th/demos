@@ -1,6 +1,10 @@
 package leetcode.binaryGap;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().binaryGap(8));
+    }
+
     public int binaryGap(int N) {
         int start = 0;
         int end = 0;
@@ -13,7 +17,7 @@ class Solution {
             if (1 == (now & 0x1)) {
                 end = i;
                 if (end > start) {
-                    if (((N >> start)&0x1) == 1) {
+                    if (((N >> start) & 0x1) == 1) {
                         max = Math.max(end - start, max);
                     }
                     start = end;
@@ -21,9 +25,5 @@ class Solution {
             }
         }
         return max;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().binaryGap(8));
     }
 }

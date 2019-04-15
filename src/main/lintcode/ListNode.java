@@ -31,6 +31,6 @@ public class ListNode {
 
     @Override
     public String toString() {
-        return val+"->"+(null==next?"null":next.toString());
+        return val + "->" + (null == next ? "null" : next.toString());
     }
 }

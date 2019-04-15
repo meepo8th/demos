@@ -10,20 +10,14 @@ import java.util.Random;
  * @author Administrator
  */
 public class HexadecimalEncoder {
+    Random random = new Random();
     private String encodeStr = "jklm0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghinopqrstuvwxyz";
     private char[] encodeArray;
     private int encodeLength;
     private int codeSize = 1;
-    Random random = new Random();
 
     public HexadecimalEncoder() {
         init();
-    }
-
-    private void init() {
-        encodeArray = encodeStr.toCharArray();
-        Arrays.sort(encodeArray);
-        encodeLength = (encodeArray.length / codeSize) * codeSize;
     }
 
     public HexadecimalEncoder(String encodeStr) {
@@ -40,6 +34,22 @@ public class HexadecimalEncoder {
     public HexadecimalEncoder(int codeSize) {
         this.codeSize = codeSize;
         init();
+    }
+
+    public static void main(String[] args) {
+        HexadecimalEncoder hexadecimalEncoder = new HexadecimalEncoder(10);
+        String testStr = "100000001";
+        long l1 = System.currentTimeMillis();
+        for (int i = 0; i < 3000000; i++) {
+            testStr.equals(hexadecimalEncoder.decode2Str(hexadecimalEncoder.encode(testStr)));
+        }
+        System.out.println(System.currentTimeMillis() - l1);
+    }
+
+    private void init() {
+        encodeArray = encodeStr.toCharArray();
+        Arrays.sort(encodeArray);
+        encodeLength = (encodeArray.length / codeSize) * codeSize;
     }
 
     /**
@@ -116,15 +126,5 @@ public class HexadecimalEncoder {
             }
         }
         return index;
-    }
-
-    public static void main(String[] args) {
-        HexadecimalEncoder hexadecimalEncoder = new HexadecimalEncoder(10);
-        String testStr = "100000001";
-        long l1 = System.currentTimeMillis();
-        for (int i = 0; i < 3000000; i++) {
-            testStr.equals(hexadecimalEncoder.decode2Str(hexadecimalEncoder.encode(testStr)));
-        }
-        System.out.println(System.currentTimeMillis() - l1);
     }
 }

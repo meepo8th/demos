@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().buddyStrings("ab".toUpperCase(), "ba"));
+    }
+
     public boolean buddyStrings(String A, String B) {
         if (A.length() != B.length()) {
             return false;
@@ -32,9 +36,5 @@ class Solution {
         }
 
         return false;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().buddyStrings("ab".toUpperCase(), "ba"));
     }
 }

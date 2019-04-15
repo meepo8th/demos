@@ -31,13 +31,13 @@ class Solution {
         if (pattern1.size() == pattern2.size()) {
             Collection<List<Integer>> values1 = pattern1.values();
             Collection<List<Integer>> values2 = pattern2.values();
-            for(List<Integer> value1:values1){
-                if(!values2.contains(value1)){
+            for (List<Integer> value1 : values1) {
+                if (!values2.contains(value1)) {
                     return false;
                 }
             }
-            for(List<Integer> value2:values2){
-                if(!values1.contains(value2)){
+            for (List<Integer> value2 : values2) {
+                if (!values1.contains(value2)) {
                     return false;
                 }
             }

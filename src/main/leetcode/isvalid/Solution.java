@@ -1,10 +1,12 @@
 package leetcode.isvalid;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Stack;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().isValid("()"));
+    }
+
     public boolean isValid(String s) {
         if (s.length() % 2 != 0) {
             return false;
@@ -24,9 +26,5 @@ class Solution {
             }
         }
         return deque.isEmpty();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().isValid("()"));
     }
 }

@@ -15,6 +15,11 @@ class TreeNode {
 }
 
 class Solution {
+    public static void main(String[] args) {
+        TreeNode node = new Solution().buildTree(new Integer[]{3, 5, 1, 6, 2, 0, 8, null, null, 7, 4});
+        System.out.println(new Solution().distanceK(node, new TreeNode(5), 0));
+    }
+
     public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
         TreeNodeWithParent[] treeNodes = new TreeNodeWithParent[500];
         traversals(null, root, treeNodes);
@@ -98,7 +103,6 @@ class Solution {
         }
     }
 
-
     /**
      * 遍历
      *
@@ -112,11 +116,6 @@ class Solution {
             traversals(node, node.left, treeNodes);
             traversals(node, node.right, treeNodes);
         }
-    }
-
-    public static void main(String[] args) {
-        TreeNode node = new Solution().buildTree(new Integer[]{3, 5, 1, 6, 2, 0, 8, null, null, 7, 4});
-        System.out.println(new Solution().distanceK(node, new TreeNode(5), 0));
     }
 }
 

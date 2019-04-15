@@ -5,7 +5,6 @@ import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
 import org.apache.commons.lang3.StringUtils;
 
-
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -146,7 +145,6 @@ public class CustomeStringUtil {
     public static String getDefaultDateTime() {
         return getNowTime("yyyyMMddHHmmss");
     }
-
 
 
     /**

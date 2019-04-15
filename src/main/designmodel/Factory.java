@@ -33,6 +33,12 @@ class ExtendFactory {
  * @author admin
  */
 public class Factory {
+    public static void main(String[] args) {
+        System.out.println(new Factory().build("PC").info());
+        System.out.println(new Factory().build("CHAIR").info());
+        System.out.println(new Factory().build("OTHER").info());
+    }
+
     public Product build(String type) {
         switch (type) {
             case "PC":
@@ -42,12 +48,6 @@ public class Factory {
             default:
                 return null;
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Factory().build("PC").info());
-        System.out.println(new Factory().build("CHAIR").info());
-        System.out.println(new Factory().build("OTHER").info());
     }
 }
 

@@ -6,11 +6,6 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 public class ThreadLocalTest {
-    @Test
-    public void ThreadLocalTestTest() {
-        assertEquals("brown black black gold", EncodeResistorColors.encodeResistorColors("10 ohms"));
-    }
-
     static ThreadLocal<Data> threadLocal = new ThreadLocal<>();
 
     public static void main(String[] args) {
@@ -20,6 +15,11 @@ public class ThreadLocalTest {
         }
         System.out.println(Arrays.toString(threadLocal.get().data));
 
+    }
+
+    @Test
+    public void ThreadLocalTestTest() {
+        assertEquals("brown black black gold", EncodeResistorColors.encodeResistorColors("10 ohms"));
     }
 
     static class Data {

@@ -1,8 +1,15 @@
 package leetcode.spellchecker;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println((int) (System.currentTimeMillis() / 1000));
+    }
+
     public String[] spellchecker(String[] wordlist, String[] queries) {
         String[] rtn = new String[queries.length];
         List<Map<String, String>> preCache = preCache(wordlist);
@@ -17,7 +24,7 @@ class Solution {
         rtn.add(new TreeMap<>());
         rtn.add(new TreeMap<>());
         rtn.add(new TreeMap<>());
-        String[] words ;
+        String[] words;
         for (String word : wordlist) {
             words = preCache(word);
             if (!rtn.get(0).containsKey(word)) {
@@ -49,8 +56,6 @@ class Solution {
         return new String[]{lower.toString(), yuan.toString()};
     }
 
-
-
     private String find(String query, List<Map<String, String>> preCache) {
         if (preCache.get(0).containsKey(query)) {
             return preCache.get(0).get(query);
@@ -64,9 +69,5 @@ class Solution {
         }
 
         return "";
-    }
-
-    public static void main(String[] args) {
-        System.out.println((int)(System.currentTimeMillis()/1000));
     }
 }

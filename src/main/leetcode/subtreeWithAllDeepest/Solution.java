@@ -6,6 +6,10 @@ import leetcode.TreeNodeWithParentLevel;
 import java.util.*;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().subtreeWithAllDeepest(TreeNode.buildTree(new Integer[]{0, 3, 1, 4, null, 2, null, null, 6, null, 5})));
+    }
+
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
         TreeNodeWithParentLevel[] nodes = new TreeNodeWithParentLevel[500];
         Map<Integer, List<TreeNodeWithParentLevel>> levels = new HashMap<>();
@@ -29,9 +33,5 @@ class Solution {
         }
         return parents.get(0).node;
 
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().subtreeWithAllDeepest(TreeNode.buildTree(new Integer[]{0,3,1,4,null,2,null,null,6,null,5})));
     }
 }

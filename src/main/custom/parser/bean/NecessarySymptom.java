@@ -33,6 +33,7 @@ public class NecessarySymptom extends Symptom {
         sb.append("}}");
         return sb.toString();
     }
+
     @Override
     public NecessarySymptom getNewInstance() {
         return new NecessarySymptom();

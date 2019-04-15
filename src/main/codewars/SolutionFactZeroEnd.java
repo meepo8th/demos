@@ -1,7 +1,5 @@
 package codewars;
 
-import java.math.BigInteger;
-
 public class SolutionFactZeroEnd {
     public static int zeros(int n) {
         int count = 0, mod5, div5;

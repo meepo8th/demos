@@ -13,6 +13,10 @@ class Solution {
         }
     }
 
+    public static void main(String[] args) {
+        System.out.println(new Solution().reorderedPowerOf2(16));
+    }
+
     public boolean reorderedPowerOf2(int N) {
         char[] ns = String.valueOf(N).toCharArray();
         Arrays.sort(ns);
@@ -22,9 +26,5 @@ class Solution {
             }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().reorderedPowerOf2(16));
     }
 }

@@ -1,6 +1,5 @@
 package funny;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -8,7 +7,7 @@ import java.util.Random;
  */
 public class OnlyFunny {
     public static void main(String[] args) {
-        System.out.println(Long.valueOf("111",2));
+        System.out.println(Long.valueOf("111", 2));
     }
 
     private static void sortAndPrint(int[] array) {

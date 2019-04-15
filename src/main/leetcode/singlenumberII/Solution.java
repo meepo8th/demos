@@ -1,14 +1,16 @@
 package leetcode.singlenumberII;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 给定一个整型数组，除了一个元素只出现一次外，其余每个元素都出现了三次。求出那个只出现一次的数。
  */
 class Solution {
+
+    public static void main(String[] args) {
+        System.out.println(1 ^ 5);
+    }
 
     public int singleNumber(int[] nums) {
         Map<Integer, Integer> cache = new HashMap<>();
@@ -31,9 +33,5 @@ class Solution {
             rtn ^= i;
         }
         return rtn;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(1 ^ 5);
     }
 }

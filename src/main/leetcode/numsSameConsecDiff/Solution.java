@@ -7,6 +7,13 @@ import java.util.List;
 class Solution {
 
 
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(new Solution().numsSameConsecDiff(3, 7)));
+        System.out.println(Arrays.toString(new Solution().numsSameConsecDiff(2, 1)));
+        System.out.println(Arrays.toString(new Solution().numsSameConsecDiff(1, 6)));
+        System.out.println(Arrays.toString(new Solution().numsSameConsecDiff(3, 1)));
+    }
+
     public int[] numsSameConsecDiff(int N, int K) {
 
         List<Node<Integer, Integer>>[] lists = new ArrayList[N];
@@ -59,13 +66,6 @@ class Solution {
         public void setValue(V value) {
             this.value = value;
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().numsSameConsecDiff(3, 7)));
-        System.out.println(Arrays.toString(new Solution().numsSameConsecDiff(2, 1)));
-        System.out.println(Arrays.toString(new Solution().numsSameConsecDiff(1, 6)));
-        System.out.println(Arrays.toString(new Solution().numsSameConsecDiff(3, 1)));
     }
 
 

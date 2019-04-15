@@ -1,7 +1,5 @@
 package lintcode;
 
-import java.util.*;
-
 /**
  * Definition for ListNode
  * public class ListNode {
@@ -16,17 +14,6 @@ import java.util.*;
 
 
 public class Solution {
-    /*
-     * @param head: ListNode head is the head of the linked list
-     * @param m: An integer
-     * @param n: An integer
-     * @return: The head of the reversed ListNode
-     */
-    public ListNode reverseBetween(ListNode head, int m, int n) {
-        // write your code here
-        return null;
-    }
-
     public static int parseAnswer(String answerStr) {
         int flag = -1;
         int[] flags = new int[]{1, 2, 4, 8, 16, 32};
@@ -46,6 +33,17 @@ public class Solution {
         int answerFlag = parseAnswer(answer);
         int strFlag = parseAnswer(answerStr);
         return answerFlag ^ strFlag;
+    }
+
+    /*
+     * @param head: ListNode head is the head of the linked list
+     * @param m: An integer
+     * @param n: An integer
+     * @return: The head of the reversed ListNode
+     */
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        // write your code here
+        return null;
     }
 
 }

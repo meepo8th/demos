@@ -9,7 +9,7 @@ public class NormalSymptom extends Symptom {
     public NormalSymptom(Symptom symptom) throws TransferException {
         symptom.copy(this);
         //可能根据source计算权重，目前是一致的
-        this.weight = this.weight * getSourceWeight()*getWeightRatio();
+        this.weight = this.weight * getSourceWeight() * getWeightRatio();
     }
 
     public NormalSymptom() {
@@ -35,6 +35,7 @@ public class NormalSymptom extends Symptom {
         sb.append("}}");
         return sb.toString();
     }
+
     @Override
     public NormalSymptom getNewInstance() {
         return new NormalSymptom();

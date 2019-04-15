@@ -1,11 +1,10 @@
 package leetcode.recordPowOf2;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().reorderedPowerOf2(123456789));
+    }
+
     public boolean reorderedPowerOf2(int N) {
         int[] allPows = new int[32];
         for (int i = 0; i < 32; i++) {
@@ -37,9 +36,5 @@ class Solution {
             return true;
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().reorderedPowerOf2(123456789));
     }
 }

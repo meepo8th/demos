@@ -4,6 +4,11 @@ package leetcode.atoi;
  * atoi,如果超过了int范围就取最近的值，非法输入返回0，主要考虑边界
  */
 public class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().myAtoi("-2147483648"));
+        System.out.println(2 ^ 2 ^ 5);
+    }
+
     public int myAtoi(String str) {
         int sign = 1;
         int start = 0;
@@ -34,10 +39,5 @@ public class Solution {
             result = Integer.MIN_VALUE;
         }
         return (int) result;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().myAtoi("-2147483648"));
-        System.out.println(2 ^ 2 ^ 5);
     }
 }

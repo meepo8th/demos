@@ -13,7 +13,7 @@ public class Max {
                 curSum = 0;
             }
         }
-        if (maxSum == 0&&arr.length>0) {
+        if (maxSum == 0 && arr.length > 0) {
             maxSum = Integer.MIN_VALUE;
             for (int i : arr) {
                 if (i > maxSum) {

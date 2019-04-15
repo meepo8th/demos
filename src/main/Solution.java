@@ -9,6 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Solution {
+    public static void main(String[] args) {
+        //System.out.println(new Solution().parseOption("f:/123.txt"));
+        System.out.println(12.0 / '0');
+    }
+
     private String parseOption(String pathWay) {
         File file = new File(pathWay);
         BufferedReader br = null;
@@ -47,10 +52,5 @@ class Solution {
             }
         }
         return "";
-    }
-
-    public static void main(String[] args) {
-        //System.out.println(new Solution().parseOption("f:/123.txt"));
-        System.out.println(12.0 / '0');
     }
 }

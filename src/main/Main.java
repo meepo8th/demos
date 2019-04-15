@@ -5,37 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    static class Unit {
-        int nowMana;
-        int maxMana;
-        int rate;
-        int lastT;
-
-        public Unit(int nowMana, int maxMana, int rate) {
-            init(nowMana, maxMana, rate);
-
-        }
-
-        private void init(int nowMana, int maxMana, int rate) {
-            this.nowMana = nowMana;
-            this.maxMana = maxMana;
-            this.rate = rate;
-            this.lastT = 0;
-        }
-
-        public Unit(String input) {
-            String[] flags = input.split(" ");
-            init(Integer.parseInt(flags[0]), Integer.parseInt(flags[1]), Integer.parseInt(flags[2]));
-        }
-
-        public int getMana(int t) {
-            int mana = Math.min(nowMana + (t - lastT) * rate, maxMana);
-            lastT = t;
-            nowMana = 0;
-            return mana;
-        }
-    }
-
     public static void main(String args[]) throws IOException {
         List<Unit> units = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -58,9 +27,40 @@ public class Main {
 
     private static int mOperator(List<Unit> units, int t, int l, int r) {
         int mana = 0;
-        for(int i=l-1;i<r;i++){
-            mana+=(units.get(i).getMana(t));
+        for (int i = l - 1; i < r; i++) {
+            mana += (units.get(i).getMana(t));
         }
         return mana;
+    }
+
+    static class Unit {
+        int nowMana;
+        int maxMana;
+        int rate;
+        int lastT;
+
+        public Unit(int nowMana, int maxMana, int rate) {
+            init(nowMana, maxMana, rate);
+
+        }
+
+        public Unit(String input) {
+            String[] flags = input.split(" ");
+            init(Integer.parseInt(flags[0]), Integer.parseInt(flags[1]), Integer.parseInt(flags[2]));
+        }
+
+        private void init(int nowMana, int maxMana, int rate) {
+            this.nowMana = nowMana;
+            this.maxMana = maxMana;
+            this.rate = rate;
+            this.lastT = 0;
+        }
+
+        public int getMana(int t) {
+            int mana = Math.min(nowMana + (t - lastT) * rate, maxMana);
+            lastT = t;
+            nowMana = 0;
+            return mana;
+        }
     }
 }

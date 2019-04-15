@@ -1,6 +1,18 @@
 package leetcode.computearea;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().computeArea(-3, 0, 3, 4, 0, -1, 9, 2));
+    }
+
+    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        return computeArea(new Rect(A, B, C, D), new Rect(E, F, G, H));
+    }
+
+    private int computeArea(Rect rect0, Rect rect1) {
+        return rect0.area() + rect1.area() - rect0.intersectArea(rect1);
+    }
+
     class Rect {
         int x1;
         int x2;
@@ -26,17 +38,5 @@ class Solution {
             int area = (maxX - minX) * (maxY - minY);
             return area > 0 ? area : 0;
         }
-    }
-
-    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
-        return computeArea(new Rect(A, B, C, D), new Rect(E, F, G, H));
-    }
-
-    private int computeArea(Rect rect0, Rect rect1) {
-        return rect0.area() + rect1.area() - rect0.intersectArea(rect1);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().computeArea(-3, 0, 3, 4, 0, -1, 9, 2));
     }
 }

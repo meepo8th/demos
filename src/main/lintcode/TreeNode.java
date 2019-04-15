@@ -14,15 +14,6 @@ public class TreeNode {
         this.left = this.right = null;
     }
 
-    @Override
-    public String toString() {
-        return "TreeNode{" +
-                "val=" + val +
-                ", left=" + left +
-                ", right=" + right +
-                '}';
-    }
-
     public TreeNode(String nodeArray) {
         String[] nodes = nodeArray.split(",");
         Queue<TreeNode> treeNodeQueue = new LinkedList();
@@ -51,5 +42,14 @@ public class TreeNode {
     public static void main(String[] args) {
         TreeNode node = new TreeNode("1,2,#,3,4,5,#,7,8");
         System.out.println(node);
+    }
+
+    @Override
+    public String toString() {
+        return "TreeNode{" +
+                "val=" + val +
+                ", left=" + left +
+                ", right=" + right +
+                '}';
     }
 }

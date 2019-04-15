@@ -17,6 +17,15 @@ public class Matrix {
         setContent(content);
     }
 
+    public static void main(String[] args) throws MatrixException {
+        Matrix matrix = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}});
+        System.out.println("matrix:" + matrix);
+        System.out.println("transpose:" + matrix.transpose());
+        System.out.println("inverse:" + matrix.inverse());
+        System.out.println("multiply transpose:" + matrix.multiply(matrix.transpose()));
+        System.out.println("multiply inverse:" + matrix.multiply(new double[][]{{1, 2}, {3, 4}}));
+    }
+
     /**
      * 转置
      */
@@ -50,8 +59,8 @@ public class Matrix {
         double[][] result = new double[rows][multiMatrix.cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
-                for(int k=0;k<cols;k++){
-                    result[j][i]+=content[j][k]*multiMatrix.getContent()[k][j];
+                for (int k = 0; k < cols; k++) {
+                    result[j][i] += content[j][k] * multiMatrix.getContent()[k][j];
                 }
 
             }
@@ -69,6 +78,10 @@ public class Matrix {
         return multiply(new Matrix(multiMatrix));
     }
 
+    public double[][] getContent() {
+        return content;
+    }
+
     public void setContent(double[][] content) {
         if (null != content) {
             this.content = content;
@@ -79,11 +92,6 @@ public class Matrix {
         }
     }
 
-    public double[][] getContent() {
-        return content;
-    }
-
-
     public int getRows() {
         return rows;
     }
@@ -92,7 +100,6 @@ public class Matrix {
         return cols;
     }
 
-
     @Override
     public String toString() {
         return "Matrix{" +
@@ -100,14 +107,5 @@ public class Matrix {
                 ", rows=" + rows +
                 ", cols=" + cols +
                 '}';
-    }
-
-    public static void main(String[] args) throws MatrixException {
-        Matrix matrix = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}});
-        System.out.println("matrix:" + matrix);
-        System.out.println("transpose:" + matrix.transpose());
-        System.out.println("inverse:" + matrix.inverse());
-        System.out.println("multiply transpose:" + matrix.multiply(matrix.transpose()));
-        System.out.println("multiply inverse:" + matrix.multiply(new double[][]{{1,2},{3,4}}));
     }
 }

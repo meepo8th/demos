@@ -4,6 +4,10 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().scoreOfParentheses("(()(()))"));
+    }
+
     public int scoreOfParentheses(String S) {
         int sum = 0;
         int count = 0;
@@ -17,18 +21,14 @@ class Solution {
                 case ')':
                     characters.pop();
                     if (characters.isEmpty()) {
-                        count=(0==count?1:count*2);
-                    }else{
+                        count = (0 == count ? 1 : count * 2);
+                    } else {
 
                     }
-                    sum+=count;
+                    sum += count;
                     break;
             }
         }
         return sum;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().scoreOfParentheses("(()(()))"));
     }
 }

@@ -10,19 +10,19 @@ public class SumOfK {
         Integer rtn = null;
         if (null != ls && ls.size() >= k) {
             Collections.sort(ls);
-            int sum=0;
-            int lastSum=0;
-            for (int i = 0; i < ls.size()-k; i++) {
-                for(int j=0;j<k;j++){
-                    sum+=ls.get(i+j);
+            int sum = 0;
+            int lastSum = 0;
+            for (int i = 0; i < ls.size() - k; i++) {
+                for (int j = 0; j < k; j++) {
+                    sum += ls.get(i + j);
                 }
-                if(sum>t){
+                if (sum > t) {
                     break;
-                }else{
-                    lastSum=sum;
+                } else {
+                    lastSum = sum;
                 }
             }
-            rtn=lastSum;
+            rtn = lastSum;
         }
         return rtn;
     }

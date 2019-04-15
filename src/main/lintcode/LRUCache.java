@@ -4,8 +4,8 @@ public class LRUCache {
     int capacity;
 
     /*
-    * @param capacity: An integer
-    */
+     * @param capacity: An integer
+     */
     public LRUCache(int capacity) {
         // do intialization if necessary
     }

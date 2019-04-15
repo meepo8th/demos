@@ -1,6 +1,11 @@
 package codility;
 
 public class Solution {
+    public static void main(String[] args) {
+        System.out.println(Integer.toBinaryString(51712));
+        System.out.println(new Solution().solution(new int[]{1, 3, 3}));
+    }
+
     public int solution(int N) {
         // write your code in Java SE 8
         int length = 0;
@@ -66,10 +71,5 @@ public class Solution {
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(Integer.toBinaryString(51712));
-        System.out.println(new Solution().solution(new int[]{1,3,3}));
     }
 }

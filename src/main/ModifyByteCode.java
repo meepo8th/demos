@@ -1,5 +1,3 @@
-
-
 import org.gjt.jclasslib.io.ClassFileWriter;
 import org.gjt.jclasslib.structures.CPInfo;
 import org.gjt.jclasslib.structures.ClassFile;
@@ -11,6 +9,10 @@ import java.io.File;
 import java.io.FileInputStream;
 
 public class ModifyByteCode {
+    public static void main(String args[]) {
+        new ModifyByteCode().Run();
+    }
+
     public void Run() {
         try {
             String filePath = "G:\\tmp\\com\\bixolon\\printer\\connectivity\\ConnectivityService.class";
@@ -44,9 +46,5 @@ public class ModifyByteCode {
         } catch (Exception e) {
 
         }
-    }
-
-    public static void main(String args[]) {
-        new ModifyByteCode().Run();
     }
 }

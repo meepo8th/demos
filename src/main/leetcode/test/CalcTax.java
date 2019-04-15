@@ -9,7 +9,7 @@ public class CalcTax {
         /**
          * 定义税饥阶及税率
          */
-        double[] salaryLevel = new double[]{0, 3500, 5000, 8000,13500};
+        double[] salaryLevel = new double[]{0, 3500, 5000, 8000, 13500};
         double[] taxLevel = new double[]{0, 0.05, 0.1, 0.2};
         for (int i = salaryLevel.length - 1; i >= 0; i--) {
             if (salary > salaryLevel[i]) {

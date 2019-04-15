@@ -1,11 +1,13 @@
 package leetcode.regexismatch;
 
-import java.util.Arrays;
-
 /**
  * 正则表达式匹配
  */
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().isMatch("abbc", "a*c"));
+    }
+
     public boolean isMatch(String s, String p) {
         int i = 0, j = 0;
         char last = 0;
@@ -31,9 +33,5 @@ class Solution {
             }
         }
         return (i == p.length() || (p.length() >= 1 && i == p.length() - 1 && p.charAt(i) == '*')) && j == s.length();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().isMatch("abbc","a*c"));
     }
 }

@@ -16,9 +16,9 @@ public class Xbonacci {
     }
 
     public static void main(String args[]) {
-        " ".toCharArray()[0]='d';
-        System.out.println(Math.pow(10,10));
-        double[]a = new double[]{Math.pow(2,2),Math.pow(1,1)};
+        " ".toCharArray()[0] = 'd';
+        System.out.println(Math.pow(10, 10));
+        double[] a = new double[]{Math.pow(2, 2), Math.pow(1, 1)};
         System.out.println(Long.MAX_VALUE);
     }
 }

@@ -1,8 +1,19 @@
 package leetcode.possibleBipartition;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 class Solution {
+    public static void main(String[] args) {
+        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}}));
+//        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}, {1, 3}, {2, 4}, {6, 1}}));
+//        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}, {1, 3}, {2, 3}}));
+//        System.out.println(new Solution().possibleBipartition(5, new int[][]{{1, 2}, {2, 3}, {3, 4}, {4, 5}, {1, 5}}));
+
+    }
+
     public boolean possibleBipartition(int N, int[][] dislikes) {
         if (N == 2) {
             return true;
@@ -32,13 +43,5 @@ class Solution {
             }
             dfs(graph, node, visit);
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}}));
-//        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}, {1, 3}, {2, 4}, {6, 1}}));
-//        System.out.println(new Solution().possibleBipartition(3, new int[][]{{1, 2}, {1, 3}, {2, 3}}));
-//        System.out.println(new Solution().possibleBipartition(5, new int[][]{{1, 2}, {2, 3}, {3, 4}, {4, 5}, {1, 5}}));
-
     }
 }

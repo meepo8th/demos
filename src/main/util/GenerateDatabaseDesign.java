@@ -7,7 +7,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,33 +21,27 @@ import java.util.List;
  */
 public class GenerateDatabaseDesign {
     private static HashMap<String, Boolean> hasInit = new HashMap<>();
-    private String connectStr;
-    private String connectType;
-
     //数据库类型配置，如新增需配置加载类与查询sql
     private static HashMap<String, String> typeClass = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_CLASS);
     }};
-
     private static HashMap<String, String> typeColumnSql = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL_COLUMN_DESIGN);
     }};
-
     private static HashMap<String, String> typeTableSql = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL_TABLE);
     }};
-
     private static HashMap<String, String> typeTableAllSql = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL_TABLE_ALL);
     }};
-
     private static HashMap<String, String> typeIndexSql = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.MY_SQL_SQL_INDEX);
     }};
-
     private static HashMap<String, HashMap<String, String>> typeConvert = new HashMap() {{
         put(GenerateConstant.TYPE_MYSQL, GenerateConstant.typeMySqlConvert);
     }};
+    private String connectStr;
+    private String connectType;
 
 
     public GenerateDatabaseDesign(String connectStr, String connectType) {
@@ -59,6 +56,12 @@ public class GenerateDatabaseDesign {
         init();
     }
 
+    public static void main(String[] args) throws Exception {
+        String connectStr = "jdbc:mysql://192.168.2.205:3306/database_user?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Hongkong&user=root&password=root";
+        GenerateDatabaseDesign generateDatabaseDesign = new GenerateDatabaseDesign(connectStr);
+        generateDatabaseDesign.generateClassFile("f:/databaseDesign", "database_user");
+    }
+
     private void init() {
         if (null == hasInit.get(connectType) || hasInit.get(connectType)) {
             System.out.format("init %s start\r\n", connectType);
@@ -71,7 +74,6 @@ public class GenerateDatabaseDesign {
             }
         }
     }
-
 
     /**
      * 获取所有表名
@@ -242,11 +244,5 @@ public class GenerateDatabaseDesign {
             new File(path).mkdirs();
         }
         createAndWriteFile(path, user, classContent, ".md", "%s md file complete\r\n");
-    }
-
-    public static void main(String[] args) throws Exception {
-        String connectStr = "jdbc:mysql://192.168.2.205:3306/database_user?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Hongkong&user=root&password=root";
-        GenerateDatabaseDesign generateDatabaseDesign = new GenerateDatabaseDesign(connectStr);
-        generateDatabaseDesign.generateClassFile("f:/databaseDesign", "database_user");
     }
 }

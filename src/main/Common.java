@@ -6,36 +6,6 @@ import java.util.List;
  * Created by admin on 2017/4/17.
  */
 public class Common {
-    static class Stack {
-        char[] elements;
-        int size = 0;
-
-        Stack() {
-            elements = new char[5001];
-        }
-
-        public void push(char ele) {
-            elements[size] = ele;
-            size += 1;
-        }
-
-        public void clear() {
-            size = 0;
-        }
-
-        public boolean empty() {
-            return 0 == size;
-        }
-
-        public char pop() {
-            if (!empty()) {
-                size -= 1;
-                return elements[size];
-            }
-            return 'h';
-        }
-    }
-
     /**
      * 数字转汉字
      *
@@ -224,5 +194,35 @@ public class Common {
         System.out.println(num);
         rerange(num);
         System.out.println(Arrays.toString(num));
+    }
+
+    static class Stack {
+        char[] elements;
+        int size = 0;
+
+        Stack() {
+            elements = new char[5001];
+        }
+
+        public void push(char ele) {
+            elements[size] = ele;
+            size += 1;
+        }
+
+        public void clear() {
+            size = 0;
+        }
+
+        public boolean empty() {
+            return 0 == size;
+        }
+
+        public char pop() {
+            if (!empty()) {
+                size -= 1;
+                return elements[size];
+            }
+            return 'h';
+        }
     }
 }

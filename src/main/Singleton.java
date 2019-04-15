@@ -1,14 +1,14 @@
 public class Singleton {
-    private static class SigletonHolder {
-        private final static Singleton singleton = new Singleton();
-    }
-
     private Singleton() {
 
     }
 
     public static Singleton getInstance() {
         return SigletonHolder.singleton;
+    }
+
+    private static class SigletonHolder {
+        private final static Singleton singleton = new Singleton();
     }
 }
 

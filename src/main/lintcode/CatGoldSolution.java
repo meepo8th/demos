@@ -1,14 +1,20 @@
 package lintcode;
 
-import java.lang.reflect.Field;
 import java.util.*;
-
-import static funny.OnlyFunny.quickSort;
 
 /**
  * LintCode Cat
  */
 public class CatGoldSolution {
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(0);
+        System.out.println(new CatGoldSolution().longestConsecutive2(root));
+
+    }
 
     /**
      * 带重复元素的排列
@@ -362,15 +368,6 @@ public class CatGoldSolution {
     public int findMissing2(int n, String str) {
         // write your code here
         return 0;
-    }
-
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.left.left = new TreeNode(0);
-        System.out.println(new CatGoldSolution().longestConsecutive2(root));
-
     }
 
 }
