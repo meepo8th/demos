@@ -49,7 +49,7 @@ public class TreeNode {
     }
 
     public static void main(String[] args) {
-        TreeNode node = new TreeNode("1,2,#,3,4,5,#,7");
+        TreeNode node = new TreeNode("1,2,#,3,4,5,#,7,8");
         System.out.println(node);
     }
 }
