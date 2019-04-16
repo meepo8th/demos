@@ -370,4 +370,27 @@ public class CatGoldSolution {
         return 0;
     }
 
+    /**
+     * 164. 不同的二叉查找树 II
+     * 中文English
+     * 给出n，生成所有由1...n为节点组成的不同的二叉查找树
+     *
+     * 样例
+     * 样例 1:
+     *
+     * 输入:5
+     * 输出:
+     *     1         3     3       2    1
+     *      \       /     /       / \    \
+     *       3     2     1       1   3    2
+     *      /     /       \                \
+     *     2     1         2                3
+     * @paramn n: An integer
+     * @return: A list of root
+     */
+    public List<TreeNode> generateTrees(int n) {
+        // write your code here
+        return null;
+    }
+
 }
