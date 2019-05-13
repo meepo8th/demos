@@ -1,6 +1,11 @@
 package test;
 
+import com.mysql.cj.util.StringUtils;
+import org.apache.commons.codec.binary.Hex;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Test {
@@ -40,10 +45,56 @@ public class Test {
         return rtn;
     }
 
+    public static String compressString(String unCompress) {
+        StringBuilder compressSb = new StringBuilder();
+        int count = 0;
+        char last = 0;
+        for (char chr : unCompress.toCharArray()) {
+            if (chr == last) {
+                count++;
+            } else {
+                addCompress(compressSb, count, last);
+                count = 1;
+            }
+            last = chr;
+        }
+        addCompress(compressSb, count, last);
+        return compressSb.toString();
+    }
+
+    private static void addCompress(StringBuilder compressSb, int count, char last) {
+        if (count > 1) {
+            compressSb.append(count);
+        }
+        compressSb.append(last);
+    }
+    public static int hammingWeight(int n) {
+        int count=0;
+        int now=n;
+        for(int i=0;i<31;i++){
+            now = now>>>1;
+            System.out.println(now);
+            System.out.println(Integer.toBinaryString(now));
+            count+=(now&0x1);
+        }
+        return count;
+    }
+    public int reverseBits(int n) {
+        Integer.reverse(n);
+        int rtn=0;
+        for(int i=0;i<32;i++){
+            rtn = rtn|(((n>>>i)&0x1)<<(32-i));
+        }
+        return rtn;
+    }
     public static void main(String[] args) {
-        System.out.println(parseContentOfPosAndLength("62|1@0+", 4L));
-        System.out.println(parseContentOfPosAndLength("63|1@0+", 4L));
-        System.out.println(parseContentOfPosAndLength("61|1@0+", 4L));
+        List<Integer> list = new ArrayList<>(Arrays.asList(new Integer[]{1,2,3,4}));
+        list.add(5);
+        Random random = new Random();
+        for(int i=0;i<100;i++) {
+            System.out.println(random.nextInt(10));
+        }
+        System.out.println(list);
 
     }
 }

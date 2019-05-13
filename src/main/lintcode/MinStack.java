@@ -1,55 +1,70 @@
 package lintcode;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class MinStack {
-    Stack<Integer> stack;
-    Stack<Integer> minStack;
+class MinStack {
+    Deque<Integer> stack;
+    Integer min = null;
 
-    /*
-     * @param a: An integer
+    /**
+     * initialize your data structure here.
      */
-    public MinStack(int a) {
-        // do intialization if necessary
-        stack = new Stack<>();
-        minStack = new Stack<>();
+    public MinStack() {
+        stack = new ArrayDeque<>();
     }
 
-    /*
-     * @param number: An integer
-     * @return: nothing
-     */
-    public void push(int number) {
-        // write your code here
-        if (!minStack.isEmpty()) {
-            int top = minStack.pop();
-            minStack.push(top);
-            if (top > number) {
-                minStack.push(number);
-            } else {
-                minStack.push(top);
-            }
-        } else {
-            minStack.push(number);
+    public void push(int x) {
+        stack.push(x);
+        if (null == min || x < min) {
+            min = x;
         }
-        stack.push(number);
     }
 
-    /*
-     * @return: An integer
-     */
-    public int pop() {
-        // write your code here
+    public void pop() {
+        if (stack.isEmpty()) {
+            return;
+        }
+        Integer now = stack.pop();
+        if(now.equals(min)){
+            Deque<Integer> cache = new ArrayDeque<>(stack.size());
+            Integer nowMin = Integer.MAX_VALUE;
+            while(!stack.isEmpty()){
+                Integer popValue = stack.pop();
+                if(popValue<nowMin){
+                    nowMin=popValue;
+                }
+                cache.push(popValue);
+            }
+            min=nowMin;
+            while(!cache.isEmpty()){
+                stack.push(cache.pop());
+            }
+        }
+    }
+
+    public int top() {
+        int rtn = stack.pop();
+        stack.push(rtn);
+        return rtn;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public static void main(String[] args) {
+        MinStack minStack = new MinStack();
+        minStack.push(2);
+        minStack.push(0);
+        minStack.push(3);
+        minStack.push(0);
         minStack.pop();
-        return stack.pop();
-    }
-
-    /*
-     * @return: An integer
-     */
-    public int min() {
-        int top = minStack.pop();
-        minStack.push(top);
-        return top;
+        System.out.println(minStack.top());
+        minStack.pop();
+        System.out.println(minStack.top());
+        minStack.pop();
+        System.out.println(minStack.top());
+        System.out.println(minStack.getMin());
     }
 }
